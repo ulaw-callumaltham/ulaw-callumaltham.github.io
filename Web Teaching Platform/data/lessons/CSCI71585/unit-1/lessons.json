@@ -1,0 +1,132 @@
+{
+  "unitId": 1,
+  "unitTitle": "Placeholder Unit 1 Title",
+  "lessons": [
+    {
+      "id": 1,
+      "title": "Placeholder Lesson 1 Title",
+      "description": "Placeholder Lesson 1 Description",
+      "activePanels": ["html"],
+      "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-1/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-1/lesson-1/starter.html",
+        "css": "data/lessons/CSCI71585/unit-1/lesson-1/starter.css",
+        "js": "data/lessons/CSCI71585/unit-1/lesson-1/starter.js"
+      },
+      "hints": [
+        "Hello there!",
+        "General Kenobi!"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Placeholder Lesson 2 Title",
+      "description": "Placeholder Lesson 2 Description",
+      "activePanels": ["html"],
+      "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-2/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-1/lesson-2/starter.html",
+        "css": "data/lessons/CSCI71585/unit-1/lesson-2/starter.css",
+        "js": "data/lessons/CSCI71585/unit-1/lesson-2/starter.js"
+      },
+      "hints": [
+        "Placeholder hint 1 for lesson 2",
+        "Placeholder hint 2 for lesson 2"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Placeholder Lesson 3 Title",
+      "description": "Placeholder Lesson 3 Description",
+      "activePanels": ["html", "css"],
+      "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-3/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-1/lesson-3/starter.html",
+        "css": "data/lessons/CSCI71585/unit-1/lesson-3/starter.css",
+        "js": "data/lessons/CSCI71585/unit-1/lesson-3/starter.js"
+      },
+      "hints": [
+        "Placeholder hint 1 for lesson 3"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Placeholder Lesson 4 Title",
+      "description": "Placeholder Lesson 4 Description",
+      "activePanels": ["html", "css", "js"],
+      "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-4/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-1/lesson-4/starter.html",
+        "css": "data/lessons/CSCI71585/unit-1/lesson-4/starter.css",
+        "js": "data/lessons/CSCI71585/unit-1/lesson-4/starter.js"
+      },
+      "hints": [
+        "Placeholder hint 1 for lesson 4",
+        "Placeholder hint 2 for lesson 4",
+        "Placeholder hint 3 for lesson 4"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Placeholder Lesson 5 Title",
+      "description": "Placeholder Lesson 5 Description",
+      "activePanels": ["html", "css"],
+      "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-5/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-1/lesson-5/starter.html",
+        "css": "data/lessons/CSCI71585/unit-1/lesson-5/starter.css",
+        "js": "data/lessons/CSCI71585/unit-1/lesson-5/starter.js"
+      },
+      "hints": [
+        "Placeholder hint 1 for lesson 5"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Placeholder Lesson 6 Title",
+      "description": "Placeholder Lesson 6 Description",
+      "activePanels": ["html", "css", "js"],
+      "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-6/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-1/lesson-6/starter.html",
+        "css": "data/lessons/CSCI71585/unit-1/lesson-6/starter.css",
+        "js": "data/lessons/CSCI71585/unit-1/lesson-6/starter.js"
+      },
+      "hints": [
+        "Placeholder hint 1 for lesson 6",
+        "Placeholder hint 2 for lesson 6"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Placeholder Lesson 7 Title",
+      "description": "Placeholder Lesson 7 Description",
+      "activePanels": ["html"],
+      "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-7/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-1/lesson-7/starter.html",
+        "css": "data/lessons/CSCI71585/unit-1/lesson-7/starter.css",
+        "js": "data/lessons/CSCI71585/unit-1/lesson-7/starter.js"
+      },
+      "hints": [
+        "Placeholder hint 1 for lesson 7"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Placeholder Lesson 8 Title",
+      "description": "Placeholder Lesson 8 Description",
+      "activePanels": ["html", "css"],
+      "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-8/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-1/lesson-8/starter.html",
+        "css": "data/lessons/CSCI71585/unit-1/lesson-8/starter.css",
+        "js": "data/lessons/CSCI71585/unit-1/lesson-8/starter.js"
+      },
+      "hints": [
+        "Placeholder hint 1 for lesson 8",
+        "Placeholder hint 2 for lesson 8"
+      ]
+    }
+  ]
+}

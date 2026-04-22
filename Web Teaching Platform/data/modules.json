@@ -1,0 +1,15 @@
+{
+    "modules": [
+        {
+            "id": "CSCI71585",
+            "code": "CSCI71585",
+            "title": "Web Technologies",
+            "description": "Learn HTML, CSS, and JavaScript to build modern web applications",
+            "level": 7,
+            "unitCount": 10,
+            "weeks": 10,
+            "entryDate": "October 2026",
+            "unitsFile": "data/modules/CSCI71585-units.json"
+        }
+    ]
+}

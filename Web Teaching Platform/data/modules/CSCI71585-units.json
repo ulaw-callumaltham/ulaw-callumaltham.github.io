@@ -1,0 +1,107 @@
+{
+  "moduleId": "CSCI71585",
+  "moduleCode": "CSCI71585",
+  "moduleTitle": "Web Technologies",
+  "units": [
+    {
+      "id": 1,
+      "title": "Placeholder Unit 1 Title",
+      "description": "Placeholder Unit 1 Description",
+      "week": 1,
+      "unlockDate": "2026-01-01",
+      "lessonCount": 8,
+      "technologies": ["HTML"],
+      "lessonsFile": "data/lessons/CSCI71585/unit-1/lessons.json"
+    },
+    {
+      "id": 2,
+      "title": "Placeholder Unit 2 Title",
+      "description": "Placeholder Unit 2 Description",
+      "week": 2,
+      "unlockDate": "2026-01-08",
+      "lessonCount": 4,
+      "technologies": ["HTML"],
+      "lessonsFile": "data/lessons/CSCI71585/unit-2/lessons.json"
+    },
+    {
+      "id": 3,
+      "title": "Placeholder Unit 3 Title",
+      "description": "Placeholder Unit 3 Description",
+      "week": 3,
+      "unlockDate": "2026-04-22",
+      "lessonCount": 5,
+      "technologies": ["HTML", "CSS"],
+      "lessonsFile": "data/lessons/CSCI71585/unit-3/lessons.json"
+    },
+    {
+      "id": 4,
+      "title": "Placeholder Unit 4 Title",
+      "description": "Placeholder Unit 4 Description",
+      "week": 4,
+      "unlockDate": "2026-04-22",
+      "lessonCount": 4,
+      "technologies": ["HTML", "CSS"],
+      "lessonsFile": "data/lessons/CSCI71585/unit-4/lessons.json"
+    },
+    {
+      "id": 5,
+      "title": "Placeholder Unit 5 Title",
+      "description": "Placeholder Unit 5 Description",
+      "week": 5,
+      "unlockDate": "2026-04-22",
+      "lessonCount": 5,
+      "technologies": ["HTML", "CSS"],
+      "lessonsFile": "data/lessons/CSCI71585/unit-5/lessons.json"
+    },
+    {
+      "id": 6,
+      "title": "Placeholder Unit 6 Title",
+      "description": "Placeholder Unit 6 Description",
+      "week": 6,
+      "unlockDate": "2026-04-22",
+      "lessonCount": 6,
+      "technologies": ["HTML", "CSS", "JavaScript"],
+      "lessonsFile": "data/lessons/CSCI71585/unit-6/lessons.json"
+    },
+    {
+      "id": 7,
+      "title": "Placeholder Unit 7 Title",
+      "description": "Placeholder Unit 7 Description",
+      "week": 7,
+      "unlockDate": "2026-04-22",
+      "lessonCount": 5,
+      "technologies": ["HTML", "CSS", "JavaScript"],
+      "lessonsFile": "data/lessons/CSCI71585/unit-7/lessons.json"
+    },
+    {
+      "id": 8,
+      "title": "Placeholder Unit 8 Title",
+      "description": "Placeholder Unit 8 Description",
+      "week": 8,
+      "unlockDate": "2026-04-22",
+      "lessonCount": 4,
+      "technologies": ["HTML", "CSS", "JavaScript"],
+      "lessonsFile": "data/lessons/CSCI71585/unit-8/lessons.json"
+    },
+    {
+      "id": 9,
+      "title": "Placeholder Unit 9 Title",
+      "description": "Placeholder Unit 9 Description",
+      "week": 9,
+      "unlockDate": "2026-04-22",
+      "lessonCount": 5,
+      "technologies": ["JavaScript"],
+      "lessonsFile": "data/lessons/CSCI71585/unit-9/lessons.json"
+    },
+    {
+      "id": 10,
+      "title": "Placeholder Unit 10 Title",
+      "description": "Placeholder Unit 10 Description",
+      "week": 10,
+      "unlockDate": "2026-04-22",
+      "lessonCount": 1,
+      "technologies": ["HTML", "CSS", "JavaScript"],
+      "lessonsFile": "data/lessons/CSCI71585/unit-10/lessons.json"
+    }
+  ]
+}

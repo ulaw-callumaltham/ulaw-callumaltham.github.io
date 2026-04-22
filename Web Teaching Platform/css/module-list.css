@@ -1,0 +1,117 @@
+/* ===========================
+   Module List Page Styles
+   =========================== */
+
+.page-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xxl);
+}
+
+.page-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-heading);
+  margin-bottom: var(--spacing-sm);
+}
+
+.page-description {
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Module Grid */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--spacing-xl);
+}
+
+/* Module Card */
+.module-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.module-card:hover {
+  border-color: var(--border-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Module Content */
+.module-content {
+  flex: 1;
+}
+
+.module-header {
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
+  margin-bottom: var(--spacing-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.meta-separator {
+  margin: 0 var(--spacing-xs);
+}
+
+.module-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-heading);
+  margin-bottom: var(--spacing-sm);
+}
+
+.module-description {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.5;
+}
+
+.module-meta {
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.module-units {
+  font-weight: var(--font-weight-medium);
+}
+
+.module-entry {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.entry-label {
+  font-weight: var(--font-weight-medium);
+}
+
+/* Module Arrow */
+.module-arrow {
+  font-size: var(--font-size-xl);
+  color: var(--accent-primary);
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+}
+
+.module-card:hover .module-arrow {
+  transform: translateX(4px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .module-grid {
+    grid-template-columns: 1fr;
+  }
+}

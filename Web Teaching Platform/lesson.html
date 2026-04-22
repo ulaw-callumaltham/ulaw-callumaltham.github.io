@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson | Computer Science Web Teaching Platform</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/ulaw-logo.svg">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/unit-list.css">
+    <link rel="stylesheet" href="css/lesson.css">
+</head>
+<body>
+    <!-- Lesson Container (full screen, no header/footer) -->
+    <div class="lesson-container">
+        
+        <!-- Top Navigation Bar -->
+        <nav class="lesson-nav">
+            <div class="nav-left">
+                <button class="nav-btn" id="menuBtn" aria-label="Menu">
+                    <span class="hamburger-icon">☰</span>
+                    Menu
+                </button>
+                <button class="nav-btn" id="referenceBtn" aria-label="Reference">
+                    Reference
+                </button>
+            </div>
+            
+            <div class="nav-center">
+                <h1 class="lesson-unit-title">
+                    <!-- The lesson title will be dynamically loaded here based on the lesson data -->
+                </h1>
+            </div>
+            
+            <div class="nav-right">
+                <button class="nav-btn" id="prevLesson" aria-label="Previous Lesson">
+                    Previous
+                </button>
+                <button class="nav-btn" id="nextLesson" aria-label="Next Lesson">
+                    Next
+                </button>
+            </div>
+        </nav>
+
+        <!-- Collapsible Instruction Panel -->
+        <div class="instruction-panel" id="instructionPanel">
+            <div class="instruction-header">
+                <h2 class="instruction-title"></h2>
+                <button class="collapse-btn" id="collapseBtn">Collapse ▲</button>
+            </div>
+            
+            <div class="instruction-content" id="instructionContent">
+                <div class="instruction-text">
+                    <!-- Instruction content will be loaded here from the HTML file using JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Editor and Preview Area -->
+        <div class="workspace">
+            
+            <!-- Editor and Preview Panes -->
+            <div class="workspace-panes">
+                
+                <!-- Editor Pane -->
+                <div class="editor-pane">
+                    <!-- Editor Tabs -->
+                    <div class="editor-tabs">
+                        <button class="editor-tab active" data-editor="html">HTML</button>
+                        <button class="editor-tab " data-editor="css">CSS</button>
+                        <button class="editor-tab " data-editor="js">JavaScript</button>
+                    </div>
+                    
+                    <textarea id="htmlEditor" class="code-editor" spellcheck="false" placeholder="Write your HTML here..."></textarea>
+
+                    <textarea id="cssEditor" class="code-editor" style="display: none;" spellcheck="false" placeholder="Write your CSS here..."></textarea>
+
+                    <textarea id="jsEditor" class="code-editor" style="display: none;" spellcheck="false" placeholder="Write your JavaScript here..."></textarea>
+                </div>
+                
+                <!-- Preview Pane -->
+                <div class="preview-pane">
+                    <div class="preview-label">Preview</div>
+                    <iframe id="preview" class="preview-frame"></iframe>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Action Footer Bar (new) -->
+        <div class="action-footer">
+            <div class="action-left">
+                <div class="action-text">
+                    <p>You can use this button to get help (Make sure you try the exercises fully first):</p>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn" id="hintBtn">Show Hint</button>
+                    <!-- <button class="btn" id="sampleBtn">View Sample</button> -->
+                </div>
+            </div>
+            <div class="action-right">
+                <button class="btn btn-success" id="completeBtn">✓ Mark Complete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Modal (hidden by default) -->
+    <div class="modal-overlay" id="menuModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Unit 1: Introduction to HTML</h3>
+                <button class="modal-close" id="closeMenuModal">×</button>
+            </div>
+            <div class="modal-content">
+                <nav class="lesson-list">
+                    <!-- Populated by JS -->
+                </nav>
+                <div class="modal-actions">
+                    <a href="modules/CSCI71585.html" class="btn btn-secondary">← Back to Units</a>
+                    <button class="btn btn-secondary" id="resetUnitBtn">Reset Unit Progress</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reference Modal (hidden by default) -->
+    <div class="modal-overlay" id="referenceModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Reference Guide</h3>
+                <button class="modal-close" id="closeReferenceModal">×</button>
+            </div>
+            <div class="modal-content">
+                <div class="reference-tabs">
+                    <button class="reference-tab active" data-ref="html">HTML</button>
+                    <button class="reference-tab" data-ref="css">CSS</button>
+                    <button class="reference-tab" data-ref="js">JavaScript</button>
+                </div>
+                <div class="reference-content" id="referenceContent">
+                    <!-- HTML reference (default) -->
+                    <div class="reference-section" id="htmlReference">
+                        <h4>Common HTML Tags</h4>
+                        <dl class="reference-list">
+                            <dt>&lt;h1&gt; to &lt;h6&gt;</dt>
+                            <dd>Headings (h1 is largest, h6 is smallest)</dd>
+                            
+                            <dt>&lt;p&gt;</dt>
+                            <dd>Paragraph</dd>
+                            
+                            <dt>&lt;a href=""&gt;</dt>
+                            <dd>Link</dd>
+                            
+                            <dt>&lt;img src="" alt=""&gt;</dt>
+                            <dd>Image</dd>
+                            
+                            <dt>&lt;div&gt;</dt>
+                            <dd>Container/division</dd>
+                            
+                            <dt>&lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</dt>
+                            <dd>Lists (unordered, ordered, list item)</dd>
+                        </dl>
+                    </div>
+                    
+                    <!-- CSS reference (hidden by default) -->
+                    <div class="reference-section" id="cssReference" style="display: none;">
+                        <h4>Common CSS Properties</h4>
+                        <dl class="reference-list">
+                            <dt>color</dt>
+                            <dd>Text colour</dd>
+                            
+                            <dt>background-color</dt>
+                            <dd>Background colour</dd>
+                            
+                            <dt>font-size</dt>
+                            <dd>Text size</dd>
+                            
+                            <dt>padding</dt>
+                            <dd>Inner spacing</dd>
+                            
+                            <dt>margin</dt>
+                            <dd>Outer spacing</dd>
+                            
+                            <dt>border</dt>
+                            <dd>Border around element</dd>
+                        </dl>
+                    </div>
+                    
+                    <!-- JS reference (hidden by default) -->
+                    <div class="reference-section" id="jsReference" style="display: none;">
+                        <h4>JavaScript Basics</h4>
+                        <dl class="reference-list">
+                            <dt>console.log()</dt>
+                            <dd>Print to console</dd>
+                            
+                            <dt>let, const</dt>
+                            <dd>Declare variables</dd>
+                            
+                            <dt>document.querySelector()</dt>
+                            <dd>Select HTML element</dd>
+                            
+                            <dt>addEventListener()</dt>
+                            <dd>Listen for events (clicks, etc.)</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hint Modal (hidden by default) -->
+    <div class="modal-overlay" id="hintModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>💡 Hint</h3>
+                <button class="modal-close" id="closeHintModal">×</button>
+            </div>
+            <div class="modal-content">
+                <div id="hintContent">
+                    <!-- Hints will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // All UI interactions (collapse, tabs, modals, etc.)
+        // This code is specific to the lesson page structure
+
+        // ===========================
+        // Collapsible Instruction Panel
+        // ===========================
+
+        const collapseBtn = document.getElementById('collapseBtn');
+        const instructionPanel = document.getElementById('instructionPanel');
+
+        collapseBtn.addEventListener('click', () => {
+            instructionPanel.classList.toggle('collapsed');
+            
+            // Change button text
+            if (instructionPanel.classList.contains('collapsed')) {
+                collapseBtn.textContent = 'Expand ▼';
+            } else {
+                collapseBtn.textContent = 'Collapse ▲';
+            }
+        });
+        // ===========================
+        // Editor Tabs
+        // ===========================
+
+        const editorTabs = document.querySelectorAll('.editor-tab');
+        const htmlEditor = document.getElementById('htmlEditor');
+        const cssEditor = document.getElementById('cssEditor');
+        const jsEditor = document.getElementById('jsEditor');
+
+        editorTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Don't do anything if tab is disabled
+                if (tab.classList.contains('disabled')) {
+                    return;
+                }
+                
+                // Remove active class from all tabs
+                editorTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Hide all editors
+                htmlEditor.style.display = 'none';
+                cssEditor.style.display = 'none';
+                jsEditor.style.display = 'none';
+                
+                // Show the relevant editor
+                const editorType = tab.getAttribute('data-editor');
+                if (editorType === 'html') {
+                    htmlEditor.style.display = 'block';
+                } else if (editorType === 'css') {
+                    cssEditor.style.display = 'block';
+                } else if (editorType === 'js') {
+                    jsEditor.style.display = 'block';
+                }
+            });
+        });
+        // ===========================
+        // Modals
+        // ===========================
+
+        // Menu Modal
+        const menuBtn = document.getElementById('menuBtn');
+        const menuModal = document.getElementById('menuModal');
+        const closeMenuModal = document.getElementById('closeMenuModal');
+
+        menuBtn.addEventListener('click', () => {
+            menuModal.classList.add('active');
+        });
+
+        closeMenuModal.addEventListener('click', () => {
+            menuModal.classList.remove('active');
+        });
+
+        // Reference Modal
+        const referenceBtn = document.getElementById('referenceBtn');
+        const referenceModal = document.getElementById('referenceModal');
+        const closeReferenceModal = document.getElementById('closeReferenceModal');
+
+        referenceBtn.addEventListener('click', () => {
+            referenceModal.classList.add('active');
+        });
+
+        closeReferenceModal.addEventListener('click', () => {
+            referenceModal.classList.remove('active');
+        });
+
+        // Close modals when clicking outside
+        menuModal.addEventListener('click', (e) => {
+            if (e.target === menuModal) {
+                menuModal.classList.remove('active');
+            }
+        });
+
+        referenceModal.addEventListener('click', (e) => {
+            if (e.target === referenceModal) {
+                referenceModal.classList.remove('active');
+            }
+        });
+
+        // Hint Modal
+        const hintBtn = document.getElementById('hintBtn');
+        const hintModal = document.getElementById('hintModal');
+        const closeHintModal = document.getElementById('closeHintModal');
+
+        hintBtn.addEventListener('click', () => {
+            hintModal.classList.add('active');
+        });
+
+        closeHintModal.addEventListener('click', () => {
+            hintModal.classList.remove('active');
+        });
+
+        hintModal.addEventListener('click', (e) => {
+            if (e.target === hintModal) {
+                hintModal.classList.remove('active');
+            }
+        });
+
+        // Close modals with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                menuModal.classList.remove('active');
+                referenceModal.classList.remove('active');
+                hintModal.classList.remove('active');
+            }
+        });
+
+        // ===========================
+        // Reference Tabs
+        // ===========================
+
+        const referenceTabs = document.querySelectorAll('.reference-tab');
+        const htmlReference = document.getElementById('htmlReference');
+        const cssReference = document.getElementById('cssReference');
+        const jsReference = document.getElementById('jsReference');
+
+        referenceTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                referenceTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Hide all reference sections
+                htmlReference.style.display = 'none';
+                cssReference.style.display = 'none';
+                jsReference.style.display = 'none';
+                
+                // Show the relevant reference section
+                const refType = tab.getAttribute('data-ref');
+                if (refType === 'html') {
+                    htmlReference.style.display = 'block';
+                } else if (refType === 'css') {
+                    cssReference.style.display = 'block';
+                } else if (refType === 'js') {
+                    jsReference.style.display = 'block';
+                }
+            });
+        });
+
+        // Mark Complete Button (add with other button handlers)
+        const completeBtn = document.getElementById('completeBtn');
+
+        completeBtn.addEventListener('click', () => {
+            if (typeof markLessonComplete === 'function') {
+                markLessonComplete();
+            }
+        });
+
+        // Reset Unit Progress Button
+        const resetUnitBtn = document.getElementById('resetUnitBtn');
+
+        resetUnitBtn.addEventListener('click', () => {
+            if (typeof resetUnitProgress === 'function') {
+                resetUnitProgress();
+            }
+        });
+        // Previous/Next Navigation
+        const prevLessonBtn = document.getElementById('prevLesson');
+        const nextLessonBtn = document.getElementById('nextLesson');
+
+        prevLessonBtn.addEventListener('click', () => {
+            if (typeof goToPreviousLesson === 'function') {
+                goToPreviousLesson();
+            }
+        });
+
+        nextLessonBtn.addEventListener('click', () => {
+            if (typeof goToNextLesson === 'function') {
+                goToNextLesson();
+            }
+        });
+    </script>
+    <script src="js/lesson.js"></script>
+</body>
+</html>
