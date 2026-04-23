@@ -13,7 +13,7 @@ const moduleId = urlParams.get('module'); // Default to CSCI71585
 async function loadUnits() {
     try {
         // First, load the module data to get the units file path
-        const modulesResponse = await fetch('../data/modules.json');
+        const modulesResponse = await fetch('data/modules.json');
         const modulesData = await modulesResponse.json();
         
         // Find the current module
@@ -27,7 +27,7 @@ async function loadUnits() {
         updateModuleHeader(module);
         
         // Load units data
-        const unitsResponse = await fetch(`../${module.unitsFile}`);
+        const unitsResponse = await fetch(`${module.unitsFile}`);
         const unitsData = await unitsResponse.json();
         
         // Clear existing content
