@@ -1035,6 +1035,12 @@ function populateSidebarLessons() {
         const desc = document.createElement('div');
         desc.className = 'lesson-description';
         desc.textContent = lesson.description || '';
+
+        // Update back to units link
+        const backToUnitsBtn = document.getElementById('backToUnitsBtn');
+        if (backToUnitsBtn) {
+            backToUnitsBtn.href = `units.html?module=${moduleId}`;
+        }
         
         content.appendChild(title);
         if (lesson.description) {
