@@ -68,7 +68,7 @@ function updateModuleHeader(module) {
 // Create a unit card element
 function createUnitCard(unit, moduleId) {
     const card = document.createElement('a');
-    card.href = `../lesson.html?module=${moduleId}&unit=${unit.id}`;
+    card.href = `lesson.html?module=${moduleId}&unit=${unit.id}`;
     card.className = 'unit-card';
     
     // Check if unit is locked (compare unlock date with today)
