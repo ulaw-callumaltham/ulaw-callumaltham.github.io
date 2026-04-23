@@ -28,7 +28,7 @@ async function loadModules() {
 // Create a module card element
 function createModuleCard(module) {
     const card = document.createElement('a');
-    card.href = `modules/${module.id}.html`;
+    card.href = `units.html?module=${module.id}`;
     card.className = 'module-card';
     
     card.innerHTML = `

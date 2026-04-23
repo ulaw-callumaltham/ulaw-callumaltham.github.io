@@ -7,7 +7,7 @@ const moduleHeader = document.querySelector('.module-header');
 
 // Get module ID from URL or default
 const urlParams = new URLSearchParams(window.location.search);
-const moduleId = urlParams.get('module') || 'CSCI71585'; // Default to CSCI71585
+const moduleId = urlParams.get('module'); // Default to CSCI71585
 
 // Load units from JSON
 async function loadUnits() {
