@@ -6,7 +6,7 @@
       "id": 1,
       "title": "Placeholder Lesson 1 Title",
       "description": "Placeholder Lesson 1 Description",
-      "activePanels": ["html"],
+      "activePanels": ["html", "css", "js"],
       "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-1/instruction.html",
       "starterCode": {
         "html": "data/lessons/CSCI71585/unit-1/lesson-1/starter.html",

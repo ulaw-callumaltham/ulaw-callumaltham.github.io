@@ -232,22 +232,28 @@ body {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   border-radius: var(--radius-sm);
-  margin-right: var(--spacing-sm);
+  background: transparent;
 }
 
 .tag-html {
-  background: var(--tag-html);
-  color: var(--text-primary);
+  border: 1px solid;
+  background: rgba(220, 53, 69, 0.1);   /* Light red background */
+  color: #c82333;                        /* Darker red text */
+  border-color: rgba(220, 53, 69, 0.3);  /* Medium red border */
 }
 
 .tag-css {
-  background: var(--tag-css);
-  color: var(--text-primary);
+  border: 1px solid;
+  background: rgba(13, 110, 253, 0.1);   /* Light blue background */
+  color: #0a58ca;                        /* Darker blue text */
+  border-color: rgba(13, 110, 253, 0.3); /* Medium blue border */
 }
 
 .tag-javascript {
-  background: var(--tag-javascript);
-  color: var(--bg-primary);
+  border: 1px solid;
+  background: rgba(253, 126, 20, 0.1);   /* Light orange background */
+  color: #cc5200;                        /* Darker orange text */
+  border-color: rgba(253, 126, 20, 0.3); /* Medium orange border */
 }
 
 /* Progress Bar */
@@ -280,8 +286,7 @@ body {
   align-items: flex-start;
   gap: var(--spacing-lg);
   background: var(--bg-secondary);
-  border: 1px solid var(--border-primary);
-  border-left: 4px solid var(--accent-primary);
+  border: 1px solid var(--accent-primary);
   border-radius: var(--radius-md);
   padding: var(--spacing-xl);
   margin-bottom: var(--spacing-xxl);
@@ -291,6 +296,7 @@ body {
   font-size: 32px;
   flex-shrink: 0;
   line-height: 1;
+  color: var(--accent-primary);
 }
 
 .banner-content {

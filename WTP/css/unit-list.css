@@ -64,7 +64,6 @@
 .unit-card {
   background: var(--bg-card);
   border: 1px solid var(--border-primary);
-  border-left: 3px solid var(--border-primary); /* Thicker left border */
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
   text-decoration: none;
@@ -77,20 +76,20 @@
 }
 
 .unit-card:hover:not(.locked) {
-  border-color: var(--border-secondary);
-  border-left-color: var(--accent-primary); /* Purple accent on hover */
+  border-color: var(--accent-primary);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Active/In-Progress Units - Purple left border */
+/* Active/In-Progress Units */
 .unit-card:not(.locked):not(.completed) {
-  border-left-color: var(--accent-primary);
+  border-color: var(--border-primary);
 }
 
-/* Completed Units - Green left border + checkmark */
+/* Completed Units - Green border + checkmark in title */
 .unit-card.completed {
-  border-left-color: var(--accent-success);
+  border-color: var(--accent-success);
+  background: rgba(0, 128, 0, 0.1);
 }
 
 .unit-card.completed .unit-title::before {
@@ -103,7 +102,7 @@
 .unit-card.locked {
   opacity: 0.6;
   cursor: not-allowed;
-  position: relative;
+  border-color: var(--border-primary);
 }
 
 .lock-badge {
