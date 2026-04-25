@@ -1648,17 +1648,74 @@ async def custom_input(prompt=''):
 builtins.input = custom_input
 `);
         
-        // Transform user code: replace 'input(' calls with 'await input('
-        let transformedCode = code.replace(/(\b)input\s*\(/g, '$1await input(');
-        
+        // Transform user code - CORRECT ORDER:
+
+        // Step 1: Make all function definitions async
+        let transformedCode = code.split('\n').map(line => {
+            if (line.match(/^\s*def\s+\w+\s*\(/) && !line.includes('async')) {
+                return line.replace(/^(\s*)def\s+/, '$1async def ');
+            }
+            return line;
+        }).join('\n');
+
+        // Step 2: Find all user-defined function names (BEFORE adding awaits)
+        const builtins = ['print', 'len', 'range', 'str', 'int', 'float', 'list', 'dict', 'set', 'tuple', 'type', 'isinstance', 'open', 'sum', 'min', 'max', 'abs', 'round', 'sorted', 'enumerate', 'zip', 'bool', 'chr', 'ord', 'bin', 'hex', 'oct', 'format', 'repr', 'ascii', 'hash', 'id', 'dir', 'help', 'vars', 'eval', 'exec', 'compile', 'any', 'all', 'next', 'iter', 'reversed', 'filter', 'map'];
+        const userFunctions = [...transformedCode.matchAll(/async def\s+(\w+)\s*\(/g)].map(match => match[1]);
+
+        // Step 3: Replace input() with await input() (but NOT in lambdas)
+        transformedCode = transformedCode.split('\n').map(line => {
+            // Skip lambda lines
+            if (line.includes('lambda')) {
+                return line;
+            }
+            return line.replace(/(\b)input\s*\(/g, '$1await input(');
+        }).join('\n');
+
+        // Check for unsupported patterns before transformation
+        if (code.includes('lambda') && code.includes('input(')) {
+            throw new Error('Unfortunately due to tech limitations, input() cannot be used inside lambda functions in this Python environment. Please use a regular function with def instead.');
+        }
+
+        // Step 4: Await all user function calls (but NOT in function definitions)
+        userFunctions.forEach(funcName => {
+            if (builtins.includes(funcName)) return;
+            
+            transformedCode = transformedCode.split('\n').map(line => {
+                // Skip function definition lines
+                if (line.includes('async def ')) {
+                    return line;
+                }
+                
+                // Match standalone calls: function_name(
+                let result = line.replace(new RegExp(`(?<!await )(?<!\\.)\\b(${funcName})\\s*\\(`, 'g'), 'await $1(');
+                
+                // Match method calls: something.function_name(
+                result = result.replace(new RegExp(`(?<!await )(\\w+\\.)(${funcName})\\s*\\(`, 'g'), 'await $1$2(');
+                
+                return result;
+            }).join('\n');
+        });
+
+        // 3. Indent all lines by 4 spaces for wrapping
+        const indentedCode = transformedCode.split('\n').map(line => {
+            if (line.trim()) {
+                return '    ' + line;
+            }
+            return line;
+        }).join('\n');
+
+        console.log('=== TRANSFORMED CODE ===');
+        console.log(transformedCode);
+        console.log('=== END ===');
+
         // Wrap in async function
         const wrappedCode = `
 async def __user_main__():
-${transformedCode.split('\n').map(line => '    ' + line).join('\n')}
+${indentedCode}
 
 await __user_main__()
 `;
-        
+
         // Run transformed code with interrupt check
         const executionPromise = pyodide.runPythonAsync(wrappedCode);
         
