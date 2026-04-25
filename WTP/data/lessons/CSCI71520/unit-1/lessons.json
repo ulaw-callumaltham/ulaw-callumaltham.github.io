@@ -22,9 +22,7 @@
       "description": "Learn about variables and different data types in Python",
       "language": "python",
       "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-2/instruction.html",
-      "starterCode": {
-        "python": "data/lessons/CSCI71520/unit-1/lesson-2/starter.py"
-      },
+      "starterCode": {},
       "hints": [
         "Placeholder hint 1 for lesson 2",
         "Placeholder hint 2 for lesson 2"
@@ -36,9 +34,7 @@
       "description": "Placeholder Lesson 3 Description",
       "language": "python",
       "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-3/instruction.html",
-      "starterCode": {
-        "python": "data/lessons/CSCI71520/unit-1/lesson-3/starter.py"
-      },
+      "starterCode": {},
       "hints": [
         "Placeholder hint 1 for lesson 3"
       ]
@@ -49,9 +45,7 @@
       "description": "Placeholder Lesson 4 Description",
       "language": "python",
       "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-4/instruction.html",
-      "starterCode": {
-        "python": "data/lessons/CSCI71520/unit-1/lesson-4/starter.py"
-      },
+      "starterCode": {},
       "hints": [
         "Placeholder hint 1 for lesson 4",
         "Placeholder hint 2 for lesson 4",
@@ -64,9 +58,7 @@
       "description": "Placeholder Lesson 5 Description",
       "language": "python",
       "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-5/instruction.html",
-      "starterCode": {
-        "python": "data/lessons/CSCI71520/unit-1/lesson-5/starter.py"
-      },
+      "starterCode": {},
       "hints": [
         "Placeholder hint 1 for lesson 5"
       ]
@@ -77,9 +69,7 @@
       "description": "Placeholder Lesson 6 Description",
       "language": "python",
       "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-6/instruction.html",
-      "starterCode": {
-        "python": "data/lessons/CSCI71520/unit-1/lesson-6/starter.py"
-      },
+      "starterCode": {},
       "hints": [
         "Placeholder hint 1 for lesson 6",
         "Placeholder hint 2 for lesson 6"
@@ -91,9 +81,7 @@
       "description": "Placeholder Lesson 7 Description",
       "language": "python",
       "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-7/instruction.html",
-      "starterCode": {
-        "python": "data/lessons/CSCI71520/unit-1/lesson-7/starter.py"
-      },
+      "starterCode": {},
       "hints": [
         "Placeholder hint 1 for lesson 7"
       ]
@@ -104,9 +92,7 @@
       "description": "Placeholder Lesson 8 Description",
       "language": "python",
       "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-8/instruction.html",
-      "starterCode": {
-        "python": "data/lessons/CSCI71520/unit-1/lesson-8/starter.py"
-      },
+      "starterCode": {},
       "hints": [
         "Placeholder hint 1 for lesson 8",
         "Placeholder hint 2 for lesson 8"
