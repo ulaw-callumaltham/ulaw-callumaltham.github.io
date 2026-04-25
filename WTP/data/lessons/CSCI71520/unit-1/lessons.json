@@ -1,0 +1,116 @@
+{
+  "unitId": 1,
+  "unitTitle": "Python Basics",
+  "lessons": [
+    {
+      "id": 1,
+      "title": "Introduction to Python",
+      "description": "Learn the basics of Python programming",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-1/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI71520/unit-1/lesson-1/starter.py"
+      },
+      "hints": [
+        "Hello there!",
+        "General Kenobi!"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Variables and Data Types",
+      "description": "Learn about variables and different data types in Python",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-2/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI71520/unit-1/lesson-2/starter.py"
+      },
+      "hints": [
+        "Placeholder hint 1 for lesson 2",
+        "Placeholder hint 2 for lesson 2"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Placeholder Lesson 3 Title",
+      "description": "Placeholder Lesson 3 Description",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-3/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI71520/unit-1/lesson-3/starter.py"
+      },
+      "hints": [
+        "Placeholder hint 1 for lesson 3"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Placeholder Lesson 4 Title",
+      "description": "Placeholder Lesson 4 Description",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-4/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI71520/unit-1/lesson-4/starter.py"
+      },
+      "hints": [
+        "Placeholder hint 1 for lesson 4",
+        "Placeholder hint 2 for lesson 4",
+        "Placeholder hint 3 for lesson 4"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Placeholder Lesson 5 Title",
+      "description": "Placeholder Lesson 5 Description",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-5/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI71520/unit-1/lesson-5/starter.py"
+      },
+      "hints": [
+        "Placeholder hint 1 for lesson 5"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Placeholder Lesson 6 Title",
+      "description": "Placeholder Lesson 6 Description",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-6/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI71520/unit-1/lesson-6/starter.py"
+      },
+      "hints": [
+        "Placeholder hint 1 for lesson 6",
+        "Placeholder hint 2 for lesson 6"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Placeholder Lesson 7 Title",
+      "description": "Placeholder Lesson 7 Description",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-7/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI71520/unit-1/lesson-7/starter.py"
+      },
+      "hints": [
+        "Placeholder hint 1 for lesson 7"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Placeholder Lesson 8 Title",
+      "description": "Placeholder Lesson 8 Description",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI71520/unit-1/lesson-8/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI71520/unit-1/lesson-8/starter.py"
+      },
+      "hints": [
+        "Placeholder hint 1 for lesson 8",
+        "Placeholder hint 2 for lesson 8"
+      ]
+    }
+  ]
+}

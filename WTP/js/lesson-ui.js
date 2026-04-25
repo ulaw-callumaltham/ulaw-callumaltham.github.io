@@ -56,7 +56,6 @@ function removeToast(toast) {
 // Collapsible Instruction Panel
 // ===========================
 
-// / Collapse/Expand Instructions
 const instructionPanel = document.getElementById('instructionPanel');
 const instructionCollapseBtn = document.getElementById('instructionCollapseBtn');
 const instructionCollapseIcon = document.getElementById('instructionCollapseIcon');
@@ -64,13 +63,12 @@ const instructionHeaderBar = document.querySelector('.instruction-header-bar');
 
 // Click button to toggle
 instructionCollapseBtn.addEventListener('click', (e) => {
-    e.stopPropagation();  // Keep this
+    e.stopPropagation();
     toggleInstructions();
 });
 
 // Click bar to toggle
 instructionHeaderBar.addEventListener('click', (e) => {
-    // Only toggle if clicking the bar itself, not other elements
     if (e.target === instructionHeaderBar || e.target.classList.contains('instruction-header-title')) {
         toggleInstructions();
     }
@@ -80,9 +78,9 @@ function toggleInstructions() {
     instructionPanel.classList.toggle('collapsed');
     
     if (instructionPanel.classList.contains('collapsed')) {
-        instructionCollapseIcon.textContent = '▼';
+        instructionCollapseIcon.textContent = '▶';  // ← Changed to right arrow
     } else {
-        instructionCollapseIcon.textContent = '▲';
+        instructionCollapseIcon.textContent = '◀';  // ← Changed to left arrow
     }
 }
 
@@ -97,30 +95,28 @@ const jsEditor = document.getElementById('jsEditor');
 
 editorTabs.forEach(tab => {
     tab.addEventListener('click', () => {
-        // Don't do anything if tab is disabled
-        if (tab.classList.contains('disabled')) {
-            return;
-        }
-        
-        // Remove active class from all tabs
+        // Remove active from all tabs
         editorTabs.forEach(t => t.classList.remove('active'));
         
-        // Add active class to clicked tab
+        // Add active to clicked tab
         tab.classList.add('active');
         
-        // Hide all editors
-        htmlEditor.style.display = 'none';
-        cssEditor.style.display = 'none';
-        jsEditor.style.display = 'none';
+        // Hide all CodeMirror editors
+        htmlEditorCM.getWrapperElement().style.display = 'none';
+        cssEditorCM.getWrapperElement().style.display = 'none';
+        jsEditorCM.getWrapperElement().style.display = 'none';
         
-        // Show the relevant editor
+        // Show selected editor
         const editorType = tab.getAttribute('data-editor');
         if (editorType === 'html') {
-            htmlEditor.style.display = 'block';
+            htmlEditorCM.getWrapperElement().style.display = 'block';
+            htmlEditorCM.refresh(); // Refresh to fix rendering
         } else if (editorType === 'css') {
-            cssEditor.style.display = 'block';
+            cssEditorCM.getWrapperElement().style.display = 'block';
+            cssEditorCM.refresh();
         } else if (editorType === 'js') {
-            jsEditor.style.display = 'block';
+            jsEditorCM.getWrapperElement().style.display = 'block';
+            jsEditorCM.refresh();
         }
     });
 });
@@ -431,5 +427,108 @@ const resetUnitBtnSidebar = document.getElementById('resetUnitBtnSidebar');
 resetUnitBtnSidebar.addEventListener('click', () => {
     if (typeof resetUnitProgress === 'function') {
         resetUnitProgress();
+    }
+});
+
+// Add to inline script in lesson.html
+const clearOutputBtn = document.getElementById('clearOutputBtn');
+
+clearOutputBtn?.addEventListener('click', () => {
+    const outputConsole = document.getElementById('outputConsole');
+    outputConsole.innerHTML = '<div class="output-placeholder">Click "Run Code" to execute your Python code</div>';
+});
+
+// Python Download Button
+const downloadPythonBtn = document.getElementById('downloadPythonBtn');
+
+downloadPythonBtn?.addEventListener('click', () => {
+    if (typeof saveCode === 'function') {
+        saveCode();
+    }
+});
+
+// Python Run Button - Execute Real Code
+const runPythonBtn = document.getElementById('runPythonBtn');
+
+runPythonBtn?.addEventListener('click', () => {
+    if (typeof executePythonCode === 'function') {
+        executePythonCode();
+    }
+});
+
+// ===========================
+// Dark Mode Toggle
+// ===========================
+
+const darkModeToggle = document.getElementById('darkModeToggle');
+const darkModeIcon = document.getElementById('darkModeIcon');
+const htmlElement = document.documentElement;
+
+// Check for saved theme preference or default to light
+const savedTheme = localStorage.getItem('theme') || 'light';
+htmlElement.setAttribute('data-theme', savedTheme);
+updateDarkModeIcon(savedTheme);
+
+// Toggle dark mode
+darkModeToggle.addEventListener('click', () => {
+    const currentTheme = htmlElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    htmlElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateDarkModeIcon(newTheme);
+});
+
+function updateDarkModeIcon(theme) {
+    if (theme === 'dark') {
+        darkModeIcon.textContent = '◑';
+        
+        // Update CodeMirror themes (only if initialized)
+        if (typeof htmlEditorCM !== 'undefined' && htmlEditorCM) {
+            htmlEditorCM.setOption('theme', 'material-darker');
+            cssEditorCM.setOption('theme', 'material-darker');
+            jsEditorCM.setOption('theme', 'material-darker');
+            pythonEditorCM.setOption('theme', 'material-darker');
+        }
+    } else {
+        darkModeIcon.textContent = '◐';
+        
+        // Update CodeMirror themes (only if initialized)
+        if (typeof htmlEditorCM !== 'undefined' && htmlEditorCM) {
+            htmlEditorCM.setOption('theme', 'default');
+            cssEditorCM.setOption('theme', 'default');
+            jsEditorCM.setOption('theme', 'default');
+            pythonEditorCM.setOption('theme', 'default');
+        }
+    }
+}
+
+// Stop Python execution
+const stopPythonBtn = document.getElementById('stopPythonBtn');
+
+stopPythonBtn?.addEventListener('click', () => {
+    if (pythonExecutionController) {
+        pythonExecutionController.abort();
+    }
+});
+
+// Keyboard shortcut: Shift+Enter to run Python code
+document.addEventListener('keydown', (e) => {
+    if (e.shiftKey && e.key === 'Enter') {
+        // Check if we're in a Python lesson
+        const language = currentLesson?.language || 'web';
+        
+        if (language === 'python') {
+            // Check if Python editor is focused
+            if (pythonEditorCM && pythonEditorCM.hasFocus()) {
+                e.preventDefault(); // Prevent new line
+                
+                // Trigger run button
+                const runBtn = document.getElementById('runPythonBtn');
+                if (runBtn && runBtn.style.display !== 'none') {
+                    executePythonCode();
+                }
+            }
+        }
     }
 });

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Metadata Builder | CS WTP Admin</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/ulaw-logo.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #8b5cf6;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .help-text {
+            font-size: 13px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],  /* ← ADD THIS */
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #8b5cf6;
+        }
+
+        .unit-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #fafafa;
+        }
+
+        .unit-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .unit-number {
+            font-size: 18px;
+            font-weight: 600;
+            color: #8b5cf6;
+        }
+        
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #8b5cf6;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #7c3aed;
+        }
+        
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #059669;
+        }
+        
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+        
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+        
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .tech-tag input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" style="display: inline-block; margin-bottom: 20px; color: #8b5cf6; font-weight: 500;">← Back to Dashboard</a>
+        <h1>Unit Metadata Builder</h1>
+        <p class="subtitle">Create multiple unit entries and generate units.json</p>
+        
+        <!-- Module Info -->
+        <div class="section">
+            <h2 class="section-title">Module Information</h2>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label for="moduleId">Module ID *</label>
+                    <input type="text" id="moduleId" placeholder="e.g., CSCI71585" required>
+                    <p class="help-text">This will be used to generate the filename: {moduleId}-units.json</p>
+                </div>
+                <div class="form-group">
+                    <label for="moduleTitle">Module Title *</label>
+                    <input type="text" id="moduleTitle" placeholder="e.g., Web Technologies" required>
+                    <p class="help-text">Full name of the module</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Units List -->
+        <div class="section">
+            <h2 class="section-title">Units</h2>
+            <div id="unitsList">
+                <!-- Units will be added here -->
+            </div>
+            <button class="btn btn-secondary" id="addUnitBtn">+ Add Unit</button>
+        </div>
+        
+        <!-- Actions -->
+        <div class="actions">
+            <button class="btn btn-success" id="downloadBtn">Download units.json</button>
+            <button class="btn btn-danger" id="clearBtn">Clear All</button>
+        </div>
+    </div>
+    
+    <script src="unit-metadata-builder.js"></script>
+</body>
+</html>

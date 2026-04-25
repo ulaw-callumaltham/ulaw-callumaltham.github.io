@@ -14,6 +14,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
     <!-- JSZip for creating zip files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- Piodide for Python execution -->
+     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+
+    <!-- CodeMirror CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/monokai.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+
+    <!-- CodeMirror Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+
+    <!-- CodeMirror Language Modes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
 </head>
 <body>
     <!-- Lesson Container (full screen, no header/footer) -->
@@ -37,10 +54,9 @@
             </div>
             
             <div class="nav-right">
-                <!-- <button class="nav-btn" id="collapseBtn" aria-label="Collapse Instructions">
-                    <span id="collapseIcon">▲</span>
-                    <span id="collapseText">Collapse Instructions</span>
-                </button> -->
+                <button class="nav-btn" id="darkModeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <span id="darkModeIcon" class="theme-icon">◐</span>
+                </button>
                 <button class="nav-btn nav-arrow" id="prevLesson" aria-label="Previous Lesson">←</button>
                 <button class="nav-btn nav-arrow" id="nextLesson" aria-label="Next Lesson">→</button>
             </div>
@@ -202,80 +218,124 @@
                 </div>
             </div>
         </div>
-
-        <!-- Instruction Panel -->
-        <div class="instruction-panel" id="instructionPanel">
-            <div class="instruction-header-bar">
-                <span class="instruction-header-title">Instructions</span>
-                <button class="instruction-collapse-btn" id="instructionCollapseBtn" aria-label="Collapse instructions">
-                    <span id="instructionCollapseIcon">▲</span>
-                </button>
-            </div>
-            
-            <div class="instruction-content">
-                <div class="instruction-body">
-                    <!-- Completion Notice Banner -->
-                    <div class="completion-notice hidden" id="completionNotice">
-                        ✓ You've completed this lesson. You can still edit and save your work.
-                    </div>
-                    
-                    <div class="instruction-text">
-                        <!-- Instruction content loaded here -->
-                    </div>
+        <div class="lesson-content-area">
+            <!-- Instruction Panel -->
+            <div class="instruction-panel" id="instructionPanel">
+                <div class="instruction-header-bar">
+                    <span class="instruction-header-title">Instructions</span>
+                    <button class="instruction-collapse-btn" id="instructionCollapseBtn" aria-label="Collapse instructions">
+                        <span id="instructionCollapseIcon">◀</span>
+                    </button>
                 </div>
-            </div>
-        </div>
-
-        <!-- Editor and Preview Area -->
-        <div class="workspace">
-            
-            <!-- Editor and Preview Panes -->
-            <div class="workspace-panes">
                 
-                <!-- Editor Pane -->
-                <div class="editor-pane">
-                    <!-- Editor Tabs -->
-                    <div class="editor-tabs">
-                        <button class="editor-tab active" data-editor="html">HTML (index.html)</button>
-                        <button class="editor-tab" data-editor="css">CSS (styles.css)</button>
-                        <button class="editor-tab" data-editor="js">JavaScript (script.js)</button>
-
-                        <!-- Save Indicator -->
-                        <div class="save-indicator" id="saveIndicator">
-                            <span class="save-status">●</span>
-                            <span class="save-text">Saved</span>
+                <div class="instruction-content">
+                    <div class="instruction-body">
+                        <!-- Completion Notice Banner -->
+                        <div class="completion-notice hidden" id="completionNotice">
+                            ✓ You've completed this lesson. You can still edit and save your work.
                         </div>
                         
-                        <!-- Download Button -->
-                        <button class="editor-control-btn" id="saveCodeBtn" title="Download your code as files">
-                            <span>↓</span>
-                            <span>Download</span>
-                        </button>
-                    </div>
-                    
-                    <textarea id="htmlEditor" class="code-editor" spellcheck="false" placeholder="Write your HTML here..."></textarea>
-
-                    <textarea id="cssEditor" class="code-editor" style="display: none;" spellcheck="false" placeholder="Write your CSS here..."></textarea>
-
-                    <textarea id="jsEditor" class="code-editor" style="display: none;" spellcheck="false" placeholder="Write your JavaScript here..."></textarea>
-                </div>
-                
-                <!-- Preview Pane -->
-                <div class="preview-pane">
-                    <div class="preview-label">
-                        <span>Preview</span>
-                        <div class="preview-controls">
-                            <button class="preview-control-btn" id="fullscreenBtn" title="Fullscreen preview">
-                                <span class="fullscreen-icon">⛶</span>
-                                <span class="fullscreen-text">Fullscreen</span>
-                            </button>
-                            <button class="preview-popout" id="popoutBtn">
-                                <span class="popout-icon">↗</span>
-                                <span class="popout-text">Pop Out</span>
-                            </button>
+                        <div class="instruction-text">
+                            <!-- Instruction content loaded here -->
                         </div>
                     </div>
-                    <iframe id="preview" class="preview-frame"></iframe>
+                </div>
+            </div>
+
+            <!-- Editor and Preview Area -->
+            <div class="workspace">
+                
+                <!-- Editor and Preview Panes -->
+                <div class="workspace-panes">
+                    
+                    <!-- Editor Pane -->
+                    <div class="editor-pane">
+                        <!-- Editor Tabs -->
+                        <div class="editor-tabs">
+                            <button class="editor-tab active" data-editor="html">HTML (index.html)</button>
+                            <button class="editor-tab" data-editor="css">CSS (styles.css)</button>
+                            <button class="editor-tab" data-editor="js">JavaScript (script.js)</button>
+
+                            <!-- Save Indicator -->
+                            <div class="save-indicator" id="saveIndicator">
+                                <span class="save-status">●</span>
+                                <span class="save-text">Saved</span>
+                            </div>
+                            
+                            <!-- Download Button -->
+                            <button class="editor-control-btn" id="saveCodeBtn" title="Download your code as files">
+                                <span>↓</span>
+                                <span>Download</span>
+                            </button>
+                        </div>
+                        
+                        <textarea id="htmlEditor" class="code-editor" spellcheck="false" placeholder="Write your HTML here..."></textarea>
+
+                        <textarea id="cssEditor" class="code-editor" style="display: none;" spellcheck="false" placeholder="Write your CSS here..."></textarea>
+
+                        <textarea id="jsEditor" class="code-editor" style="display: none;" spellcheck="false" placeholder="Write your JavaScript here..."></textarea>
+                    </div>
+                    <!-- Python Editor (Hidden by Default) -->
+                    <div class="python-editor-container" id="pythonEditorContainer" style="display: none;">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Python (main.py)</button>
+                            <div class="save-indicator" id="pythonSaveIndicator">
+                                <span class="save-status">●</span>
+                                <span class="save-text">Saved</span>
+                            </div>
+                            <!-- Add Download Button -->
+                            <button class="editor-control-btn" id="downloadPythonBtn" title="Download your Python code">
+                                <span>↓</span>
+                                <span>Download</span>
+                            </button>
+                        </div>
+                        <textarea id="pythonEditor" class="code-editor" spellcheck="false"></textarea>
+                    </div>
+                    
+                    <!-- Preview Pane -->
+                    <div class="preview-pane">
+                        <div class="preview-label">
+                            <span>Preview</span>
+                            <div class="preview-controls">
+                                <button class="preview-control-btn" id="fullscreenBtn" title="Fullscreen preview">
+                                    <span class="fullscreen-icon">⛶</span>
+                                    <span class="fullscreen-text">Fullscreen</span>
+                                </button>
+                                <button class="preview-popout" id="popoutBtn">
+                                    <span class="popout-icon">↗</span>
+                                    <span class="popout-text">Pop Out</span>
+                                </button>
+                            </div>
+                        </div>
+                        <iframe id="preview" class="preview-frame"></iframe>
+                    </div>
+                    <!-- Python Output Console (Hidden by Default) -->
+                    <div class="python-output-panel" id="pythonOutputPanel" style="display: none;">
+                        <div class="output-label">
+                            <span>Output</span>
+                            <div class="output-controls">
+                                <button class="preview-control-btn" id="runPythonBtn">
+                                    <span>▶</span>
+                                    <span>Run Code (Shift+Enter)</span>
+                                </button>
+                                <button class="preview-control-btn" id="stopPythonBtn" style="display: none;">
+                                    <span>⏹</span>
+                                    <span>Stop</span>
+                                </button>
+                                <button class="preview-control-btn" id="clearOutputBtn">
+                                    <span>✕</span>
+                                    <span>Clear</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="console-input-bar">
+                            <span class="input-prefix">></span>
+                            <input type="text" id="consoleInput" class="console-input-field" placeholder="Program input..." disabled>
+                        </div>
+                        <div class="output-console" id="outputConsole">
+                            <div class="output-placeholder">Click "Run Code" to execute your Python code</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -351,6 +411,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script>
     <script src="js/lesson-ui.js"></script>
     <script src="js/lesson.js"></script>

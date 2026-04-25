@@ -1,38 +1,54 @@
-<p>This is placeholder instruction content for lesson 1. Replace this with actual lesson instructions.</p>
-<p>I am just adding this to check that it appears</p>
-
-<div class="tip-box">
-    <strong>💡 Tip:</strong>
-    <p>This is a placeholder tip and it is a really good one.</p>
-</div>
-
-<div class="warning-box">
-    <strong>⚠️ Warning:</strong>
-    <p>This is a placeholder warning. Be careful with this step!</p>
-</div>
-
-<div class="info-box">
-    <strong>ℹ️ Info:</strong>
-    <p>This is a placeholder info box. It contains important information.</p>
-</div>
-
-<h3>Your Task</h3>
+<h1>Tutorial</h1>
+<p>In this lesson, you will learn about the basic structure of a web page and how to use HTML tags to create a well-organized layout.</p>
+<br>
+<h2>Understanding HTML Structure</h2>
+<p>HTML (HyperText Markup Language) is the standard language used to create web pages. It consists of various tags that define the structure and content of a web page. Understanding the basic structure of an HTML document is essential for building web pages effectively.</p>
+<p>At its core, an HTML document is made up of several key elements:</p>
 <ul>
-    <li>Placeholder task item 1</li>
-    <li>Placeholder task item 2</li>
-    <li>Placeholder task item 3</li>
+    <li><code class="language-html">&lt;!DOCTYPE html&gt;</code>: This declaration defines the document type and version of HTML being used.</li>
+    <li><code class="language-html">&lt;html&gt;</code>: This is the root element that wraps all the content of the web page.</li>
+    <li><code class="language-html">&lt;head&gt;</code>: This section contains meta-information about the document, such as the title, character encoding, and links to stylesheets or scripts.</li>
+    <li><code class="language-html">&lt;body&gt;</code>: This is where the visible content of the web page goes, including text, images, links, and other media.</li>
+</ul>
+<br>
+<p>We use these elements to form the core structure of an HTML document. All HTML pages must include these elements to be valid.</p>
+<p>You can see how they work together in the example below:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My First Web Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to My Web Page&lt;/h1&gt;
+    &lt;p&gt;This is a paragraph of text on my first web page.&lt;/p&gt;
+    &lt;img src="https://example.com/image.jpg" alt="Example Image"&gt;
+    &lt;a href="https://www.example.com"&gt;Visit Example.com&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<br>
+<p>In this example, you can see the basic structure of an HTML document with a doctype declaration, html element, head section, and body section (do not worry about the items in the body section).</p>
+<br>
+<h3>The Head Section</h3>
+<p>The <code class="language-html">&lt;head&gt;</code> section is where you can include meta-information about your web page. This can include the title of the page, character encoding, and links to external resources like stylesheets or scripts. The content in the head section is not displayed on the web page itself but is essential for defining how the page should be rendered and how it interacts with other resources.</p>
+<p>All elements within the <code class="language-html">&lt;head&gt;</code> tag are used to provide information about the document, but they are not displayed on the web page itself.</p>
+<br>
+<h3>The Body Section</h3>
+<p>The <code class="language-html">&lt;body&gt;</code> section contains the visible content of the web page. This is where you place all the text, images, links, and other media that users will see when they visit your page.</p>
+<p>Any thing that we want to display on the web page goes within the <code class="language-html">&lt;body&gt;</code> tag.</p>
+<br>
+<p>Within the <code class="language-html">&lt;body&gt;</code> tag, you can use various HTML tags to structure your content. For example:</p>
+<ul>
+    <li><code class="language-html">&lt;h1&gt;</code> to <code class="language-html">&lt;h6&gt;</code>: These tags are used for headings, with <code class="language-html">&lt;h1&gt;</code> being the most important and <code class="language-html">&lt;h6&gt;</code> the least.</li>
+    <li><code class="language-html">&lt;p&gt;</code>: This tag is used for paragraphs of text.</li>
+    <li><code class="language-html">&lt;a&gt;</code>: This tag creates hyperlinks to other web pages or resources.</li>
+    <li><code class="language-html">&lt;img&gt;</code>: This tag is used to embed images in the web page.</li>
+    <li><code class="language-html">&lt;div&gt;</code>: This is a generic container tag that can be used to group other elements together for styling or layout purposes.</li>
 </ul>
 
-<h4>Example HTML:</h4>
-<pre><code class="language-html">&lt;h1&gt;Hello, World!&lt;/h1&gt;
-&lt;p&gt;This is a paragraph.&lt;/p&gt;</code></pre>
-
-<h4>Example CSS:</h4>
-<pre><code class="language-css">h1 {
-    color: blue;
-    font-size: 24px;
-}</code></pre>
-
-<h4>Example JavaScript:</h4>
-<pre><code class="language-javascript">console.log('Hello, World!');
-let x = 10;</code></pre>
+<h2>Tasks</h2>
+<ol>
+    <li>Add a heading to your web page using the <code class="language-html">&lt;h1&gt;</code> tag.</li>
+    <li>Write a paragraph of text using the <code class="language-html">&lt;p&gt;</code> tag.</li>
+    <li>Include an image using the <code class="language-html">&lt;img&gt;</code> tag. You can use any image URL for this task.</li>
+    <li>Create a hyperlink to another website using the <code class="language-html">&lt;a&gt;</code> tag.</li>
+</ol>

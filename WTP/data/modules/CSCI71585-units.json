@@ -5,8 +5,8 @@
   "units": [
     {
       "id": 1,
-      "title": "Placeholder Unit 1 Title",
-      "description": "Placeholder Unit 1 Description",
+      "title": "HTML 101",
+      "description": "In this first unit, we will cover the basics of HTML, the foundational language of the web. You'll learn how to structure web pages using various HTML tags and elements, and understand how to create content that can be displayed in a web browser.",
       "week": 1,
       "unlockDate": "2026-01-01",
       "lessonCount": 8,

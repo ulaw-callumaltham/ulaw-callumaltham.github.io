@@ -30,6 +30,18 @@ body {
 }
 
 /* ===========================
+   Content Area (Below Nav, Above Footer)
+   =========================== */
+
+/* New wrapper for instruction + workspace */
+.lesson-content-area {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ===========================
    Top Navigation Bar
    =========================== */
 
@@ -129,6 +141,10 @@ body {
 .nav-btn:disabled:hover {
     background: transparent;
     color: var(--text-secondary);
+}
+
+.nav-btn.home-btn .nav-icon {
+    filter: brightness(0) saturate(100%) invert(var(--icon-invert, 0));
 }
 
 /* Arrow buttons - larger icons */
@@ -478,26 +494,28 @@ body {
    Instruction Panel
    =========================== */
 
-/* Instruction Panel */
 .instruction-panel {
+    width: 35%;
+    min-width: 300px;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
     background: var(--bg-card);
-    border: 1px solid var(--border-primary);
-    /* border-radius: var(--radius-md); */
+    border-right: 1px solid var(--border-primary);
     overflow: hidden;
-    transition: all var(--transition-base);
+    transition: width 0.3s ease, min-width 0.3s ease;
 }
 
 /* Header Bar - Always Visible */
 .instruction-header-bar {
+    height: 40px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: var(--spacing-sm);  /* ← Add gap between text and button */
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--bg-tertiary);
+    justify-content: space-between;
+    padding: 0 var(--spacing-md);
+    background: var(--bg-secondary);
     border-bottom: 1px solid var(--border-primary);
-    cursor: pointer;
-    transition: all var(--transition-base);
+    flex-shrink: 0;
 }
 
 .instruction-header-bar:hover {
@@ -508,37 +526,54 @@ body {
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
     color: var(--text-secondary);
-    text-align: center;
 }
 
 .instruction-collapse-btn {
-    position: relative;  /* ← Change from absolute */
     background: transparent;
     border: none;
     color: var(--text-secondary);
-    font-size: var(--font-size-base);
     cursor: pointer;
-    padding: 0 0 0 var(--spacing-sm);  /* ← Add space to left of button */
-    line-height: 1;
-    transition: all var(--transition-base);
+    padding: var(--spacing-xs);
+    font-size: 14px;
+    transition: color 0.2s;
 }
 
 .instruction-collapse-btn:hover {
     color: var(--text-primary);
-    transform: scale(1.1);
 }
 
-/* Collapsed State */
+.instruction-panel.collapsed .instruction-collapse-btn {
+    margin-top: 0;
+}
+
 .instruction-panel.collapsed .instruction-content {
     display: none;
 }
 
+.instruction-panel .instruction-header-bar {
+    cursor: pointer;  /* ← Make entire header clickable */
+}
+
 .instruction-panel.collapsed .instruction-header-bar {
-    border-bottom: none;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;  /* ← Changed from center */
+    padding: var(--spacing-sm) 0;  /* ← Reduced padding */
+    gap: var(--spacing-sm);  /* ← Add gap between elements */
+    cursor: pointer;  /* ← Make entire header clickable */
+}
+
+instruction-panel.collapsed .instruction-header-bar:hover {
+    background: var(--bg-tertiary);  /* ← Add hover effect */
 }
 
 .instruction-panel.collapsed {
-  max-height: 48px;
+    width: 60px;
+    min-width: 60px;
+}
+
+.instruction-body {
+    padding: var(--spacing-lg);
 }
 
 .instruction-header {
@@ -554,6 +589,13 @@ body {
   font-weight: var(--font-weight-semibold);
   color: var(--text-heading);
   margin: 0;
+}
+
+.instruction-panel.collapsed .instruction-header-title {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-sm) 0;  /* ← Add this line */
 }
 
 .collapse-btn {
@@ -573,10 +615,9 @@ body {
 }
 
 .instruction-content {
-  padding: var(--spacing-lg);
-  overflow-y: auto;
-  max-height: calc(50vh - 48px);
-  transition: opacity 0.2s ease; /* Fade content */
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* Collapsed state - hide entire panel */
@@ -746,10 +787,11 @@ body {
    =========================== */
 
 .workspace {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
 }
 
 /* Editor Tabs */
@@ -910,20 +952,47 @@ body {
     /* border-radius: var(--radius-md); */
 }
 
-/* Workspace Panes */
 .workspace-panes {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;  /* ← Changed from row to column */
+    overflow: hidden;
 }
 
-.editor-pane,
+/* ===========================
+   Editor Pane (Top of Right Side)
+   =========================== */
+
+.editor-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-primary);  /* ← Changed from border-right */
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* ===========================
+   Preview Pane (Bottom of Right Side)
+   =========================== */
+
+.preview-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* .editor-pane,
 .preview-pane {
   flex: 1;
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--border-primary);
-}
+} */
 
 .preview-pane {
   border-right: none;
@@ -1766,6 +1835,176 @@ textarea#jsEditor {
 
 .completion-notice.hidden {
     display: none;
+}
+
+/* ===========================
+   Python Editor Container
+   =========================== */
+
+.python-editor-container {
+    display: flex;
+    flex: 1;
+    min-width: 0; /* Fix overflow issues */
+    flex-direction: column;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    overflow: hidden;
+}
+
+/* ===========================
+   Python Output Panel
+   =========================== */
+
+.python-output-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    overflow: hidden;
+    min-height: 0;
+}
+
+.output-label {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--spacing-md);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+}
+
+.output-controls {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+/* Console Input Bar */
+.console-input-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-primary);
+}
+
+.input-prefix {
+    color: var(--text-tertiary);
+    font-family: var(--font-mono);
+    font-weight: var(--font-weight-semibold);
+}
+
+.console-input-field {
+    flex: 1;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-sm);
+    background: var(--bg-primary);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+}
+
+.console-input-field:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--bg-tertiary);
+}
+
+.console-input-field:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+/* Output Console */
+.output-console {
+    flex: 1;
+    padding: var(--spacing-md);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    background: #1e1e1e;
+    color: #d4d4d4;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.output-placeholder {
+    color: #6b7280;
+    font-style: italic;
+}
+
+.output-line {
+    margin-bottom: var(--spacing-xs);
+}
+
+.output-error {
+    color: #f48771;
+}
+
+/* ===========================
+   CodeMirror Editors
+   =========================== */
+
+.CodeMirror {
+    height: 100%;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.CodeMirror-scroll {
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+/* Hide original textareas (CodeMirror creates its own) */
+.code-editor {
+    display: none;
+}
+
+/* ===========================
+   CodeMirror Container Fix
+   =========================== */
+
+.python-editor-container .CodeMirror,
+.editor-pane .CodeMirror {
+    height: 100%;
+    width: 100%;
+}
+
+.CodeMirror {
+    height: 100%;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.5;
+    border: none;
+}
+
+.CodeMirror-gutters {
+    border-right: 1px solid var(--border-primary);
+    background-color: var(--bg-secondary);
+}
+
+.CodeMirror-linenumber {
+    color: var(--text-tertiary);
+    padding: 0 8px;
+}
+
+/* Ensure text doesn't overlap gutters */
+.CodeMirror-lines {
+    padding: 4px 0;
+}
+
+.CodeMirror-line {
+    padding: 0 4px;
+    padding-left: 8px !important;
 }
 
 

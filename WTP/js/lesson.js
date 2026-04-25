@@ -1,4 +1,108 @@
 // ===========================
+// Global Variables
+// ===========================
+
+// // Get URL parameters
+const urlParams = new URLSearchParams(window.location.search);
+const moduleId = urlParams.get('module') || 'Module Not Identified';
+const unitId = parseInt(urlParams.get('unit')) || 1;
+const lessonId = parseInt(urlParams.get('lesson')) || 1;
+
+// // DOM elements
+const lessonUnitTitle = document.querySelector('.lesson-unit-title');
+const instructionTitle = document.querySelector('.instruction-title');
+const instructionContent = document.getElementById('instructionContent');
+// const htmlEditor = document.getElementById('htmlEditor');
+// const cssEditor = document.getElementById('cssEditor');
+// const jsEditor = document.getElementById('jsEditor');
+
+// Store current lesson data
+let currentLesson = null;
+let currentUnit = null;
+let allLessons = [];
+let pyodide = null;  // Pyodide instance for Python execution
+let pythonExecutionController = null;
+
+// CodeMirror editor instances
+let htmlEditorCM = null;
+let cssEditorCM = null;
+let jsEditorCM = null;
+let pythonEditorCM = null;
+
+let isResetting = false;
+
+// Initialize CodeMirror editors
+function initializeCodeMirrorEditors() {
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' 
+        ? 'material-darker' 
+        : 'default';
+    
+    // HTML Editor
+    htmlEditorCM = CodeMirror.fromTextArea(document.getElementById('htmlEditor'), {
+        mode: 'htmlmixed',
+        theme: theme,
+        lineNumbers: true,
+        lineWrapping: true,
+        indentUnit: 2,
+        tabSize: 2,
+        indentWithTabs: false,
+        autoCloseBrackets: true,
+        autoCloseTags: true,
+        matchBrackets: true
+    });
+    
+    // CSS Editor
+    cssEditorCM = CodeMirror.fromTextArea(document.getElementById('cssEditor'), {
+        mode: 'css',
+        theme: theme,
+        lineNumbers: true,
+        lineWrapping: true,
+        indentUnit: 2,
+        tabSize: 2,
+        indentWithTabs: false,
+        autoCloseBrackets: true,
+        matchBrackets: true
+    });
+    
+    // JavaScript Editor
+    jsEditorCM = CodeMirror.fromTextArea(document.getElementById('jsEditor'), {
+        mode: 'javascript',
+        theme: theme,
+        lineNumbers: true,
+        lineWrapping: true,
+        indentUnit: 2,
+        tabSize: 2,
+        indentWithTabs: false,
+        autoCloseBrackets: true,
+        matchBrackets: true
+    });
+    
+    // Python Editor
+    pythonEditorCM = CodeMirror.fromTextArea(document.getElementById('pythonEditor'), {
+        mode: 'python',
+        theme: theme,
+        lineNumbers: true,
+        lineWrapping: true,
+        indentUnit: 4,
+        tabSize: 4,
+        indentWithTabs: false,
+        autoCloseBrackets: true,
+        matchBrackets: true
+    });
+    
+    // Set initial heights
+    htmlEditorCM.setSize(null, '100%');
+    htmlEditorCM.refresh();
+    cssEditorCM.setSize(null, '100%');
+    cssEditorCM.refresh();
+    jsEditorCM.setSize(null, '100%');
+    jsEditorCM.refresh();
+    pythonEditorCM.setSize(null, '100%');
+    pythonEditorCM.refresh();
+}
+
+
+// ===========================
 // Confirmation Modal System
 // ===========================
 
@@ -100,21 +204,58 @@ function updatePreview() {
     const cssEditor = document.getElementById('cssEditor');
     const jsEditor = document.getElementById('jsEditor');
     
-    let htmlCode = htmlEditor.value;
-    const cssCode = cssEditor.value;
-    const jsCode = jsEditor.value;
+    let htmlCode = htmlEditorCM.getValue();  // ← Change const to let
+    const cssCode = cssEditorCM.getValue();
+    const jsCode = jsEditorCM.getValue();
+        
+    // Check if HTML has a <link> tag for stylesheet
+    const hasLinkTag = /<link\s+rel=["']stylesheet["']\s+href=["'][^"']+["']\s*\/?>/gi.test(htmlCode);
     
-    // Replace <link rel="stylesheet"> with inline <style>
-    htmlCode = htmlCode.replace(
-        /<link\s+rel=["']stylesheet["']\s+href=["'][^"']+["']\s*\/?>/gi,
-        '<style>' + cssCode + '</style>'
-    );
+    if (hasLinkTag) {
+        // Replace <link> with inline <style>
+        htmlCode = htmlCode.replace(
+            /<link\s+rel=["']stylesheet["']\s+href=["'][^"']+["']\s*\/?>/gi,
+            '<style>' + cssCode + '</style>'
+        );
+    } else {
+        // No <link> tag - inject CSS into <head> if it exists, otherwise add before </body>
+        if (/<head>/i.test(htmlCode)) {
+            htmlCode = htmlCode.replace(
+                /<\/head>/i,
+                '<style>' + cssCode + '</style></head>'
+            );
+        } else if (/<\/body>/i.test(htmlCode)) {
+            htmlCode = htmlCode.replace(
+                /<\/body>/i,
+                '<style>' + cssCode + '</style></body>'
+            );
+        } else {
+            // No head or body - just prepend CSS
+            htmlCode = '<style>' + cssCode + '</style>' + htmlCode;
+        }
+    }
     
-    // Replace <script src="..."></script> with inline <script>
-    htmlCode = htmlCode.replace(
-        /<script\s+src=["'][^"']+["']\s*><\/script>/gi,
-        '<script>' + jsCode + '</script>'
-    );
+    // Check if HTML has a <script src> tag
+    const hasScriptTag = /<script\s+src=["'][^"']+["']\s*><\/script>/gi.test(htmlCode);
+    
+    if (hasScriptTag) {
+        // Replace <script src> with inline <script>
+        htmlCode = htmlCode.replace(
+            /<script\s+src=["'][^"']+["']\s*><\/script>/gi,
+            '<script>' + jsCode + '</script>'
+        );
+    } else {
+        // No <script src> tag - inject JS before </body> if it exists, otherwise append
+        if (/<\/body>/i.test(htmlCode)) {
+            htmlCode = htmlCode.replace(
+                /<\/body>/i,
+                '<script>' + jsCode + '</script></body>'
+            );
+        } else {
+            // No body tag - just append
+            htmlCode = htmlCode + '<script>' + jsCode + '</script>';
+        }
+    }
     
     const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
     previewDoc.open();
@@ -135,8 +276,8 @@ function debounce(func, wait) {
     };
 }
 
-// Set up preview listeners when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
+// Set up preview update listeners AFTER CodeMirror is initialized
+function setupPreviewListeners() {
     const debouncedUpdate = debounce(() => {
         updatePreview();
         // Also update popout if open
@@ -151,10 +292,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 500);
     
-    htmlEditor.addEventListener('input', debouncedUpdate);
-    cssEditor.addEventListener('input', debouncedUpdate);
-    jsEditor.addEventListener('input', debouncedUpdate);
-});
+    htmlEditorCM.on('change', debouncedUpdate);
+    cssEditorCM.on('change', debouncedUpdate);
+    jsEditorCM.on('change', debouncedUpdate);
+}
 
 // Rest of lesson.js code below...
 
@@ -163,25 +304,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // // ===========================
 // // Lesson Platform - Load and Display Lesson
 // // ===========================
-
-// // Get URL parameters
-const urlParams = new URLSearchParams(window.location.search);
-const moduleId = urlParams.get('module') || 'Module Not Identified';
-const unitId = parseInt(urlParams.get('unit')) || 1;
-const lessonId = parseInt(urlParams.get('lesson')) || 1;
-
-// // DOM elements
-const lessonUnitTitle = document.querySelector('.lesson-unit-title');
-const instructionTitle = document.querySelector('.instruction-title');
-const instructionContent = document.getElementById('instructionContent');
-// const htmlEditor = document.getElementById('htmlEditor');
-// const cssEditor = document.getElementById('cssEditor');
-// const jsEditor = document.getElementById('jsEditor');
-
-// Store current lesson data
-let currentLesson = null;
-let currentUnit = null;
-let allLessons = [];
 
 // Load lesson data
 async function loadLesson() {
@@ -213,6 +335,20 @@ async function loadLesson() {
         if (!currentLesson) {
             throw new Error('Lesson not found');
         }
+
+        // Initialize CodeMirror editors (do this once)
+        if (!htmlEditorCM) {                              // ← ADD THIS
+            initializeCodeMirrorEditors();                // ← ADD THIS
+            setupPreviewListeners();                     // ← ADD THIS
+        } 
+
+        // Detect language and setup UI
+        const language = currentLesson.language || 'web';  // ← ADD THIS
+        if (language === 'python') {                       // ← ADD THIS
+            setupPythonLesson();                           // ← ADD THIS
+        } else {                                           // ← ADD THIS
+            setupWebLesson();                              // ← ADD THIS
+        }                                                  // ← ADD THIS
         
         // Update page with lesson data
         updateLessonTitle(module, currentUnit, currentLesson);
@@ -248,6 +384,35 @@ async function loadLesson() {
     } catch (error) {
         console.error('Error loading lesson:', error);
         showToast('Error loading lesson. Please try again.', 'error');
+    }
+}
+
+// ===========================
+// Language-Based Setup
+// ===========================
+
+function setupWebLesson() {
+    // Show web editors and preview
+    document.querySelector('.editor-pane').style.display = 'flex';
+    document.querySelector('.preview-pane').style.display = 'flex';
+    
+    // Hide Python elements
+    document.getElementById('pythonEditorContainer').style.display = 'none';
+    document.getElementById('pythonOutputPanel').style.display = 'none';
+}
+
+function setupPythonLesson() {
+    // Hide web editors and preview
+    document.querySelector('.editor-pane').style.display = 'none';
+    document.querySelector('.preview-pane').style.display = 'none';
+    
+    // Show Python elements
+    document.getElementById('pythonEditorContainer').style.display = 'flex';
+    document.getElementById('pythonOutputPanel').style.display = 'flex';
+    
+    if (!pyodide) {
+        // Initialize Pyodide (async - doesn't block page load)
+        initializePyodide();
     }
 }
 
@@ -287,29 +452,49 @@ async function loadInstructionContent(lesson) {
 // Load starter code into editors
 async function loadStarterCode(lesson) {
     try {
-        // Load HTML starter
-        if (lesson.starterCode.html) {
-            const htmlResponse = await fetch(lesson.starterCode.html);
-            const htmlCode = await htmlResponse.text();
-            htmlEditor.value = htmlCode;
-        }
+        const language = lesson.language || 'web';
         
-        // Load CSS starter
-        if (lesson.starterCode.css) {
-            const cssResponse = await fetch(lesson.starterCode.css);
-            const cssCode = await cssResponse.text();
-            cssEditor.value = cssCode;
+        if (language === 'python') {
+            // Load Python starter code
+            if (lesson.starterCode && lesson.starterCode.python) {
+                const pythonResponse = await fetch(lesson.starterCode.python);
+                const pythonCode = await pythonResponse.text();
+                pythonEditorCM.setValue(pythonCode);
+            } else {
+                // No starter code - clear editor
+                pythonEditorCM.setValue('');
+            }
+        } else {
+            // Load or clear HTML editor
+            if (lesson.starterCode && lesson.starterCode.html) {
+                const htmlResponse = await fetch(lesson.starterCode.html);
+                const htmlCode = await htmlResponse.text();
+                htmlEditorCM.setValue(htmlCode);
+            } else {
+                htmlEditorCM.setValue('');
+            }
+            
+            // Load or clear CSS editor
+            if (lesson.starterCode && lesson.starterCode.css) {
+                const cssResponse = await fetch(lesson.starterCode.css);
+                const cssCode = await cssResponse.text();
+                cssEditorCM.setValue(cssCode);
+            } else {
+                cssEditorCM.setValue('');
+            }
+            
+            // Load or clear JS editor
+            if (lesson.starterCode && lesson.starterCode.js) {
+                const jsResponse = await fetch(lesson.starterCode.js);
+                const jsCode = await jsResponse.text();
+                jsEditorCM.setValue(jsCode);
+            } else {
+                jsEditorCM.setValue('');
+            }
+            
+            // Trigger preview update
+            updatePreview();
         }
-        
-        // Load JS starter
-        if (lesson.starterCode.js) {
-            const jsResponse = await fetch(lesson.starterCode.js);
-            const jsCode = await jsResponse.text();
-            jsEditor.value = jsCode;
-        }
-        
-        // Trigger initial preview update
-        updatePreview();
         
     } catch (error) {
         console.error('Error loading starter code:', error);
@@ -318,13 +503,20 @@ async function loadStarterCode(lesson) {
 
 // Setup editor panels based on activePanels
 function setupEditorPanels(lesson) {
+    // Only set up panels for web lessons
+    const language = lesson.language || 'web';
+    
+    if (language !== 'web') {
+        return; // Skip for Python lessons
+    }
+    
     const editorTabs = document.querySelectorAll('.editor-tab');
     
     editorTabs.forEach(tab => {
         const editorType = tab.getAttribute('data-editor');
         
         // Enable/disable tabs based on activePanels
-        if (lesson.activePanels.includes(editorType)) {
+        if (lesson.activePanels && lesson.activePanels.includes(editorType)) {
             tab.classList.remove('disabled');
         } else {
             tab.classList.add('disabled');
@@ -332,10 +524,12 @@ function setupEditorPanels(lesson) {
     });
     
     // Activate the first available panel
-    const firstActivePanel = lesson.activePanels[0];
-    const firstTab = document.querySelector(`[data-editor="${firstActivePanel}"]`);
-    if (firstTab) {
-        firstTab.click();
+    if (lesson.activePanels && lesson.activePanels.length > 0) {
+        const firstActivePanel = lesson.activePanels[0];
+        const firstTab = document.querySelector(`[data-editor="${firstActivePanel}"]`);
+        if (firstTab) {
+            firstTab.click();
+        }
     }
 }
 
@@ -426,6 +620,7 @@ function markLessonComplete() {
 }
 
 // Reset unit progress
+// Reset unit progress
 async function resetUnitProgress() {
     const confirmReset = await showConfirmation(
         'Reset Unit Progress?',
@@ -443,11 +638,30 @@ async function resetUnitProgress() {
             localStorage.removeItem(wipKey);
         });
         
+        // If we're currently viewing a lesson in this unit, reload its starter code
+        const wipKey = `wip_${moduleId}_${unitId}_${lessonId}`;
+        
+        // Set flag to prevent auto-save
+        isResetting = true;
+        
+        // Reload current lesson's starter code
+        await loadStarterCode(currentLesson);
+        
+        const language = currentLesson.language || 'web';
+        if (language === 'web' && typeof updatePreview === 'function') {
+            updatePreview();
+        }
+        
+        // Re-enable auto-save
+        setTimeout(() => {
+            isResetting = false;
+        }, 500);
+        
         // Update UI
-        // populateMenuModal(currentUnit, allLessons, lessonId);
         updateCompleteButtonState();
         updateCompletionNotice();
-        populateSidebarLessons();  // ← Update sidebar status
+        populateSidebarLessons();
+        updateProgressIndicator();
         updateSaveIndicator('saved');
         
         // Show confirmation
@@ -565,105 +779,146 @@ function checkLessonComplete(moduleId, unitId, lessonId) {
 let autoSaveInterval;
 let hasUnsavedChanges = false;
 
-// Start auto-save (every 30 seconds)
+// Start auto-saving work in progress
 function startAutoSave() {
-    // Set up change detection
-    const editors = [
-        document.getElementById('htmlEditor'),
-        document.getElementById('cssEditor'),
-        document.getElementById('jsEditor')
-    ];
+    const language = currentLesson.language || 'web';
     
-    editors.forEach(editor => {
-        editor.addEventListener('input', () => {
-            hasUnsavedChanges = true;
+    if (language === 'python') {
+        // Show unsaved immediately on change
+        pythonEditorCM.on('change', () => {
             updateSaveIndicator('unsaved');
         });
-    });
-    
-    // Auto-save interval
-    autoSaveInterval = setInterval(() => {
-        if (hasUnsavedChanges) {
+        
+        // Auto-save Python editor after delay
+        pythonEditorCM.on('change', debounce(() => {
+            updateSaveIndicator('saving');
             saveWorkInProgress();
-        }
-    }, 10000); // 10 seconds
+        }, 10000));
+        
+    } else {
+        // Show unsaved immediately on change
+        htmlEditorCM.on('change', () => {
+            updateSaveIndicator('unsaved');
+        });
+        cssEditorCM.on('change', () => {
+            updateSaveIndicator('unsaved');
+        });
+        jsEditorCM.on('change', () => {
+            updateSaveIndicator('unsaved');
+        });
+        
+        // Auto-save Web editors after delay
+        htmlEditorCM.on('change', debounce(() => {
+            updateSaveIndicator('saving');
+            saveWorkInProgress();
+        }, 10000));
+        
+        cssEditorCM.on('change', debounce(() => {
+            updateSaveIndicator('saving');
+            saveWorkInProgress();
+        }, 10000));
+        
+        jsEditorCM.on('change', debounce(() => {
+            updateSaveIndicator('saving');
+            saveWorkInProgress();
+        }, 10000));
+    }
 }
 
-// Save current editor content to localStorage
+// Save work in progress to localStorage
 function saveWorkInProgress() {
-    updateSaveIndicator('saving');
-    
+
+    if (isResetting) {
+        return; // Skip saving if we're in the middle of resetting progress
+    }
+
+    const language = currentLesson.language || 'web';
     const wipKey = `wip_${moduleId}_${unitId}_${lessonId}`;
     
-    const wip = {
-        html: document.getElementById('htmlEditor').value,
-        css: document.getElementById('cssEditor').value,
-        js: document.getElementById('jsEditor').value,
-        timestamp: new Date().toISOString()
-    };
+    if (language === 'python') {
+        // Save Python code
+        const pythonCode = pythonEditorCM.getValue();
+        
+        const workInProgress = {
+            python: pythonCode,
+            timestamp: Date.now()
+        };
+        
+        localStorage.setItem(wipKey, JSON.stringify(workInProgress));
+        
+    } else {
+        // Save Web code
+        const htmlCode = htmlEditorCM.getValue();
+        const cssCode = cssEditorCM.getValue();
+        const jsCode = jsEditorCM.getValue();
+        
+        const workInProgress = {
+            html: htmlCode,
+            css: cssCode,
+            js: jsCode,
+            timestamp: Date.now()
+        };
+        
+        localStorage.setItem(wipKey, JSON.stringify(workInProgress));
+    }
     
-    localStorage.setItem(wipKey, JSON.stringify(wip));
-    hasUnsavedChanges = false;
-    
-    console.log('Work in progress auto-saved');
-    
-    // Show saved state briefly
-    setTimeout(() => {
-        updateSaveIndicator('saved');
-    }, 500);
+    updateSaveIndicator('saved');
 }
 
-// Update save indicator UI
-function updateSaveIndicator(state) {
-    const indicator = document.getElementById('saveIndicator');
-    if (!indicator) return;
+// Update save indicator
+function updateSaveIndicator(status) {
+    const language = currentLesson?.language || 'web';
+    const indicatorId = language === 'python' ? 'pythonSaveIndicator' : 'saveIndicator';
+    const saveIndicator = document.getElementById(indicatorId);
     
-    const statusText = indicator.querySelector('.save-text');
+    if (!saveIndicator) return;
     
-    // Remove all state classes
-    indicator.classList.remove('saved', 'saving', 'unsaved');
+    const saveStatus = saveIndicator.querySelector('.save-status');
+    const saveText = saveIndicator.querySelector('.save-text');
     
-    // Add current state
-    indicator.classList.add(state);
-    
-    // Update text
-    if (state === 'saved') {
-        statusText.textContent = 'Saved';
-    } else if (state === 'saving') {
-        statusText.textContent = 'Saving...';
-    } else if (state === 'unsaved') {
-        statusText.textContent = 'Unsaved changes';
+    if (status === 'saving') {
+        saveStatus.style.color = '#fbbf24';  // Yellow
+        saveText.textContent = 'Saving...';
+    } else if (status === 'saved') {
+        saveStatus.style.color = '#10b981';  // Green
+        saveText.textContent = 'Saved';
+    } else if (status === 'unsaved') {      // ← ADD THIS
+        saveStatus.style.color = '#ef4444';  // Red
+        saveText.textContent = 'Unsaved changes';
     }
 }
 
 // Restore work in progress from localStorage
 function restoreWorkInProgress() {
+    const language = currentLesson.language || 'web';
     const wipKey = `wip_${moduleId}_${unitId}_${lessonId}`;
-    const savedWip = localStorage.getItem(wipKey);
+    const savedWork = localStorage.getItem(wipKey);
     
-    if (savedWip) {
-        try {
-            const wip = JSON.parse(savedWip);
+    if (savedWork) {
+        const workInProgress = JSON.parse(savedWork);
+        
+        if (language === 'python') {
+            // Restore Python code
+            if (workInProgress.python !== undefined) {
+                pythonEditorCM.setValue(workInProgress.python);
+                updateSaveIndicator('saved');
+            }
             
-            // Restore without asking
-            document.getElementById('htmlEditor').value = wip.html;
-            document.getElementById('cssEditor').value = wip.css;
-            document.getElementById('jsEditor').value = wip.js;
-            
-            // Update preview
-            if (typeof updatePreview === 'function') {
-                updatePreview();
+        } else {
+            // Restore Web code
+            if (workInProgress.html !== undefined) {
+                htmlEditorCM.setValue(workInProgress.html);
+            }
+            if (workInProgress.css !== undefined) {
+                cssEditorCM.setValue(workInProgress.css);
+            }
+            if (workInProgress.js !== undefined) {
+                jsEditorCM.setValue(workInProgress.js);
             }
             
             updateSaveIndicator('saved');
-            console.log('Work in progress restored');
-            
-        } catch (error) {
-            console.error('Error restoring work in progress:', error);
-            updateSaveIndicator('saved');
+            updatePreview();
         }
-    } else {
-        updateSaveIndicator('saved');
     }
 }
 
@@ -689,6 +944,46 @@ function updateCompletionNotice() {
 }
 
 
+// // Reset current lesson progress
+// async function resetLessonProgress() {
+//     const confirmReset = await showConfirmation(
+//         'Reset Lesson Progress?',
+//         `Are you sure you want to reset your progress for this lesson? This will clear your saved work and mark it as incomplete.`
+//     );
+    
+//     if (confirmReset) {
+//         // Remove from progress
+//         const progressKey = `progress_${moduleId}_${unitId}`;
+//         let progress = JSON.parse(localStorage.getItem(progressKey) || '[]');
+//         progress = progress.filter(id => id !== lessonId);
+//         localStorage.setItem(progressKey, JSON.stringify(progress));
+        
+//         // Clear WIP
+//         const wipKey = `wip_${moduleId}_${unitId}_${lessonId}`;
+//         localStorage.removeItem(wipKey);
+        
+//         // Reload starter code
+//         await loadStarterCode(currentLesson);
+        
+//         // Update preview
+//         if (typeof updatePreview === 'function') {
+//             updatePreview();
+//         }
+        
+//         // Update UI
+//         // updateCompletionUI();
+//         updateCompleteButtonState();
+//         updateCompletionNotice();
+//         populateSidebarLessons();  // ← Update sidebar status
+//         updateProgressIndicator();  // ← ADD THIS
+//         updateSaveIndicator('saved');
+
+        
+//         // Show confirmation
+//         showToast('Lesson progress has been reset.', 'success');
+//     }
+// }
+
 // Reset current lesson progress
 async function resetLessonProgress() {
     const confirmReset = await showConfirmation(
@@ -697,32 +992,45 @@ async function resetLessonProgress() {
     );
     
     if (confirmReset) {
+        const language = currentLesson.language || 'web';
+
+        isResetting = true;
+        
         // Remove from progress
         const progressKey = `progress_${moduleId}_${unitId}`;
         let progress = JSON.parse(localStorage.getItem(progressKey) || '[]');
         progress = progress.filter(id => id !== lessonId);
         localStorage.setItem(progressKey, JSON.stringify(progress));
         
-        // Clear WIP
+        // Clear WIP from localStorage FIRST
         const wipKey = `wip_${moduleId}_${unitId}_${lessonId}`;
         localStorage.removeItem(wipKey);
         
-        // Reload starter code
-        await loadStarterCode(currentLesson);
-        
-        // Update preview
-        if (typeof updatePreview === 'function') {
-            updatePreview();
+        // THEN reload starter code based on language
+        if (language === 'python') {
+            // Load Python starter code
+            await loadStarterCode(currentLesson);
+        } else {
+            // Load web starter code
+            await loadStarterCode(currentLesson);
+            
+            // Update preview for web lessons
+            if (typeof updatePreview === 'function') {
+                updatePreview();
+            }
         }
+
+        // Re-enable auto-save after a short delay
+        setTimeout(() => {
+            isResetting = false;
+        }, 500);
         
         // Update UI
-        // updateCompletionUI();
         updateCompleteButtonState();
         updateCompletionNotice();
-        populateSidebarLessons();  // ← Update sidebar status
-        updateProgressIndicator();  // ← ADD THIS
+        populateSidebarLessons();
+        updateProgressIndicator();
         updateSaveIndicator('saved');
-
         
         // Show confirmation
         showToast('Lesson progress has been reset.', 'success');
@@ -733,35 +1041,80 @@ async function resetLessonProgress() {
 // Save Code Download
 // ===========================
 
-function saveCode() {
-    const htmlCode = document.getElementById('htmlEditor').value;
-    const cssCode = document.getElementById('cssEditor').value;
-    const jsCode = document.getElementById('jsEditor').value;
+// function saveCode() {
+//     const htmlCode = document.getElementById('htmlEditor').value;
+//     const cssCode = document.getElementById('cssEditor').value;
+//     const jsCode = document.getElementById('jsEditor').value;
     
-    // Create filename based on module, unit, lesson
+//     // Create filename based on module, unit, lesson
+//     const filename = `${moduleId}-Unit${unitId}-Lesson${lessonId}`;
+    
+//     // Create a zip file with all three files
+//     const zip = new JSZip();
+    
+//     // Save files with proper names
+//     zip.file('index.html', htmlCode);  // HTML already has <link> and <script> tags
+//     zip.file('styles.css', cssCode);
+//     zip.file('script.js', jsCode);
+    
+//     // Generate zip and trigger download
+//     zip.generateAsync({type: 'blob'}).then(function(content) {
+//         const url = URL.createObjectURL(content);
+//         const a = document.createElement('a');
+//         a.href = url;
+//         a.download = `${filename}.zip`;
+//         document.body.appendChild(a);
+//         a.click();
+//         document.body.removeChild(a);
+//         URL.revokeObjectURL(url);
+        
+//         showToast('Code downloaded successfully!', 'success');
+//     });
+// }
+
+function saveCode() {
+    const language = currentLesson.language || 'web';
     const filename = `${moduleId}-Unit${unitId}-Lesson${lessonId}`;
     
-    // Create a zip file with all three files
-    const zip = new JSZip();
-    
-    // Save files with proper names
-    zip.file('index.html', htmlCode);  // HTML already has <link> and <script> tags
-    zip.file('styles.css', cssCode);
-    zip.file('script.js', jsCode);
-    
-    // Generate zip and trigger download
-    zip.generateAsync({type: 'blob'}).then(function(content) {
-        const url = URL.createObjectURL(content);
+    if (language === 'python') {
+        // Python lesson - download single .py file (no zip needed)
+        const pythonCode = pythonEditorCM.getValue();
+        const blob = new Blob([pythonCode], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${filename}.zip`;
+        a.download = `${filename}.py`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
         
-        showToast('Code downloaded successfully!', 'success');
-    });
+        showToast('Python code downloaded successfully!', 'success');
+        
+    } else {
+        // Web lesson - download HTML/CSS/JS as zip (multiple files)
+        const htmlCode = htmlEditorCM.getValue();
+        const cssCode = cssEditorCM.getValue();
+        const jsCode = jsEditorCM.getValue();
+        
+        const zip = new JSZip();
+        zip.file('index.html', htmlCode);
+        zip.file('styles.css', cssCode);
+        zip.file('script.js', jsCode);
+        
+        zip.generateAsync({type: 'blob'}).then(function(content) {
+            const url = URL.createObjectURL(content);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${filename}.zip`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('Code downloaded successfully!', 'success');
+        });
+    }
 }
 
 // Update browser page title
@@ -851,13 +1204,9 @@ function closePopoutPreview() {
 function updatePopoutPreview() {
     if (!popoutWindow || popoutWindow.closed) return;
     
-    const htmlEditor = document.getElementById('htmlEditor');
-    const cssEditor = document.getElementById('cssEditor');
-    const jsEditor = document.getElementById('jsEditor');
-    
-    let htmlCode = htmlEditor.value;
-    const cssCode = cssEditor.value;
-    const jsCode = jsEditor.value;
+    let htmlCode = htmlEditorCM.getValue();
+    const cssCode = cssEditorCM.getValue();
+    const jsCode = jsEditorCM.getValue();
     
     // Replace <link> and <script> tags
     htmlCode = htmlCode.replace(
@@ -1075,6 +1424,473 @@ function populateSidebarHints() {
     });
     
     hintsSidebarContent.innerHTML = hintsHTML;
+}
+
+// // Initialize Pyodide for Python lessons
+// async function initializePyodide() {
+//     if (pyodide) {
+//         // Already initialized in this page load
+//         return pyodide;
+//     }
+    
+//     // Check if already initialized in this session
+//     const pyodideReady = sessionStorage.getItem('pyodideReady');    
+    
+//     try {
+//         if (!pyodideReady) {
+//             // First time loading in this session
+//             showToast('Loading Python environment...', 'info');
+//         }
+        
+//         // Load Pyodide from CDN
+//         pyodide = await loadPyodide();
+        
+//         // Mark as ready in session
+//         sessionStorage.setItem('pyodideReady', 'true');
+        
+//         if (!pyodideReady) {
+//             // Only show success toast on first load
+//             showToast('Python environment ready!', 'success');
+//         }
+        
+//         return pyodide;
+        
+//     } catch (error) {
+//         console.error('Failed to initialize Pyodide:', error);
+//         showToast('Failed to load Python environment. Please refresh the page.', 'error');
+//         return null;
+//     }
+// }
+
+// Initialize Pyodide for Python lessons
+async function initializePyodide() {
+    if (pyodide) {
+        // Already initialized
+        return pyodide;
+    }
+    
+    try {
+        showToast('Loading Python environment...', 'info');
+        
+        // Load Pyodide from CDN
+        pyodide = await loadPyodide();
+        
+        showToast('Python environment ready!', 'success');
+        return pyodide;
+        
+    } catch (error) {
+        console.error('Failed to initialize Pyodide:', error);
+        showToast('Failed to load Python environment. Please refresh the page.', 'error');
+        return null;
+    }
+}
+
+// // Execute Python code
+// async function executePythonCode() {
+//     // Ensure Pyodide is loaded
+//     if (!pyodide) {
+//         showToast('Python environment not ready. Please wait...', 'warning');
+//         await initializePyodide();
+//         if (!pyodide) {
+//             showToast('Failed to load Python. Please refresh.', 'error');
+//             return;
+//         }
+//     }
+    
+//     const pythonEditor = document.getElementById('pythonEditor');
+//     const outputConsole = document.getElementById('outputConsole');
+//     const consoleInput = document.getElementById('consoleInput');
+//     const code = pythonEditor.value;
+    
+//     // Clear previous output
+//     outputConsole.innerHTML = '';
+    
+//     if (!code.trim()) {
+//         outputConsole.innerHTML = '<div class="output-placeholder">No code to run</div>';
+//         return;
+//     }
+    
+//     // Disable Run button during execution
+//     const runBtn = document.getElementById('runPythonBtn');
+//     runBtn.disabled = true;
+//     runBtn.textContent = '⏳ Running...';
+    
+//     try {
+//         // Capture stdout
+//         let output = '';
+        
+//         pyodide.setStdout({
+//             batched: (text) => {
+//                 output += text + '\n';
+//                 // Display output in real-time
+//                 const outputLine = document.createElement('div');
+//                 outputLine.className = 'output-line';
+//                 outputLine.textContent = text;
+//                 outputConsole.appendChild(outputLine);
+//                 // Auto-scroll to bottom
+//                 outputConsole.scrollTop = outputConsole.scrollHeight;
+//             }
+//         });
+        
+//         // Override Python's input() function
+//         pyodide.globals.set('js_input', async (prompt) => {
+//             return await getConsoleInput(prompt || '');
+//         });
+        
+//         await pyodide.runPythonAsync(`
+// import builtins
+// import asyncio
+
+// async def custom_input(prompt=''):
+//     # Display prompt in console
+//     if prompt:
+//         print(prompt, end='')
+//     # Get input from JavaScript
+//     result = await js_input(prompt)
+//     return result
+
+// # Override built-in input
+// builtins.input = custom_input
+//         `);
+        
+//         // Run the user's code
+//         await pyodide.runPythonAsync(code);
+        
+//         // If no output was produced
+//         if (!output.trim() && outputConsole.children.length === 0) {
+//             outputConsole.innerHTML = '<div class="output-placeholder">Code executed successfully (no output)</div>';
+//         }
+        
+//     } catch (error) {
+//         // Display formatted error
+//         displayPythonError(error);
+//     } finally {
+//         // Re-enable Run button
+//         runBtn.disabled = false;
+//         runBtn.innerHTML = '<span>▶</span><span>Run Code</span>';
+        
+//         // Disable and clear input field
+//         consoleInput.disabled = true;
+//         consoleInput.value = '';
+//     }
+// }
+
+// Execute Python code
+async function executePythonCode() {
+    // Ensure Pyodide is loaded
+    if (!pyodide) {
+        showToast('Python environment not ready. Please wait...', 'warning');
+        await initializePyodide();
+        if (!pyodide) {
+            showToast('Failed to load Python. Please refresh.', 'error');
+            return;
+        }
+    }
+    
+    // const pythonEditor = document.getElementById('pythonEditor');
+    const outputConsole = document.getElementById('outputConsole');
+    const consoleInput = document.getElementById('consoleInput');
+    const code = pythonEditorCM.getValue();
+    
+    // Clear previous output
+    outputConsole.innerHTML = '';
+    
+    if (!code.trim()) {
+        outputConsole.innerHTML = '<div class="output-placeholder">No code to run</div>';
+        return;
+    }
+    
+    // Create abort controller
+    pythonExecutionController = new AbortController();
+    
+    // Show Stop button, hide Run button
+    const runBtn = document.getElementById('runPythonBtn');
+    const stopBtn = document.getElementById('stopPythonBtn');
+    runBtn.style.display = 'none';
+    stopBtn.style.display = 'flex';
+    
+    try {
+        // Capture stdout
+        let output = '';
+        
+        pyodide.setStdout({
+            batched: (text) => {
+                // Check if execution was stopped
+                if (pythonExecutionController.signal.aborted) {
+                    return;
+                }
+                
+                // Display each line immediately
+                text.split('\n').forEach(line => {
+                    if (line) {
+                        const outputLine = document.createElement('div');
+                        outputLine.className = 'output-line';
+                        outputLine.textContent = line;
+                        outputConsole.appendChild(outputLine);
+                    }
+                });
+                outputConsole.scrollTop = outputConsole.scrollHeight;
+            }
+        });
+        
+        // Create input handler
+        pyodide.globals.set('_js_input_handler', getConsoleInput);
+        
+        // Override input as async
+        await pyodide.runPythonAsync(`
+import builtins
+import sys
+
+async def custom_input(prompt=''):
+    result = await _js_input_handler(prompt)
+    return result
+
+builtins.input = custom_input
+`);
+        
+        // Transform user code: replace 'input(' calls with 'await input('
+        let transformedCode = code.replace(/(\b)input\s*\(/g, '$1await input(');
+        
+        // Wrap in async function
+        const wrappedCode = `
+async def __user_main__():
+${transformedCode.split('\n').map(line => '    ' + line).join('\n')}
+
+await __user_main__()
+`;
+        
+        // Run transformed code with interrupt check
+        const executionPromise = pyodide.runPythonAsync(wrappedCode);
+        
+        // Wait for either completion or abort
+        await Promise.race([
+            executionPromise,
+            new Promise((_, reject) => {
+                pythonExecutionController.signal.addEventListener('abort', () => {
+                    reject(new Error('Execution stopped by user'));
+                });
+            })
+        ]);
+        
+        // If no output was produced
+        if (outputConsole.children.length === 0) {
+            outputConsole.innerHTML = '<div class="output-placeholder">Code executed successfully (no output)</div>';
+        }
+        
+    } catch (error) {
+        if (error.message === 'Execution stopped by user') {
+            // Show stopped message
+            const stoppedLine = document.createElement('div');
+            stoppedLine.className = 'output-line';
+            stoppedLine.style.color = '#fbbf24';
+            stoppedLine.textContent = '⏹ Execution stopped';
+            outputConsole.appendChild(stoppedLine);
+        } else {
+            // Display formatted error
+            displayPythonError(error);
+        }
+    } finally {
+        // Reset buttons
+        runBtn.style.display = 'flex';
+        stopBtn.style.display = 'none';
+        
+        // Disable and clear input field
+        consoleInput.disabled = true;
+        consoleInput.value = '';
+        
+        // Clear controller
+        pythonExecutionController = null;
+    }
+}
+
+// Get input from console
+function getConsoleInput(prompt) {
+    return new Promise((resolve) => {
+        const consoleInput = document.getElementById('consoleInput');
+        const outputConsole = document.getElementById('outputConsole');
+        
+        // Display the prompt in the console FIRST
+        if (prompt) {
+            const promptLine = document.createElement('div');
+            promptLine.className = 'output-line';
+            promptLine.textContent = prompt;
+            outputConsole.appendChild(promptLine);
+            outputConsole.scrollTop = outputConsole.scrollHeight;
+        }
+        
+        // THEN enable input field
+        consoleInput.disabled = false;
+        consoleInput.value = '';
+        consoleInput.placeholder = 'Type here and press Enter...';
+        consoleInput.focus();
+        
+        // Create a live echo line for user's typing
+        const echoLine = document.createElement('div');
+        echoLine.className = 'output-line';
+        echoLine.style.color = '#60a5fa';
+        echoLine.textContent = '';
+        outputConsole.appendChild(echoLine);
+        
+        // Echo input as user types
+        const handleInputChange = () => {
+            echoLine.textContent = consoleInput.value;
+            outputConsole.scrollTop = outputConsole.scrollHeight;
+        };
+        
+        consoleInput.addEventListener('input', handleInputChange);
+        
+        // Handle Enter key
+        const handleInput = (e) => {
+            if (e.key === 'Enter') {
+                const value = consoleInput.value;
+                
+                // Final value already visible in echo line
+                echoLine.textContent = value;
+                
+                // Disable input
+                consoleInput.disabled = true;
+                consoleInput.value = '';
+                
+                // Remove listeners
+                consoleInput.removeEventListener('input', handleInputChange);
+                consoleInput.removeEventListener('keypress', handleInput);
+                
+                // Auto-scroll
+                outputConsole.scrollTop = outputConsole.scrollHeight;
+                
+                // Return value to Python
+                resolve(value);
+            }
+        };
+        
+        consoleInput.addEventListener('keypress', handleInput);
+    });
+}
+
+// Display formatted Python error
+function displayPythonError(error) {
+    const outputConsole = document.getElementById('outputConsole');
+    
+    let errorMessage = error.message || String(error);
+    
+    // Split into lines
+    const lines = errorMessage.split('\n');
+    
+    // Find the actual error line (usually last non-empty line)
+    let errorLine = '';
+    let errorType = 'Error';
+    
+    for (let i = lines.length - 1; i >= 0; i--) {
+        if (lines[i].trim()) {
+            errorLine = lines[i].trim();
+            // Extract error type (e.g., "SyntaxError: message")
+            const match = errorLine.match(/^(\w+Error):\s*(.+)/);
+            if (match) {
+                errorType = match[1];
+                errorLine = match[2];
+                break;
+            }
+        }
+    }
+    
+    // Try to find line number in user's code (look for File "<exec>", line X)
+    let userLineNumber = null;
+    for (const line of lines) {
+        const match = line.match(/File "<exec>", line (\d+)/);
+        if (match) {
+            userLineNumber = match[1];
+            break;
+        }
+    }
+    
+    // Create error header
+    const errorHeader = document.createElement('div');
+    errorHeader.className = 'output-line output-error';
+    errorHeader.style.fontWeight = 'bold';
+    errorHeader.textContent = userLineNumber 
+        ? `${errorType} on line ${userLineNumber}:`
+        : `${errorType}:`;
+    outputConsole.appendChild(errorHeader);
+    
+    // Create error message
+    const errorBody = document.createElement('div');
+    errorBody.className = 'output-line output-error';
+    errorBody.style.marginLeft = '20px';
+    errorBody.textContent = errorLine;
+    outputConsole.appendChild(errorBody);
+    
+    // Add helpful hint
+    const hint = getErrorHint(errorType);
+    if (hint) {
+        const hintLine = document.createElement('div');
+        hintLine.className = 'output-line';
+        hintLine.style.color = '#fbbf24';
+        hintLine.style.marginTop = '10px';
+        hintLine.style.fontStyle = 'italic';
+        hintLine.textContent = `💡 Tip: ${hint}`;
+        outputConsole.appendChild(hintLine);
+    }
+    
+    // Add "Show Full Error" button for debugging
+    const showFullBtn = document.createElement('button');
+    showFullBtn.textContent = '▼ Show Full Error';
+    showFullBtn.className = 'show-full-error-btn';
+    showFullBtn.style.cssText = `
+        margin-top: 10px;
+        padding: 5px 10px;
+        background: transparent;
+        border: 1px solid #6b7280;
+        color: #9ca3af;
+        cursor: pointer;
+        font-size: 12px;
+        border-radius: 3px;
+    `;
+    
+    const fullErrorDiv = document.createElement('pre');
+    fullErrorDiv.className = 'output-line';
+    fullErrorDiv.style.cssText = `
+        display: none;
+        margin-top: 10px;
+        padding: 10px;
+        background: #0d0d0d;
+        border: 1px solid #374151;
+        border-radius: 3px;
+        font-size: 12px;
+        color: #d4d4d4;
+        overflow-x: auto;
+    `;
+    fullErrorDiv.textContent = errorMessage;
+    
+    showFullBtn.addEventListener('click', () => {
+        if (fullErrorDiv.style.display === 'none') {
+            fullErrorDiv.style.display = 'block';
+            showFullBtn.textContent = '▲ Hide Full Error';
+        } else {
+            fullErrorDiv.style.display = 'none';
+            showFullBtn.textContent = '▼ Show Full Error';
+        }
+    });
+    
+    outputConsole.appendChild(showFullBtn);
+    outputConsole.appendChild(fullErrorDiv);
+}
+
+// Get helpful hint for common Python errors
+function getErrorHint(errorType) {
+    const hints = {
+        'SyntaxError': 'Check for missing colons, parentheses, or quotes',
+        'NameError': 'Make sure the variable is defined before using it',
+        'TypeError': 'Check that you\'re using the right data types',
+        'IndentationError': 'Python uses indentation to group code - check your spacing',
+        'IndexError': 'Make sure you\'re not accessing an index that doesn\'t exist',
+        'KeyError': 'The key you\'re looking for doesn\'t exist in the dictionary',
+        'ValueError': 'Check that the value is appropriate for the operation',
+        'ZeroDivisionError': 'You can\'t divide by zero',
+        'AttributeError': 'The object doesn\'t have that attribute or method',
+        'ImportError': 'The module you\'re trying to import isn\'t available'
+    };
+    
+    return hints[errorType] || null;
 }
 
 // Load lesson on page load

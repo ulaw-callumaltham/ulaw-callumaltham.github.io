@@ -34,19 +34,47 @@ body {
 }
 
 .header-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-lg);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
 }
 
 .header-left {
   position: absolute;
-  left: calc(-1 * (100vw - 1200px) / 2 + var(--spacing-lg));
+  /* left: calc(-1 * (100vw - 1200px) / 2 + var(--spacing-lg)); */
   display: flex;
   align-items: center;
 }
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 8px 12px;
+    font-size: 20px;
+    transition: all 0.2s;
+}
+
+.nav-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+[data-theme="dark"] .nav-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.theme-icon {
+    display: inline-block;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -254,6 +282,11 @@ body {
   background: rgba(253, 126, 20, 0.1);   /* Light orange background */
   color: #cc5200;                        /* Darker orange text */
   border-color: rgba(253, 126, 20, 0.3); /* Medium orange border */
+}
+
+.tag-python {
+    background: var(--tag-python);
+    color: white;  /* Python blue needs white text */
 }
 
 /* Progress Bar */

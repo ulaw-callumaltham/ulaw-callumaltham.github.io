@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson Content Builder | CS WTP Admin</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/ulaw-logo.svg">
+    
+    <script src="tinymce/tinymce.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #8b5cf6;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        input[type="text"],
+        input[type="number"],  /* ← ADD THIS */
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #8b5cf6;
+        }
+        
+        .hints-list {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            background: #fafafa;
+            margin-bottom: 10px;  /* ← ADD THIS LINE */
+        }
+        
+        .hint-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        .hint-item input {
+            flex: 1;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #8b5cf6;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #7c3aed;
+        }
+        
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #059669;
+        }
+        
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+        
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+        
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e5e7eb;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .preview-panel {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
+            background: white;
+            min-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .preview-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" style="display: inline-block; margin-bottom: 20px; color: #8b5cf6; font-weight: 500;">← Back to Dashboard</a>
+        <h1>Lesson Content Builder</h1>
+        <p class="subtitle">Create and format lesson instructions without writing HTML</p>
+        
+        <!-- Lesson Details -->
+        <div class="section">
+            <h2 class="section-title">Lesson Details</h2>
+            
+            <div class="grid-2">
+                <div class="form-group">
+                    <label for="moduleId">Module ID *</label>
+                    <input type="text" id="moduleId" placeholder="e.g., CSCI71585">
+                </div>
+                <div class="form-group">
+                    <label for="unitNumber">Unit Number *</label>
+                    <input type="number" id="unitNumber" min="1" placeholder="">
+                </div>
+            </div>            
+            <div class="grid-2">
+                <div class="form-group">
+                    <label for="lessonNumber">Lesson Number *</label>
+                    <input type="number" id="lessonNumber" min="1" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="lessonLanguage">Language *</label>
+                    <select id="lessonLanguage">
+                        <option value="web">Web (HTML/CSS/JS)</option>
+                        <option value="python">Python</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="lessonTitle">Lesson Title *</label>
+                <input type="text" id="lessonTitle" placeholder="e.g., HTML Basics">
+            </div>
+            
+            <div class="form-group">
+                <label for="lessonDescription">Description *</label>
+                <textarea id="lessonDescription" rows="2" placeholder="Brief description of what students will learn"></textarea>
+            </div>
+        </div>
+        <!-- Active Panels -->
+        <div class="section">
+            <h2 class="section-title">Active Editor Panels (Web Lessons Only)</h2>
+            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
+                Select which code editors should be visible for this lesson. 
+            </p>
+            <p style="color:#dc2626; font-size: 14px; margin-bottom: 15px;"><strong>Note:</strong> This section is only applicable for web lessons. If you are creating a Python lesson, please uncheck all boxes.</p>
+            <div class="form-group">
+                <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <input type="checkbox" id="panelHtml" value="html">
+                    <span>HTML Editor</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <input type="checkbox" id="panelCss" value="css">
+                    <span>CSS Editor</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px;">
+                    <input type="checkbox" id="panelJs" value="js">
+                    <span>JavaScript Editor</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Starter Code Files -->
+        <div class="section">
+            <h2 class="section-title">Starter Code Files</h2>
+            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
+                Select which empty starter files to create in the lesson package. Only checked files will be included.
+            </p>
+            
+            <div id="webStarterFiles">
+                <p style="font-weight: 500; margin-bottom: 10px; color: #333;">Web Lessons:</p>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                        <input type="checkbox" id="starterHtml" value="html">
+                        <span>HTML Starter File (starter.html)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                        <input type="checkbox" id="starterCss" value="css">
+                        <span>CSS Starter File (starter.css)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="starterJs" value="js">
+                        <span>JavaScript Starter File (starter.js)</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div id="pythonStarterFiles" style="margin-top: 15px;">
+                <p style="font-weight: 500; margin-bottom: 10px; color: #333;">Python Lessons:</p>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="starterPython" value="python">
+                        <span>Python Starter File (starter.py)</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Instructions Editor -->
+        <div class="section">
+            <h2 class="section-title">Instructions Content</h2>
+            <div id="editor"></div>
+        </div>
+        
+        <!-- Hints -->
+        <div class="section">
+            <h2 class="section-title">Hints</h2>
+            <div class="hints-list" id="hintsList">
+                <!-- Hints will be added here -->
+            </div>
+            <button class="btn btn-secondary btn-small" id="addHintBtn">+ Add Hint</button>
+        </div>
+        
+        <!-- Preview -->
+        <div class="section">
+            <h2 class="section-title">Preview</h2>
+            <div class="preview-panel" id="previewPanel">
+                <p style="color: #999;">Preview will appear here...</p>
+            </div>
+        </div>
+        
+        <!-- Download Options -->
+        <div class="section">
+            <h2 class="section-title">Download Options</h2>
+            
+            <div class="form-group">
+                <label style="display: flex; align-items: center; gap: 8px;">
+                    <input type="checkbox" id="includeMetadata" checked>
+                    <span>Include lesson metadata JSON in package</span>
+                </label>
+                <p style="color: #666; font-size: 14px; margin-top: 8px;">
+                    Uncheck if you're using the Lesson Metadata Builder tool separately.
+                </p>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+            <button type="button" class="btn btn-success" id="downloadPackageBtn">Download Lesson Package</button>
+            <button type="button" class="btn btn-primary" id="previewBtn">Update Preview</button>
+            <button type="button" class="btn btn-danger" id="clearBtn">Clear All</button>
+        </div>
+    </div>
+    
+    <script src="content-builder.js"></script>
+</body>
+</html>

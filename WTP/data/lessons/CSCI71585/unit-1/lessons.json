@@ -1,18 +1,15 @@
 {
   "unitId": 1,
-  "unitTitle": "Placeholder Unit 1 Title",
+  "unitTitle": "HTML 101",
   "lessons": [
     {
       "id": 1,
-      "title": "Placeholder Lesson 1 Title",
-      "description": "Placeholder Lesson 1 Description",
+      "title": "The structure of a web page",
+      "description": "In this lesson, you will learn about the basic structure of a web page and how to use HTML tags to create a well-organized layout.",
+      "language": "web",
       "activePanels": ["html", "css", "js"],
       "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-1/instruction.html",
-      "starterCode": {
-        "html": "data/lessons/CSCI71585/unit-1/lesson-1/starter.html",
-        "css": "data/lessons/CSCI71585/unit-1/lesson-1/starter.css",
-        "js": "data/lessons/CSCI71585/unit-1/lesson-1/starter.js"
-      },
+      "starterCode": {},
       "hints": [
         "Hello there!",
         "General Kenobi!"
@@ -22,6 +19,7 @@
       "id": 2,
       "title": "Placeholder Lesson 2 Title",
       "description": "Placeholder Lesson 2 Description",
+      "language": "web",
       "activePanels": ["html"],
       "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-2/instruction.html",
       "starterCode": {
@@ -38,6 +36,7 @@
       "id": 3,
       "title": "Placeholder Lesson 3 Title",
       "description": "Placeholder Lesson 3 Description",
+      "language": "web",
       "activePanels": ["html", "css"],
       "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-3/instruction.html",
       "starterCode": {
@@ -53,6 +52,7 @@
       "id": 4,
       "title": "Placeholder Lesson 4 Title",
       "description": "Placeholder Lesson 4 Description",
+      "language": "web",
       "activePanels": ["html", "css", "js"],
       "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-4/instruction.html",
       "starterCode": {
@@ -70,6 +70,7 @@
       "id": 5,
       "title": "Placeholder Lesson 5 Title",
       "description": "Placeholder Lesson 5 Description",
+      "language": "web",
       "activePanels": ["html", "css"],
       "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-5/instruction.html",
       "starterCode": {
@@ -85,6 +86,7 @@
       "id": 6,
       "title": "Placeholder Lesson 6 Title",
       "description": "Placeholder Lesson 6 Description",
+      "language": "web",
       "activePanels": ["html", "css", "js"],
       "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-6/instruction.html",
       "starterCode": {
@@ -101,6 +103,7 @@
       "id": 7,
       "title": "Placeholder Lesson 7 Title",
       "description": "Placeholder Lesson 7 Description",
+      "language": "web",
       "activePanels": ["html"],
       "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-7/instruction.html",
       "starterCode": {
@@ -116,6 +119,7 @@
       "id": 8,
       "title": "Placeholder Lesson 8 Title",
       "description": "Placeholder Lesson 8 Description",
+      "language": "web",
       "activePanels": ["html", "css"],
       "instructionFile": "data/lessons/CSCI71585/unit-1/lesson-8/instruction.html",
       "starterCode": {

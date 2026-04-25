@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Tools - CS WTP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 2px solid transparent;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            border-color: #8b5cf6;
+        }
+
+        .tool-card-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .tool-card-disabled:hover {
+            transform: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-color: transparent;
+        }
+
+        .tool-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .tool-card h2 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .tool-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .tool-status {
+            margin-top: 16px;
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .status-available {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-coming-soon {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .back-link {
+            text-align: center;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .back-link a {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .back-link a:hover {
+            color: #7c3aed;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Admin Tools</h1>
+            <p>Course Content Management</p>
+        </div>
+
+        <div class="tools-grid">
+            <!-- Content Builder (Available) -->
+            <a href="content-builder.html" class="tool-card">
+                <div class="tool-icon">📝</div>
+                <h2>Content Builder</h2>
+                <p>Create instruction content with rich text editor, code blocks, and hints</p>
+                <span class="tool-status status-available">Available</span>
+            </a>
+
+            <!-- Unit Metadata Builder (Coming Soon) -->
+            <a href="unit-metadata-builder.html" class="tool-card">
+                <div class="tool-icon">📋</div>
+                <h2>Unit Metadata Builder</h2>
+                <p>Generate units.json with multiple unit entries at once</p>
+                <span class="tool-status status-available">Available</span>
+            </a>
+
+            <!-- Lesson Metadata Builder (Coming Soon) -->
+            <a href="lesson-metadata-builder.html" class="tool-card">
+                <div class="tool-icon">📄</div>
+                <h2>Lesson Metadata Builder</h2>
+                <p>Generate lessons.json with multiple lesson entries at once</p>
+                <span class="tool-status status-available">Available</span>
+            </a>
+        </div>
+
+        <div class="back-link">
+            <a href="../index.html">← Back to Platform</a>
+        </div>
+    </div>
+</body>
+</html>

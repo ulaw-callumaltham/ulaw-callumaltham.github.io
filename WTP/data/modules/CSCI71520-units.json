@@ -5,13 +5,13 @@
   "units": [
     {
       "id": 1,
-      "title": "Placeholder Unit 1 Title",
-      "description": "Placeholder Unit 1 Description",
+      "title": "Python Basics",
+      "description": "In this unit, you will learn the fundamentals of Python programming, including syntax, data types, control structures, and basic functions. By the end of this unit, you will be able to write simple Python programs and understand the core concepts of programming in Python.",
       "week": 1,
-      "unlockDate": "2026-10-22",
+      "unlockDate": "2026-04-22",
       "lessonCount": 8,
-      "technologies": ["HTML"],
-      "lessonsFile": "data/lessons/CSCI71585/unit-1/lessons.json"
+      "technologies": ["Python"],
+      "lessonsFile": "data/lessons/CSCI71520/unit-1/lessons.json"
     },
     {
       "id": 2,
@@ -20,8 +20,8 @@
       "week": 2,
       "unlockDate": "2026-10-22",
       "lessonCount": 4,
-      "technologies": ["HTML"],
-      "lessonsFile": "data/lessons/CSCI71585/unit-2/lessons.json"
+      "technologies": ["Python"],
+      "lessonsFile": "data/lessons/CSCI71520/unit-2/lessons.json"
     },
     {
       "id": 3,
@@ -30,8 +30,8 @@
       "week": 3,
       "unlockDate": "2026-10-22",
       "lessonCount": 5,
-      "technologies": ["HTML", "CSS"],
-      "lessonsFile": "data/lessons/CSCI71585/unit-3/lessons.json"
+      "technologies": ["Python"],
+      "lessonsFile": "data/lessons/CSCI71520/unit-3/lessons.json"
     },
     {
       "id": 4,
@@ -40,8 +40,8 @@
       "week": 4,
       "unlockDate": "2026-10-22",
       "lessonCount": 4,
-      "technologies": ["HTML", "CSS"],
-      "lessonsFile": "data/lessons/CSCI71585/unit-4/lessons.json"
+      "technologies": ["Python"],
+      "lessonsFile": "data/lessons/CSCI71520/unit-4/lessons.json"
     },
     {
       "id": 5,
@@ -50,8 +50,8 @@
       "week": 5,
       "unlockDate": "2026-10-22",
       "lessonCount": 5,
-      "technologies": ["HTML", "CSS"],
-      "lessonsFile": "data/lessons/CSCI71585/unit-5/lessons.json"
+      "technologies": ["Python"],
+      "lessonsFile": "data/lessons/CSCI71520/unit-5/lessons.json"
     },
     {
       "id": 6,
@@ -60,8 +60,8 @@
       "week": 6,
       "unlockDate": "2026-10-22",
       "lessonCount": 6,
-      "technologies": ["HTML", "CSS", "JavaScript"],
-      "lessonsFile": "data/lessons/CSCI71585/unit-6/lessons.json"
+      "technologies": ["Python"],
+      "lessonsFile": "data/lessons/CSCI71520/unit-6/lessons.json"
     },
     {
       "id": 7,
@@ -70,8 +70,8 @@
       "week": 7,
       "unlockDate": "2026-10-22",
       "lessonCount": 5,
-      "technologies": ["HTML", "CSS", "JavaScript"],
-      "lessonsFile": "data/lessons/CSCI71585/unit-7/lessons.json"
+      "technologies": ["Python"],
+      "lessonsFile": "data/lessons/CSCI71520/unit-7/lessons.json"
     },
     {
       "id": 8,
@@ -80,8 +80,8 @@
       "week": 8,
       "unlockDate": "2026-10-22",
       "lessonCount": 4,
-      "technologies": ["HTML", "CSS", "JavaScript"],
-      "lessonsFile": "data/lessons/CSCI71585/unit-8/lessons.json"
+      "technologies": ["Python"],
+      "lessonsFile": "data/lessons/CSCI71520/unit-8/lessons.json"
     },
     {
       "id": 9,
@@ -90,8 +90,8 @@
       "week": 9,
       "unlockDate": "2026-10-22",
       "lessonCount": 5,
-      "technologies": ["JavaScript"],
-      "lessonsFile": "data/lessons/CSCI71585/unit-9/lessons.json"
+      "technologies": ["Python"],
+      "lessonsFile": "data/lessons/CSCI71520/unit-9/lessons.json"
     },
     {
       "id": 10,
@@ -100,8 +100,8 @@
       "week": 10,
       "unlockDate": "2026-10-22",
       "lessonCount": 1,
-      "technologies": ["HTML", "CSS", "JavaScript"],
-      "lessonsFile": "data/lessons/CSCI71585/unit-10/lessons.json"
+      "technologies": ["Python"],
+      "lessonsFile": "data/lessons/CSCI71520/unit-10/lessons.json"
     }
   ]
 }

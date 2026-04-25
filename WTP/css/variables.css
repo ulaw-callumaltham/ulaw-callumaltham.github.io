@@ -32,6 +32,7 @@
   --tag-html: #d97706;
   --tag-css: #94248c;
   --tag-javascript: #eab308;
+  --tag-python: #3776ab;
 
   /* State Colours */
   --state-locked: rgba(73, 73, 80, 0.3);
@@ -72,4 +73,54 @@
   /* Transitions */
   --transition-fast: 0.15s ease;
   --transition-base: 0.2s ease;
+
+  --icon-invert: 0;
+}
+
+/* ===========================
+   Dark Theme
+   =========================== */
+
+[data-theme="dark"] {
+  /* Background Colours */
+  --bg-primary: #0d0d0d;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #262626;
+  --bg-card: #1a1a1a;
+
+  /* Border Colours */
+  --border-primary: #333333;
+  --border-secondary: #a82d9a;
+
+  /* Text Colours */
+  --text-primary: #e8e8e8;
+  --text-secondary: #b3b3b3;
+  --text-tertiary: #808080;
+  --text-heading: #ffffff;
+
+  /* Accent/Interactive Colours */
+  --accent-primary: #a82d9a;
+  --accent-primary-hover: #c23db3;
+  --accent-secondary: #9cc4d4;
+  --accent-success: #34d399;
+
+  /* Technology Tags */
+  --tag-html: #fb923c;
+  --tag-css: #a82d9a;
+  --tag-javascript: #fbbf24;
+  --tag-python: #4b8bbe;
+
+  /* State Colours */
+  --state-locked: rgba(179, 179, 179, 0.2);
+  --state-hover: #262626;
+  --state-active: #2d1a2c;
+
+  /* Progress Bar */
+  --progress-fill: #a82d9a;
+  --progress-empty: #333333;
+
+  --icon-invert: 1;
+
+  /* Brand colors stay the same in dark mode */
+  /* Spacing, Typography, Transitions unchanged */
 }
