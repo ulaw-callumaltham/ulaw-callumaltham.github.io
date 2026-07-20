@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Technologies — Tools</title>
+<meta name="description" content="Interactive tools for the Web Technologies module.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var saved = localStorage.getItem('cs-tools-theme');
+    document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+  })();
+</script>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span>~/cs-tools</span><span class="cursor"></span>
+    </a>
+    <div class="nav-right">
+      <div class="crumbs">
+        <a href="../index.html">/</a><span class="sep">/</span>
+        <a href="../index.html#modules">modules</a><span class="sep">/</span>
+        <span class="here">web-technologies</span>
+      </div>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+        <span class="theme-icon moon">🌙</span>
+        <span class="theme-icon sun">☀️</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" style="padding: 56px 0 40px;">
+  <div class="wrap">
+    <a class="back-link" href="../index.html">&larr; all modules</a>
+    <p class="eyebrow">// MODULE · MSc CONVERSION</p>
+    <h1>Web Technologies</h1>
+    <p class="lede">HTML, CSS and JavaScript, taught through the Web Teaching Platform's live code editor and task-based lessons.</p>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Tools</h2>
+        <span class="path-label">/modules/web-technologies/</span>
+      </div>
+
+      <div class="grid">
+
+        <!-- TODO: replace href with the published URL for the WTP -->
+        <a class="card" href="#">
+          <span class="status live">live</span>
+          <span class="path">/tools/wtp/</span>
+          <h3>CS Web Teaching Platform</h3>
+          <p>Live HTML, CSS and JS editor with task-based lessons, syntax highlighting, and progress tracking.</p>
+          <div class="tags"><span class="tag">HTML/CSS/JS</span></div>
+          <span class="arrow">↗</span>
+        </a>
+
+        <!-- Placeholder slot for any module-specific tool that isn't part of the WTP -->
+        <div class="card placeholder">
+          <span class="status soon">coming soon</span>
+          <span class="path">/modules/web-technologies/…</span>
+          <h3>Add another tool</h3>
+          <p>Duplicate this card for anything else specific to this module.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Computer Science — teaching tools</span>
+    <a href="../index.html" style="color: inherit; text-decoration: none;">&larr; back to all tools</a>
+  </div>
+</footer>
+<script src="assets/theme.js"></script>
+</body>
+</html>

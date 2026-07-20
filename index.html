@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computing Teaching Tools</title>
+<meta name="description" content="Interactive teaching tools and simulators from the Computer Science team — browse by tool or by module.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var saved = localStorage.getItem('cs-tools-theme');
+    document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+  })();
+</script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span>~/ulaw-cs-tools</span><span class="cursor"></span>
+    </a>
+    <div class="nav-right">
+      <div class="crumbs"><span class="here">/</span></div>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+        <span class="theme-icon moon">🌙</span>
+        <span class="theme-icon sun">☀️</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">// THE UNIVERSITY OF LAW - COMPUTER SCIENCE · TEACHING TOOLS</p>
+    <h1>Find the tool for your module — or just browse.</h1>
+    <p class="lede">Interactive simulators, labs, and learning platforms built for our modules. Everything here runs in your browser, nothing to install.</p>
+
+    <div class="terminal">
+      <div class="bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="path">ulaw-cs-tools — zsh</span>
+      </div>
+      <div class="body">
+        <div class="promptline"><span class="accent">student@ulaw-cs-tools</span> ~ % ls</div>
+        <div class="out" data-type-target='[
+          "[dir]tools/[/dir]      general, module-independent tools",
+          "[dir]modules/[/dir]    per-module tool collections",
+          "",
+          "pick one below \u2193"
+        ]'></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="section" id="tools">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Tools</h2>
+        <span class="path-label">/tools/</span>
+      </div>
+      <p class="section-desc">Tools that aren't tied to a single module — useful across your whole course.</p>
+
+      <div class="grid">
+
+        <!-- TODO: replace href with the real published URL for the CS Web Teaching Platform -->
+        <a class="card" href="#" data-tool="wtp">
+          <span class="path">/tools/wtp/</span>
+          <h3>CS Web Teaching Platform</h3>
+          <p>Interactive HTML, CSS, JS and Python lesson environment with a live code editor and browser-based execution.</p>
+          <div class="tags"><span class="tag">HTML/CSS/JS</span><span class="tag">Python</span></div>
+          <span class="arrow">↗</span>
+        </a>
+
+        <!-- Placeholder slot — duplicate this card for each additional module-independent tool -->
+        <div class="card placeholder">
+          <span class="status soon">coming soon</span>
+          <span class="path">/tools/…</span>
+          <h3>Add your next tool here</h3>
+          <p>Duplicate this card and point it at a new tool that isn't specific to one module.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="modules">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>By module</h2>
+        <span class="path-label">/modules/</span>
+      </div>
+      <p class="section-desc">Tools grouped by the module they belong to. Open a module to see everything built for it.</p>
+
+      <div class="grid">
+
+        <a class="card module" href="modules/os-and-networking.html">
+          <span class="status live">live</span>
+          <span class="path">/modules/os-and-networking/</span>
+          <h3>Operating Systems &amp; Networking</h3>
+          <p>Boot process, scheduling, memory, file systems, OSI/TCP-IP, subnetting and more — one interactive platform.</p>
+          <span class="arrow">↗</span>
+        </a>
+
+        <a class="card module" href="modules/web-technologies.html">
+          <span class="status live">live</span>
+          <span class="path">/modules/web-technologies/</span>
+          <h3>Web Technologies</h3>
+          <p>The Web Teaching Platform's HTML, CSS and JavaScript lessons, plus anything module-specific.</p>
+          <span class="arrow">↗</span>
+        </a>
+        <!-- Placeholder slot — duplicate this card for each additional module -->
+        <div class="card placeholder module">
+          <span class="status soon">coming soon</span>
+          <span class="path">/modules/…</span>
+          <h3>Add your next module here</h3>
+          <p>Duplicate this card and create a matching page under /modules/ using the template.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>The University of Law - Computer Science — teaching tools</span>
+    <span>Built and maintained by the ULaw Computer Science Department</span>
+  </div>
+</footer>
+
+<script src="assets/theme.js"></script>
+<script src="assets/terminal.js"></script>
+</body>
+</html>
