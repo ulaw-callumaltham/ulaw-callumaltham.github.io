@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Micro-Internship — Feedback Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+/* ========================================================================
+   Feedback Report — design tokens
+   ======================================================================== */
+
+:root {
+  --ink: #1B2430;
+  --ink-soft: #4A5364;
+  --muted: #7A7566;
+  --paper: #FBFAF7;
+  --panel: #F2EEE4;
+  --line: #DAD3C3;
+  --line-strong: #BEB6A0;
+  --teal: #2F6B75;
+  --teal-deep: #1F4A52;
+  --teal-track: #E3EBE9;
+  --amber: #C9822E;
+  --amber-soft: #F3E2C9;
+  --red: #A6483A;
+
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+
+  --sidebar-w: 232px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(--ink); }
+
+a { color: var(--teal-deep); }
+
+button {
+  font-family: var(--sans);
+  cursor: pointer;
+}
+
+::selection { background: var(--amber-soft); }
+
+/* ------------------------------------------------------------------------
+   App shell
+   ------------------------------------------------------------------------ */
+
+#app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.masthead {
+  margin-bottom: 30px;
+}
+
+.masthead .eyebrow {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.masthead h1 {
+  font-size: 22px;
+  line-height: 1.25;
+  margin-top: 4px;
+}
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.nav-list li { border-bottom: 1px solid var(--line); }
+
+.nav-list button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 12px 4px;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  border-left: 3px solid transparent;
+  transition: color .15s ease, border-color .15s ease;
+}
+
+.nav-list button:hover { color: var(--ink); }
+
+.nav-list li.active button {
+  color: var(--teal-deep);
+  border-left-color: var(--teal);
+  font-weight: 600;
+  padding-left: 10px;
+}
+
+.sidebar-meta {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.sidebar-meta .meta-line { margin-bottom: 4px; }
+
+.sidebar-meta strong { color: var(--ink-soft); }
+
+#print-btn {
+  margin-top: 14px;
+  width: 100%;
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 2px;
+}
+
+#print-btn:hover { background: var(--teal-deep); }
+
+#reload-btn {
+  margin-top: 8px;
+  width: 100%;
+  background: none;
+  border: 1px solid var(--line-strong);
+  color: var(--ink-soft);
+  padding: 8px 12px;
+  font-size: 13px;
+  border-radius: 2px;
+}
+
+#reload-btn:hover { border-color: var(--teal); color: var(--teal-deep); }
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 34px 44px 80px;
+  max-width: 1100px;
+}
+
+.view-section { display: none; }
+.view-section.active { display: block; }
+
+.view-header {
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.view-header h2 { font-size: 26px; }
+
+.view-header p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  max-width: 62ch;
+}
+
+/* ------------------------------------------------------------------------
+   Lock screen
+   ------------------------------------------------------------------------ */
+
+#lock-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--panel);
+  padding: 24px;
+}
+
+#lock-form {
+  max-width: 340px;
+  width: 100%;
+  text-align: left;
+}
+
+#lock-form .eyebrow {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+#lock-form h1 {
+  font-size: 22px;
+  margin: 4px 0 14px;
+}
+
+#lock-form p {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin: 0 0 20px;
+}
+
+#lock-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 15px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  font-family: var(--sans);
+  margin-bottom: 12px;
+}
+
+#lock-form button {
+  width: 100%;
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 2px;
+}
+
+#lock-form button:hover { background: var(--teal-deep); }
+
+#lock-error {
+  display: none;
+  color: var(--red);
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+#lock-error.show { display: block; }
+
+@media print {
+  #lock-screen { display: none !important; }
+}
+
+/* ------------------------------------------------------------------------
+   Loading / error states
+   ------------------------------------------------------------------------ */
+
+#status {
+  padding: 60px 44px;
+  max-width: 640px;
+}
+
+#status h2 { font-size: 20px; margin-bottom: 10px; }
+#status p { color: var(--ink-soft); margin: 0 0 14px; }
+#status .err-box {
+  background: var(--panel);
+  border-left: 3px solid var(--red);
+  padding: 14px 16px;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+#status label {
+  display: inline-block;
+  background: var(--teal);
+  color: #fff;
+  padding: 9px 14px;
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 600;
+}
+#status label:hover { background: var(--teal-deep); }
+#status input[type=file] { display: none; }
+
+/* ------------------------------------------------------------------------
+   Overview
+   ------------------------------------------------------------------------ */
+
+.kpi-row {
+  display: flex;
+  gap: 34px;
+  margin-bottom: 34px;
+  flex-wrap: wrap;
+}
+
+.kpi {
+  min-width: 120px;
+}
+
+.kpi .num {
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 600;
+  color: var(--teal-deep);
+  line-height: 1;
+}
+
+.kpi .label {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.hero-question {
+  margin-bottom: 40px;
+}
+
+.hero-question h3 {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.hero-question .q-sub {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.glance-heading {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin: 8px 0 14px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.glance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.glance-item {
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.glance-item:hover .glance-q { color: var(--teal-deep); }
+
+.glance-q {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.glance-top {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.glance-top .pct { color: var(--amber); font-weight: 700; }
+
+/* ------------------------------------------------------------------------
+   Bar charts (hand-built, print-safe)
+   ------------------------------------------------------------------------ */
+
+.bar-chart { width: 100%; }
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 92px;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.bar-row .bar-label {
+  font-size: 13px;
+  color: var(--ink-soft);
+  text-align: right;
+  overflow-wrap: break-word;
+}
+
+.bar-track {
+  background: var(--teal-track);
+  height: 16px;
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--teal);
+}
+
+.bar-row .bar-count {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.bar-row .bar-count strong { color: var(--ink); }
+
+/* ------------------------------------------------------------------------
+   Question breakdown
+   ------------------------------------------------------------------------ */
+
+.q-block {
+  margin-bottom: 38px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--line);
+}
+
+.q-block:last-child { border-bottom: none; }
+
+.q-block h3 {
+  font-size: 16.5px;
+  margin-bottom: 2px;
+}
+
+.q-block .q-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.jump-select {
+  margin-bottom: 24px;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  padding: 7px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  background: #fff;
+  color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------------------------
+   Open responses
+   ------------------------------------------------------------------------ */
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.filter-chip {
+  font-size: 12.5px;
+  padding: 6px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink-soft);
+}
+
+.filter-chip.active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+
+.resp-section { margin-bottom: 30px; }
+
+.resp-section h3 {
+  font-size: 15.5px;
+  margin-bottom: 12px;
+}
+
+.resp-card {
+  border-left: 2px solid var(--line-strong);
+  padding: 4px 0 4px 14px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.resp-card .resp-id {
+  font-size: 11.5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 3px;
+}
+
+.resp-empty {
+  color: var(--muted);
+  font-size: 13.5px;
+  font-style: italic;
+}
+
+/* ------------------------------------------------------------------------
+   Individual responses (table)
+   ------------------------------------------------------------------------ */
+
+.search-box {
+  margin-bottom: 16px;
+}
+
+.search-box input {
+  width: 100%;
+  max-width: 320px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  font-family: var(--sans);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+}
+
+table.resp-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12.5px;
+  min-width: 900px;
+}
+
+table.resp-table th, table.resp-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  max-width: 220px;
+}
+
+table.resp-table th {
+  background: var(--panel);
+  font-family: var(--sans);
+  font-weight: 600;
+  color: var(--ink-soft);
+  position: sticky;
+  top: 0;
+  white-space: normal;
+}
+
+table.resp-table td:first-child, table.resp-table th:first-child {
+  position: sticky;
+  left: 0;
+  background: #fff;
+  font-weight: 600;
+}
+
+table.resp-table th:first-child { background: var(--panel); z-index: 2; }
+
+table.resp-table tbody tr:hover td { background: #F7F4EC; }
+table.resp-table tbody tr:hover td:first-child { background: #F1EAD8; }
+
+/* ------------------------------------------------------------------------
+   Print header (hidden on screen)
+   ------------------------------------------------------------------------ */
+
+.print-only { display: none; }
+
+/* ------------------------------------------------------------------------
+   Print styles
+   ------------------------------------------------------------------------ */
+
+@media print {
+  .sidebar, .search-box, .filter-bar, .jump-select, #print-btn, #reload-btn { display: none !important; }
+  .main { max-width: none; padding: 0; }
+  #app { display: block; }
+  .view-section { display: block !important; page-break-before: always; }
+  .view-section:first-of-type { page-break-before: avoid; }
+  .print-only { display: block; margin-bottom: 24px; }
+  .resp-card, .glance-item { display: block !important; }
+  body { font-size: 12px; }
+  .bar-row { grid-template-columns: 160px 1fr 80px; }
+  .table-wrap { border: none; overflow: visible; }
+  table.resp-table { min-width: 0; font-size: 10px; }
+  a { color: inherit; text-decoration: none; }
+}
+
+/* ------------------------------------------------------------------------
+   Responsive
+   ------------------------------------------------------------------------ */
+
+@media (max-width: 760px) {
+  #app { flex-direction: column; }
+  .sidebar { width: 100%; height: auto; position: relative; }
+  .main { padding: 24px; }
+  .bar-row { grid-template-columns: 120px 1fr 70px; }
+}
+
+</style>
+</head>
+<body>
+
+<div id="lock-screen">
+  <form id="lock-form">
+    <div class="eyebrow">Feedback report</div>
+    <h1>AI Consulting Micro-Internship</h1>
+    <p>This report is not for general circulation. Enter the password to continue.</p>
+    <input type="password" id="lock-input" placeholder="Password" autocomplete="off" />
+    <button type="submit">Unlock</button>
+    <div id="lock-error">Incorrect password — try again.</div>
+  </form>
+</div>
+
+<div id="boot-status" style="display:none;">
+  <div style="padding:60px 44px;max-width:640px;" id="status">
+    <h2 style="font-family:var(--serif);">Loading survey data…</h2>
+    <p style="color:var(--ink-soft);">Reading <strong>data.xlsx</strong> from this folder.</p>
+  </div>
+</div>
+
+<div id="app" style="display:none;">
+
+  <nav class="sidebar">
+    <div class="masthead">
+      <div class="eyebrow">Feedback report</div>
+      <h1>AI Consulting Micro-Internship</h1>
+    </div>
+    <ul class="nav-list">
+      <li class="active" data-view="overview"><button data-view="overview">Overview</button></li>
+      <li data-view="breakdown"><button data-view="breakdown">By question</button></li>
+      <li data-view="open"><button data-view="open">Open responses</button></li>
+      <li data-view="table"><button data-view="table">Individual responses</button></li>
+    </ul>
+    <div class="sidebar-meta">
+      <div class="meta-line"><strong id="sidebar-count">—</strong></div>
+      <div class="meta-line">Source: <span id="sidebar-source">—</span></div>
+    </div>
+    <button id="print-btn">Print report</button>
+    <button id="reload-btn">Reload data</button>
+  </nav>
+
+  <main class="main">
+
+    <div class="print-only">
+      <h1 style="font-family:var(--serif);font-size:24px;">AI Consulting Micro-Internship — Feedback Report</h1>
+      <p style="color:var(--ink-soft);font-size:13px;margin-top:4px;">
+        Generated <span id="print-date"></span> · <span id="print-count"></span> responses
+      </p>
+    </div>
+
+    <section class="view-section active" id="view-overview"></section>
+    <section class="view-section" id="view-breakdown"></section>
+    <section class="view-section" id="view-open"></section>
+    <section class="view-section" id="view-table"></section>
+
+  </main>
+
+</div>
+
+<script>
+/* ========================================================================
+   Feedback Report — app.js
+   Loads data.xlsx (or data.csv as a fallback) from the same folder,
+   auto-detects which columns are rating-scale questions vs open text,
+   and renders four views: Overview, By question, Open responses,
+   Individual responses. Replace data.xlsx with a newer export and
+   reload the page — no code changes needed as long as the first
+   column is a respondent ID.
+   ======================================================================== */
+
+const state = {
+  headers: [],
+  rows: [],          // array of row arrays, ID column included
+  categorical: [],    // [{ index, header, counts: [{label,count}], total }]
+  text: [],           // [{ index, header, entries: [{id, text}] }]
+  sourceLabel: '',
+};
+
+const SOURCE_FILES = ['data.xlsx', 'data.csv'];
+
+// SHA-256 hash of the report password. Not the password itself — but note
+// this is still a client-side deterrent, not real access control: anyone
+// who fetches data.xlsx directly, bypassing this page, still gets the data.
+const PASSWORD_HASH = '3b95fa17b54a5147323623d4c339f55e92864b0ecf36095001b34e323cbf2736';
+
+/* ------------------------------------------------------------------------
+   Boot
+   ------------------------------------------------------------------------ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  wireLock();
+  wireNav();
+  wireManualLoad();
+  if (sessionStorage.getItem('spd_unlocked') === '1') unlock();
+});
+
+async function sha256Hex(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function wireLock() {
+  const form = document.getElementById('lock-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const val = document.getElementById('lock-input').value;
+    const hash = await sha256Hex(val);
+    if (hash === PASSWORD_HASH) {
+      sessionStorage.setItem('spd_unlocked', '1');
+      unlock();
+    } else {
+      document.getElementById('lock-error').classList.add('show');
+      document.getElementById('lock-input').select();
+    }
+  });
+}
+
+function unlock() {
+  document.getElementById('lock-screen').style.display = 'none';
+  document.getElementById('boot-status').style.display = 'block';
+  autoLoad();
+}
+
+async function autoLoad() {
+  for (const name of SOURCE_FILES) {
+    try {
+      const res = await fetch(name, { cache: 'no-store' });
+      if (!res.ok) continue;
+      const buf = await res.arrayBuffer();
+      const rows = name.endsWith('.csv')
+        ? parseCSV(new TextDecoder('utf-8').decode(buf))
+        : parseXLSX(buf);
+      if (rows && rows.length > 1) {
+        ingest(rows, name);
+        return;
+      }
+    } catch (e) { /* try next source */ }
+  }
+  showLoadError();
+}
+
+/* ------------------------------------------------------------------------
+   Parsing
+   ------------------------------------------------------------------------ */
+
+function parseXLSX(arrayBuffer) {
+  const wb = XLSX.read(arrayBuffer, { type: 'array' });
+  const sheet = wb.Sheets[wb.SheetNames[0]];
+  return XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+}
+
+function parseCSV(text) {
+  // Minimal RFC4180 parser: handles quoted fields, embedded commas/newlines, "" escapes.
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQuotes) {
+      if (c === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; }
+        else inQuotes = false;
+      } else field += c;
+    } else {
+      if (c === '"') inQuotes = true;
+      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+      else if (c === '\r') { /* skip */ }
+      else field += c;
+    }
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  return rows.filter(r => r.some(c => String(c).trim() !== ''));
+}
+
+/* ------------------------------------------------------------------------
+   Ingest + auto-detect column types
+   ------------------------------------------------------------------------ */
+
+function ingest(rawRows, sourceName) {
+  const headers = rawRows[0].map(h => String(h || '').trim());
+  const dataRows = rawRows.slice(1).filter(r => String(r[0] || '').trim() !== '');
+
+  state.headers = headers;
+  state.rows = dataRows;
+  state.sourceLabel = sourceName;
+
+  const categorical = [];
+  const text = [];
+
+  for (let col = 1; col < headers.length; col++) {
+    const values = dataRows
+      .map(r => (r[col] === undefined || r[col] === null) ? '' : String(r[col]).trim())
+      .filter(v => v !== '');
+
+    if (values.length === 0) continue;
+
+    const uniq = Array.from(new Set(values));
+    const avgLen = values.reduce((s, v) => s + v.length, 0) / values.length;
+    const maxLen = Math.max(...values.map(v => v.length));
+    const isCategorical = uniq.length <= 8 && maxLen <= 45 && avgLen <= 35;
+
+    if (isCategorical) {
+      // preserve first-appearance order, then sort by count desc
+      const counts = uniq.map(label => ({
+        label,
+        count: values.filter(v => v === label).length,
+      })).sort((a, b) => b.count - a.count);
+      categorical.push({ index: col, header: headers[col], counts, total: values.length });
+    } else {
+      const entries = dataRows
+        .map(r => ({ id: r[0], text: String(r[col] || '').trim() }))
+        .filter(e => e.text !== '' && !/^(n\/a|none|no)$/i.test(e.text));
+      if (entries.length) text.push({ index: col, header: headers[col], entries });
+    }
+  }
+
+  state.categorical = categorical;
+  state.text = text;
+
+  renderAll();
+  document.getElementById('boot-status').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+}
+
+function showLoadError() {
+  const el = document.getElementById('boot-status');
+  el.innerHTML = `
+    <h2>Couldn't load the survey data</h2>
+    <p>The dashboard looks for <strong>data.xlsx</strong> (or <strong>data.csv</strong>) in the same folder as this page.</p>
+    <div class="err-box">This usually means the page was opened directly as a file (file://) rather than served over http — GitHub Pages will serve it correctly. If you're testing locally, run a small local server, e.g. <code>python3 -m http.server</code>, then open the page from there.</div>
+    <p>Or load a file manually to preview it now:</p>
+    <label for="manual-file">Choose a .xlsx or .csv file</label>
+    <input type="file" id="manual-file" accept=".xlsx,.csv" />
+  `;
+  wireManualLoad();
+}
+
+function wireManualLoad() {
+  const input = document.getElementById('manual-file');
+  if (!input) return;
+  input.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const buf = await file.arrayBuffer();
+    const rows = file.name.endsWith('.csv')
+      ? parseCSV(new TextDecoder('utf-8').decode(buf))
+      : parseXLSX(buf);
+    ingest(rows, file.name + ' (manually loaded)');
+  });
+}
+
+/* ------------------------------------------------------------------------
+   Nav
+   ------------------------------------------------------------------------ */
+
+function wireNav() {
+  document.querySelectorAll('.nav-list button').forEach(btn => {
+    btn.addEventListener('click', () => showView(btn.dataset.view));
+  });
+  document.getElementById('print-btn').addEventListener('click', () => window.print());
+  document.getElementById('reload-btn').addEventListener('click', () => location.reload());
+}
+
+function showView(name) {
+  document.querySelectorAll('.view-section').forEach(s => s.classList.toggle('active', s.id === 'view-' + name));
+  document.querySelectorAll('.nav-list li').forEach(li => li.classList.toggle('active', li.dataset.view === name));
+  window.scrollTo(0, 0);
+}
+
+/* ------------------------------------------------------------------------
+   Render: shared bar chart builder
+   ------------------------------------------------------------------------ */
+
+function buildBarChart(counts, total) {
+  const max = Math.max(...counts.map(c => c.count));
+  const wrap = document.createElement('div');
+  wrap.className = 'bar-chart';
+  counts.forEach(c => {
+    const pct = total ? Math.round((c.count / total) * 100) : 0;
+    const row = document.createElement('div');
+    row.className = 'bar-row';
+    row.innerHTML = `
+      <div class="bar-label">${escapeHTML(c.label)}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${max ? (c.count / max) * 100 : 0}%"></div></div>
+      <div class="bar-count"><strong>${c.count}</strong> · ${pct}%</div>
+    `;
+    wrap.appendChild(row);
+  });
+  return wrap;
+}
+
+/* ------------------------------------------------------------------------
+   Render: Overview
+   ------------------------------------------------------------------------ */
+
+function renderOverview() {
+  const root = document.getElementById('view-overview');
+  root.innerHTML = '';
+
+  const header = document.createElement('div');
+  header.className = 'view-header';
+  header.innerHTML = `<h2>Overview</h2><p>A first read of the responses — the headline question, then every other question at a glance.</p>`;
+  root.appendChild(header);
+
+  const kpiRow = document.createElement('div');
+  kpiRow.className = 'kpi-row';
+  const openTotal = state.text.reduce((s, t) => s + t.entries.length, 0);
+  kpiRow.innerHTML = `
+    <div class="kpi"><div class="num">${state.rows.length}</div><div class="label">Responses</div></div>
+    <div class="kpi"><div class="num">${state.categorical.length}</div><div class="label">Rated questions</div></div>
+    <div class="kpi"><div class="num">${openTotal}</div><div class="label">Written comments</div></div>
+  `;
+  root.appendChild(kpiRow);
+
+  if (state.categorical.length) {
+    const hero = state.categorical[0];
+    const heroWrap = document.createElement('div');
+    heroWrap.className = 'hero-question';
+    heroWrap.innerHTML = `<h3>${escapeHTML(hero.header)}</h3><div class="q-sub">${hero.total} responses</div>`;
+    heroWrap.appendChild(buildBarChart(hero.counts, hero.total));
+    root.appendChild(heroWrap);
+  }
+
+  if (state.categorical.length > 1) {
+    const glanceHeading = document.createElement('div');
+    glanceHeading.className = 'glance-heading';
+    glanceHeading.textContent = 'Every other question, at a glance';
+    root.appendChild(glanceHeading);
+
+    const grid = document.createElement('div');
+    grid.className = 'glance-grid';
+    state.categorical.slice(1).forEach(q => {
+      const top = q.counts[0];
+      const pct = Math.round((top.count / q.total) * 100);
+      const item = document.createElement('div');
+      item.className = 'glance-item';
+      item.innerHTML = `
+        <div class="glance-q">${escapeHTML(q.header)}</div>
+        <div class="glance-top">${escapeHTML(top.label)} <span class="pct">${pct}%</span></div>
+      `;
+      item.addEventListener('click', () => { showView('breakdown'); jumpToQuestion(q.index); });
+      grid.appendChild(item);
+    });
+    root.appendChild(grid);
+  }
+}
+
+/* ------------------------------------------------------------------------
+   Render: Question breakdown
+   ------------------------------------------------------------------------ */
+
+function renderBreakdown() {
+  const root = document.getElementById('view-breakdown');
+  root.innerHTML = '';
+
+  const header = document.createElement('div');
+  header.className = 'view-header';
+  header.innerHTML = `<h2>By question</h2><p>Full response distribution for every rated question.</p>`;
+  root.appendChild(header);
+
+  if (state.categorical.length > 3) {
+    const select = document.createElement('select');
+    select.className = 'jump-select';
+    select.innerHTML = '<option value="">Jump to a question…</option>' +
+      state.categorical.map(q => `<option value="q-${q.index}">${escapeHTML(truncate(q.header, 70))}</option>`).join('');
+    select.addEventListener('change', () => {
+      if (select.value) document.getElementById(select.value).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    root.appendChild(select);
+  }
+
+  state.categorical.forEach(q => {
+    const block = document.createElement('div');
+    block.className = 'q-block';
+    block.id = 'q-' + q.index;
+    block.innerHTML = `<h3>${escapeHTML(q.header)}</h3><div class="q-meta">${q.total} responses</div>`;
+    block.appendChild(buildBarChart(q.counts, q.total));
+    root.appendChild(block);
+  });
+}
+
+function jumpToQuestion(index) {
+  setTimeout(() => {
+    const el = document.getElementById('q-' + index);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 30);
+}
+
+/* ------------------------------------------------------------------------
+   Render: Open responses
+   ------------------------------------------------------------------------ */
+
+function renderOpenResponses() {
+  const root = document.getElementById('view-open');
+  root.innerHTML = '';
+
+  const header = document.createElement('div');
+  header.className = 'view-header';
+  header.innerHTML = `<h2>Open responses</h2><p>Written answers, grouped by question.</p>`;
+  root.appendChild(header);
+
+  if (!state.text.length) {
+    root.innerHTML += '<p class="resp-empty">No open-ended questions were detected in this data.</p>';
+    return;
+  }
+
+  if (state.text.length > 1) {
+    const filterBar = document.createElement('div');
+    filterBar.className = 'filter-bar';
+    filterBar.innerHTML = '<button class="filter-chip active" data-filter="all">All questions</button>' +
+      state.text.map(t => `<button class="filter-chip" data-filter="sec-${t.index}">${escapeHTML(truncate(t.header, 40))}</button>`).join('');
+    filterBar.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-chip');
+      if (!btn) return;
+      filterBar.querySelectorAll('.filter-chip').forEach(b => b.classList.toggle('active', b === btn));
+      const filter = btn.dataset.filter;
+      root.querySelectorAll('.resp-section').forEach(sec => {
+        sec.style.display = (filter === 'all' || sec.id === filter) ? '' : 'none';
+      });
+    });
+    root.appendChild(filterBar);
+  }
+
+  state.text.forEach(t => {
+    const sec = document.createElement('div');
+    sec.className = 'resp-section';
+    sec.id = 'sec-' + t.index;
+    sec.innerHTML = `<h3>${escapeHTML(t.header)} <span style="color:var(--muted);font-weight:400;font-size:12.5px;">(${t.entries.length})</span></h3>`;
+    t.entries.forEach(e => {
+      const card = document.createElement('div');
+      card.className = 'resp-card';
+      card.innerHTML = `<div class="resp-id">Response ${escapeHTML(String(e.id))}</div>${escapeHTML(e.text)}`;
+      sec.appendChild(card);
+    });
+    root.appendChild(sec);
+  });
+}
+
+/* ------------------------------------------------------------------------
+   Render: Individual responses (table)
+   ------------------------------------------------------------------------ */
+
+function renderTable() {
+  const root = document.getElementById('view-table');
+  root.innerHTML = '';
+
+  const header = document.createElement('div');
+  header.className = 'view-header';
+  header.innerHTML = `<h2>Individual responses</h2><p>Every respondent's full set of answers. Search narrows by ID or any text in the row.</p>`;
+  root.appendChild(header);
+
+  const searchBox = document.createElement('div');
+  searchBox.className = 'search-box';
+  searchBox.innerHTML = '<input type="text" id="table-search" placeholder="Search responses…" />';
+  root.appendChild(searchBox);
+
+  const wrap = document.createElement('div');
+  wrap.className = 'table-wrap';
+  const table = document.createElement('table');
+  table.className = 'resp-table';
+  const thead = document.createElement('thead');
+  thead.innerHTML = '<tr>' + state.headers.map(h => `<th>${escapeHTML(h)}</th>`).join('') + '</tr>';
+  const tbody = document.createElement('tbody');
+  state.rows.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = state.headers.map((_, i) => `<td>${escapeHTML(String(r[i] ?? ''))}</td>`).join('');
+    tbody.appendChild(tr);
+  });
+  table.appendChild(thead);
+  table.appendChild(tbody);
+  wrap.appendChild(table);
+  root.appendChild(wrap);
+
+  document.getElementById('table-search').addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    tbody.querySelectorAll('tr').forEach(tr => {
+      tr.style.display = tr.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  });
+}
+
+/* ------------------------------------------------------------------------
+   Render all + print header + sidebar meta
+   ------------------------------------------------------------------------ */
+
+function renderAll() {
+  renderOverview();
+  renderBreakdown();
+  renderOpenResponses();
+  renderTable();
+
+  document.getElementById('sidebar-count').textContent = state.rows.length + ' response' + (state.rows.length === 1 ? '' : 's');
+  document.getElementById('sidebar-source').textContent = state.sourceLabel;
+
+  document.getElementById('print-date').textContent = new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+  document.getElementById('print-count').textContent = state.rows.length;
+}
+
+/* ------------------------------------------------------------------------
+   Helpers
+   ------------------------------------------------------------------------ */
+
+function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function truncate(str, n) {
+  return str.length > n ? str.slice(0, n - 1) + '…' : str;
+}
+
+</script>
+</body>
+</html>
