@@ -1,0 +1,47 @@
+<h1>Tutorial</h1> <!--Lesson 6: Booleans and Comparisons-->
+<p>Programs constantly need to answer yes-or-no questions: is the password correct? Is the user old enough? Python answers these with the boolean values <code>True</code> and <code>False</code>.</p>
+<br>
+<h2>Comparison Operators</h2>
+<ul>
+    <li><code>==</code> equal to</li>
+    <li><code>!=</code> not equal to</li>
+    <li><code>&lt;</code> less than</li>
+    <li><code>&gt;</code> greater than</li>
+    <li><code>&lt;=</code> less than or equal to</li>
+    <li><code>&gt;=</code> greater than or equal to</li>
+</ul>
+<pre><code class="language-python">print(5 &gt; 3)
+print(10 == 9)
+print("apple" == "Apple")</code></pre>
+<pre><code>True
+False
+False</code></pre>
+<p>Notice that string comparisons are case-sensitive. Also be careful not to confuse <code>=</code> (assigns a value) with <code>==</code> (compares two values).</p>
+<br>
+<h2>Logical Operators</h2>
+<p>You can combine conditions with <code>and</code>, <code>or</code> and <code>not</code>:</p>
+<ul>
+    <li><code>and</code> is <code>True</code> only if both sides are <code>True</code></li>
+    <li><code>or</code> is <code>True</code> if at least one side is <code>True</code></li>
+    <li><code>not</code> flips <code>True</code> to <code>False</code> and vice versa</li>
+</ul>
+<pre><code class="language-python">is_weekend = True
+is_raining = False
+print(is_weekend and not is_raining)
+print(is_weekend or is_raining)</code></pre>
+<pre><code>True
+True</code></pre>
+<br>
+<h2>Your Task</h2>
+<p>A cinema lets someone in if they are 18 or over, have a ticket, and are not banned.</p>
+<ol>
+    <li>Using the variables in the starter code, create a variable <code>can_enter</code> that holds the result of this rule, and print it.</li>
+    <li>Change the values of <code>age</code>, <code>has_ticket</code> and <code>is_banned</code> and check the result changes as you expect.</li>
+    <li>Before running the final four print statements in the starter code, predict each result. Were you right?</li>
+</ol>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Python allows chained comparisons. Use <code>1 &lt;= number &lt;= 100</code> to check whether a number is between 1 and 100.</li>
+    <li>Ask the user to type a password and print <code>True</code> if it matches a stored password and <code>False</code> if it does not.</li>
+</ul>

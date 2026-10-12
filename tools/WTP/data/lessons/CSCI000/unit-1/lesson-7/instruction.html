@@ -1,0 +1,48 @@
+<h1>Tutorial</h1> <!--Lesson 7: Making Decisions with if Statements-->
+<p>An <code>if</code> statement lets your program choose what to do based on a condition.</p>
+<pre><code class="language-python">temperature = 25
+
+if temperature &gt; 20:
+    print("It's warm today.")
+    print("Don't forget your sunglasses.")
+
+print("Have a good day!")</code></pre>
+<p>Two things are essential:</p>
+<ul>
+    <li>The line with the condition ends in a colon <code>:</code></li>
+    <li>The code that belongs to the <code>if</code> is <strong>indented</strong> by four spaces. Python uses indentation to know which lines are inside the <code>if</code>. The final print is not indented, so it always runs.</li>
+</ul>
+<br>
+<h2>else and elif</h2>
+<p><code>else</code> runs when the condition is <code>False</code>. <code>elif</code> (short for "else if") lets you check further conditions in turn.</p>
+<pre><code class="language-python">temperature = 12
+
+if temperature &gt; 20:
+    print("Warm")
+elif temperature &gt; 10:
+    print("Mild")
+else:
+    print("Cold")</code></pre>
+<pre><code>Mild</code></pre>
+<p>Python checks each condition from top to bottom and runs only the <strong>first</strong> block whose condition is <code>True</code>. The order of your conditions therefore matters.</p>
+<br>
+<h2>Your Task</h2>
+<p>Write a program that converts a mark into a UK degree classification:</p>
+<ul>
+    <li>70 or above: First</li>
+    <li>60 to 69: Upper Second (2:1)</li>
+    <li>50 to 59: Lower Second (2:2)</li>
+    <li>40 to 49: Third</li>
+    <li>Below 40: Fail</li>
+</ul>
+<ol>
+    <li>Ask the user to enter a mark and convert it to an integer.</li>
+    <li>Use <code>if</code>, <code>elif</code> and <code>else</code> to print the correct classification.</li>
+    <li>Test it with the boundary marks 70, 69, 40 and 39.</li>
+</ol>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Before classifying, check the mark is between 0 and 100. If not, print <code>Invalid mark</code> instead.</li>
+    <li>Write a cinema ticket pricer: under 12 pays £5, 65 or over pays £6, everyone else pays £10. Then ask whether they are a student, and if so take £2 off (you will need an <code>if</code> inside another <code>if</code> or a separate check).</li>
+</ul>

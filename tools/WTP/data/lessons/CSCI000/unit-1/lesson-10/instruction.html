@@ -1,0 +1,41 @@
+<h1>Tutorial</h1> <!--Lesson 10: Lists-->
+<p>A <strong>list</strong> stores several values in a single variable. Lists are written with square brackets, with items separated by commas.</p>
+<pre><code class="language-python">marks = [65, 72, 58, 81, 49]
+modules = ["Python", "Databases", "Web Technologies"]</code></pre>
+<br>
+<h2>Accessing Items</h2>
+<p>Like strings, list items are numbered from index 0:</p>
+<pre><code class="language-python">print(modules[0])
+print(modules[-1])
+print(len(modules))</code></pre>
+<pre><code>Python
+Web Technologies
+3</code></pre>
+<br>
+<h2>Changing a List</h2>
+<pre><code class="language-python">modules.append("Networking")     # add to the end
+modules.remove("Databases")      # remove an item
+modules[0] = "Python Basics"     # replace an item
+print(modules)</code></pre>
+<pre><code>['Python Basics', 'Web Technologies', 'Networking']</code></pre>
+<br>
+<h2>Working Through a List</h2>
+<p>A <code>for</code> loop visits each item in turn:</p>
+<pre><code class="language-python">for mark in marks:
+    print(mark)</code></pre>
+<p>Python also has built-in functions that work on lists of numbers: <code>sum()</code>, <code>min()</code> and <code>max()</code>. You can check whether an item is in a list with <code>in</code>, e.g. <code>"Python" in modules</code>, and sort a list with <code>.sort()</code>.</p>
+<br>
+<h2>Your Task</h2>
+<ol>
+    <li>Use a <code>for</code> loop to print each mark in the <code>marks</code> list.</li>
+    <li>Print the highest and lowest marks.</li>
+    <li>Calculate and print the average mark (the total divided by the number of marks). You should get <code>65.0</code>.</li>
+    <li>Add a new mark of 77 to the list, sort it, and print the updated list.</li>
+</ol>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Build a shopping list: start with an empty list <code>[]</code>, keep asking the user for items until they type <code>done</code>, then print each item on its own line.</li>
+    <li>Count how many marks in the list are 70 or above.</li>
+    <li>A <strong>dictionary</strong> stores values against labels (keys) instead of positions: <code>student = {"name": "Sam", "mark": 72}</code>. Create one and print <code>student["name"]</code>.</li>
+</ul>

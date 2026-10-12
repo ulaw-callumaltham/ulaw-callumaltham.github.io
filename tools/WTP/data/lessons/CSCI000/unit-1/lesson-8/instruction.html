@@ -1,0 +1,43 @@
+<h1>Tutorial</h1> <!--Lesson 8: While Loops-->
+<p>Loops let you repeat code without writing it out again and again. A <code>while</code> loop keeps repeating <strong>as long as</strong> its condition is <code>True</code>.</p>
+<pre><code class="language-python">count = 1
+
+while count &lt;= 5:
+    print(count)
+    count += 1
+
+print("Done!")</code></pre>
+<pre><code>1
+2
+3
+4
+5
+Done!</code></pre>
+<p>Each time round the loop, Python checks the condition. Once <code>count</code> reaches 6, the condition becomes <code>False</code> and the loop stops.</p>
+<br>
+<h2>Avoiding Infinite Loops</h2>
+<p>If the condition never becomes <code>False</code>, the loop runs forever. In the example above, forgetting <code>count += 1</code> would do exactly that. If your program ever freezes, refresh the page; your code is saved automatically.</p>
+<br>
+<h2>Looping Until the User Gets It Right</h2>
+<p><code>while</code> loops are ideal when you don't know in advance how many times to repeat:</p>
+<pre><code class="language-python">password = ""
+
+while password != "python123":
+    password = input("Enter the password: ")
+
+print("Access granted!")</code></pre>
+<br>
+<h2>Leaving a Loop Early</h2>
+<p>The <code>break</code> keyword exits a loop immediately, even if the condition is still <code>True</code>.</p>
+<br>
+<h2>Your Task</h2>
+<ol>
+    <li>Write a countdown that prints the numbers from 10 down to 1, then prints <code>Lift off!</code></li>
+    <li>Extend the password example in the starter code so it counts how many attempts the user takes, and prints the number of attempts once they get in.</li>
+</ol>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Only allow three attempts at the password. Use <code>break</code> or an extra condition, and print <code>Account locked</code> if all three are wrong.</li>
+    <li>Write a running total: keep asking the user for numbers and adding them up until they enter 0, then print the total.</li>
+</ul>

@@ -1,0 +1,44 @@
+<h1>Tutorial</h1> <!--Lesson 11: Functions-->
+<p>A <strong>function</strong> is a named block of code that performs a task. You have already used built-in functions such as <code>print()</code>, <code>len()</code> and <code>input()</code>. Now you will write your own.</p>
+<pre><code class="language-python">def greet():
+    print("Hello!")
+    print("Welcome to Python.")
+
+greet()
+greet()</code></pre>
+<p>The <code>def</code> keyword defines the function. The indented code inside it only runs when the function is <strong>called</strong> by writing its name followed by brackets.</p>
+<br>
+<h2>Parameters</h2>
+<p>Parameters let you pass information into a function:</p>
+<pre><code class="language-python">def greet(name):
+    print(f"Hello, {name}!")
+
+greet("Sam")
+greet("Priya")</code></pre>
+<pre><code>Hello, Sam!
+Hello, Priya!</code></pre>
+<br>
+<h2>Returning a Value</h2>
+<p>The <code>return</code> keyword sends a result back to wherever the function was called, so you can store it or use it in other calculations:</p>
+<pre><code class="language-python">def add(a, b):
+    return a + b
+
+total = add(3, 4)
+print(total * 2)</code></pre>
+<pre><code>14</code></pre>
+<p>The difference between <code>print</code> and <code>return</code> is important: <code>print</code> only displays a value, whereas <code>return</code> hands it back so your program can keep using it. A function without a <code>return</code> gives back <code>None</code>.</p>
+<br>
+<h2>Your Task</h2>
+<ol>
+    <li>Complete <code>area_of_rectangle(width, height)</code> so it returns the area. The test line should print <code>20</code>.</li>
+    <li>Complete <code>classify_mark(mark)</code> so it <strong>returns</strong> the degree classification from Lesson 7 as a string.</li>
+    <li>Call <code>classify_mark()</code> with several different marks to test it.</li>
+</ol>
+<p>Until you complete them, the test lines will print <code>None</code>.</p>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Write <code>is_even(number)</code> that returns <code>True</code> or <code>False</code>.</li>
+    <li>Write <code>average(numbers)</code> that takes a list and returns its average. Test it with the marks list from Lesson 10.</li>
+    <li>You will often see programs structured with a <code>main()</code> function and the line <code>if __name__ == "__main__":</code> at the bottom. This runs <code>main()</code> only when the file is run directly. Reorganise your test code into a <code>main()</code> function using this pattern.</li>
+</ul>

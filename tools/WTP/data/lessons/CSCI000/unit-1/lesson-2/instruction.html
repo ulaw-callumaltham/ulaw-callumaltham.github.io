@@ -1,0 +1,54 @@
+<h1>Tutorial</h1> <!--Lesson 2: Variables and Data Types-->
+<p>A <strong>variable</strong> is a named container that stores a value so you can use it later in your program. You create a variable by giving it a name and using <code>=</code> to assign it a value.</p>
+<pre><code class="language-python">name = "Sam"
+age = 21
+print(name)
+print(age)</code></pre>
+<p>This will output:</p>
+<pre><code>Sam
+21</code></pre>
+<p>A variable can be given a new value at any time, and the old value is replaced:</p>
+<pre><code class="language-python">score = 10
+score = 15
+print(score)</code></pre>
+<pre><code>15</code></pre>
+<br>
+<h2>Naming Rules</h2>
+<ul>
+    <li>Names can contain letters, numbers and underscores, but cannot start with a number.</li>
+    <li>Names are case-sensitive: <code>Age</code> and <code>age</code> are different variables.</li>
+    <li>By convention, Python uses lowercase words separated by underscores, such as <code>first_name</code>. This is called <strong>snake_case</strong>.</li>
+    <li>Choose names that describe the value: <code>total_price</code> is far clearer than <code>x</code>.</li>
+</ul>
+<br>
+<h2>Data Types</h2>
+<p>Every value in Python has a <strong>type</strong>. The four basic types are:</p>
+<ul>
+    <li><strong>int</strong> &ndash; whole numbers, e.g. <code>42</code></li>
+    <li><strong>float</strong> &ndash; numbers with a decimal point, e.g. <code>1.75</code></li>
+    <li><strong>str</strong> &ndash; text (strings), e.g. <code>"Leeds"</code></li>
+    <li><strong>bool</strong> &ndash; either <code>True</code> or <code>False</code></li>
+</ul>
+<p>You can check the type of any value with the <code>type()</code> function:</p>
+<pre><code class="language-python">print(type(42))
+print(type(1.75))
+print(type("Leeds"))
+print(type(True))</code></pre>
+<pre><code>&lt;class 'int'&gt;
+&lt;class 'float'&gt;
+&lt;class 'str'&gt;
+&lt;class 'bool'&gt;</code></pre>
+<p>Note that <code>"42"</code> (in quotes) is a string, not a number.</p>
+<br>
+<h2>Your Task</h2>
+<ol>
+    <li>Create four variables: <code>name</code> (a str), <code>age</code> (an int), <code>height</code> in metres (a float) and <code>is_student</code> (a bool).</li>
+    <li>Print the value of each variable.</li>
+    <li>Print the type of each variable using <code>type()</code>.</li>
+</ol>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Python lets you assign several variables at once: <code>x, y = 5, 10</code>. Try it, then swap the values of <code>x</code> and <code>y</code> in a single line.</li>
+    <li>What is the type of <code>"True"</code>, and of <code>7.0</code>? Predict first, then check.</li>
+</ul>

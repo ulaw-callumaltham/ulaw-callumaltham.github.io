@@ -1,23 +1,17 @@
 """
-Lesson 4: Working with Strings
-==============================
-Join, format and slice strings.
+Lesson 1: Hello, World!
+=======================
+Use print() to display text in the console.
 """
 
-first_name = "Ada"
-last_name = "Lovelace"
+# Example: this line prints a greeting
+print("Hello, World!")
 
-# TODO: Change the names above to your own
-
-
-# TODO: Create full_name and print it
+# TODO: Print your name
 
 
-# TODO: Print your initials
+# TODO: Print the name of your course
 
 
-# TODO: Print your full name in capitals and its length
-
-
-# TODO: Use an f-string to print a sentence about your name
+# TODO: Print one interesting fact about yourself
 

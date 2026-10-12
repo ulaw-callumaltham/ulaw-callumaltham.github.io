@@ -1,0 +1,40 @@
+<h1>Tutorial</h1> <!--Lesson 9: For Loops and range()-->
+<p>A <code>for</code> loop repeats code once for each item in a sequence. It is the natural choice when you know how many times you want to repeat.</p>
+<pre><code class="language-python">for letter in "Python":
+    print(letter)</code></pre>
+<pre><code>P
+y
+t
+h
+o
+n</code></pre>
+<p>On each pass, the variable <code>letter</code> holds the next character.</p>
+<br>
+<h2>The range() Function</h2>
+<p><code>range()</code> produces a sequence of numbers to loop over:</p>
+<ul>
+    <li><code>range(5)</code> gives 0, 1, 2, 3, 4 (it stops <strong>before</strong> 5)</li>
+    <li><code>range(1, 6)</code> gives 1, 2, 3, 4, 5</li>
+    <li><code>range(0, 11, 2)</code> gives 0, 2, 4, 6, 8, 10 (the third value is the step)</li>
+</ul>
+<pre><code class="language-python">for i in range(1, 4):
+    print(f"Round {i}")</code></pre>
+<pre><code>Round 1
+Round 2
+Round 3</code></pre>
+<br>
+<h2>while or for?</h2>
+<p>Use a <code>for</code> loop when you know how many repetitions you need, or are working through a sequence. Use a <code>while</code> loop when you are repeating until something happens, such as the user typing the right answer.</p>
+<br>
+<h2>Your Task</h2>
+<ol>
+    <li>Ask the user for a number.</li>
+    <li>Use a <code>for</code> loop and <code>range()</code> to print its times table from 1 to 12, in the format <code>7 x 3 = 21</code>.</li>
+</ol>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Use a loop to add up all the numbers from 1 to 100. You should get 5050.</li>
+    <li>FizzBuzz: print the numbers 1 to 30, but print <code>Fizz</code> for multiples of 3, <code>Buzz</code> for multiples of 5, and <code>FizzBuzz</code> for multiples of both.</li>
+    <li>Use one loop inside another to print a 5 by 5 square of <code>*</code> characters.</li>
+</ul>

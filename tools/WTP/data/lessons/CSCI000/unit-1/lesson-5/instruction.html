@@ -1,0 +1,34 @@
+<h1>Tutorial</h1> <!--Lesson 5: User Input and Type Conversion-->
+<p>So far our programs have used fixed values. To make them interactive, we can ask the user for information with the <code>input()</code> function.</p>
+<pre><code class="language-python">name = input("What is your name? ")
+print(f"Hello, {name}!")</code></pre>
+<p>When the program reaches <code>input()</code>, it pauses and shows the message. Type your answer and press Enter, and whatever you typed is stored in the variable.</p>
+<pre><code>What is your name? Sam
+Hello, Sam!</code></pre>
+<br>
+<h2>Converting Types</h2>
+<p><code>input()</code> <strong>always</strong> returns a string, even if the user types a number. To do maths with it, you must convert it:</p>
+<ul>
+    <li><code>int()</code> converts to a whole number</li>
+    <li><code>float()</code> converts to a decimal number</li>
+    <li><code>str()</code> converts to a string</li>
+</ul>
+<pre><code class="language-python">current_year = 2026
+birth_year = int(input("What year were you born? "))
+age = current_year - birth_year
+print(f"You will turn {age} this year.")</code></pre>
+<p>Without <code>int()</code>, Python would try to subtract a string from a number and give a <code>TypeError</code>.</p>
+<p>If the user types something that cannot be converted, such as <code>twenty</code>, Python raises a <code>ValueError</code>. For now, just type sensible values; you will learn how to handle bad input later in the module.</p>
+<br>
+<h2>Your Task</h2>
+<ol>
+    <li>Ask the user for their name and their birth year.</li>
+    <li>Print a message such as <code>Hi Sam, you will turn 21 this year.</code></li>
+    <li>Ask the user for two numbers, then print their sum. Test it: does <code>5</code> and <code>3</code> give <code>8</code>, not <code>53</code>?</li>
+</ol>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Write a temperature converter. Ask for a temperature in Celsius and print it in Fahrenheit using <code>c * 9 / 5 + 32</code>. Use <code>float()</code> so decimals work, and <code>round()</code> to tidy the result.</li>
+    <li>Write a bill splitter. Ask for the total bill and the number of people, then print how much each person pays to two decimal places.</li>
+</ul>
