@@ -1,7 +1,7 @@
 {
-  "moduleId": "CSCI71520",
-  "moduleCode": "CSCI71520",
-  "moduleTitle": "Software Development",
+  "moduleId": "CSCI000",
+  "moduleCode": "CSCI000",
+  "moduleTitle": "CS Induction - An introduction to Python",
   "units": [
     {
       "id": 1,
