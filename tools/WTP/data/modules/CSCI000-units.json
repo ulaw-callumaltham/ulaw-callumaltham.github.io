@@ -11,7 +11,7 @@
       "unlockDate": "2026-10-12",
       "lessonCount": 12,
       "technologies": ["Python"],
-      "lessonsFile": "data/lessons/CSCI71520/unit-1/lessons.json"
+      "lessonsFile": "data/lessons/CSCI000/unit-1/lessons.json"
     }
   ]
 }
