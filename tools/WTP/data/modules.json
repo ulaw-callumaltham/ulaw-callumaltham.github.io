@@ -1,6 +1,17 @@
 {
     "modules": [
         {
+            "id": "CSCI000",
+            "code": "CSCI000",
+            "title": "CS Induction - An introduction to Python",
+            "description": "In this unit, you will conduct some preparatory activities to get your understanding level of Python identified before classes start.",
+            "level": 7,
+            "unitCount": 1,
+            "weeks": 1,
+            "entryDate": "October 2026",
+            "unitsFile": "data/modules/CSCI71520-units.json"
+        },
+        {
             "id": "CSCI71585",
             "code": "CSCI71585",
             "title": "Web Technologies",
@@ -10,17 +21,6 @@
             "weeks": 10,
             "entryDate": "October 2026",
             "unitsFile": "data/modules/CSCI71585-units.json"
-        },
-        {
-            "id": "CSCI71520",
-            "code": "CSCI71520",
-            "title": "Software Development",
-            "description": "Tester.",
-            "level": 7,
-            "unitCount": 10,
-            "weeks": 10,
-            "entryDate": "October 2026",
-            "unitsFile": "data/modules/CSCI71520-units.json"
         }
     ]
 }

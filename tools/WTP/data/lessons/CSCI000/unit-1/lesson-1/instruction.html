@@ -1,0 +1,54 @@
+<h1>Tutorial</h1> <!--Lesson 4: Working with Strings-->
+<p>Strings are one of the most common data types you will work with. Python gives you many ways to combine, format and inspect them.</p>
+<br>
+<h2>Joining Strings</h2>
+<p>You can join (concatenate) strings with <code class="language-python">+</code>:</p>
+<pre><code class="language-python">first_name = "Ada"
+last_name = "Lovelace"
+full_name = first_name + " " + last_name
+print(full_name)</code></pre>
+<pre><code>Ada Lovelace</code></pre>
+<p>You cannot join a string and a number directly. This causes a <code>TypeError</code>:</p>
+<pre><code class="language-python">age = 36
+print("Age: " + age)</code></pre>
+<p>One fix is to convert the number to a string first with <code class="language-python">str(age)</code>.</p>
+<br>
+<h2>f-strings</h2>
+<p>A neater approach is an <strong>f-string</strong>. Put an <code class="language-python">f</code> before the opening quote and place variables inside curly brackets:</p>
+<pre><code class="language-python">print(f"{full_name} was {age} when she died.")</code></pre>
+<pre><code>Ada Lovelace was 36 when she died.</code></pre>
+<br>
+<h2>Useful String Tools</h2>
+<pre><code class="language-python">print(len(full_name))         # number of characters
+print(full_name.upper())      # all capitals
+print(full_name.lower())      # all lowercase
+print(full_name.replace("Ada", "Augusta"))</code></pre>
+<pre><code>12
+ADA LOVELACE
+ada lovelace
+Augusta Lovelace</code></pre>
+<br>
+<h2>Indexing and Slicing</h2>
+<p>Each character has a position called an <strong>index</strong>. Indexes start at 0, and negative indexes count from the end.</p>
+<pre><code class="language-python">print(full_name[0])     # first character
+print(full_name[-1])    # last character
+print(full_name[0:3])   # characters 0, 1 and 2</code></pre>
+<pre><code>A
+e
+Ada</code></pre>
+<br>
+<h2>Your Task</h2>
+<ol>
+    <li>Change <code class="language-python">first_name</code> and <code class="language-python">last_name</code> in the starter code to your own name.</li>
+    <li>Create <code class="language-python">full_name</code> and print it.</li>
+    <li>Print your initials (the first letter of each name).</li>
+    <li>Print your full name in capitals, and the number of characters in it.</li>
+    <li>Use an f-string to print a sentence such as <code>My name is Sam Smith and it has 9 characters.</code></li>
+</ol>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>The slice <code class="language-python">[::-1]</code> reverses a string. Print your name backwards.</li>
+    <li>Use <code class="language-python">.count("a")</code> to count how many times a letter appears in a sentence.</li>
+    <li>Check whether a word is a palindrome (reads the same backwards), e.g. <code class="language-python">"level"</code>, by comparing it to its reverse.</li>
+</ul>
