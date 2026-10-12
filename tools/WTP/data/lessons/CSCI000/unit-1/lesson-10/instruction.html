@@ -1,41 +1,74 @@
 <h1>Tutorial</h1> <!--Lesson 10: Lists-->
-<p>A <strong>list</strong> stores several values in a single variable. Lists are written with square brackets, with items separated by commas.</p>
+<p>Suppose you wanted to store the marks for every student on a course. You could create <code>mark1</code>, <code>mark2</code>, <code>mark3</code> and so on, but with 200 students that becomes impossible to manage. You couldn't easily loop through them, or add another student later. What you need is a single variable that holds a whole collection of values. In Python, that is a <strong>list</strong>.</p>
+<br>
+<h2>Creating a List</h2>
+<p>A list is written with square brackets, with the items separated by commas. A list can hold any type of value:</p>
 <pre><code class="language-python">marks = [65, 72, 58, 81, 49]
-modules = ["Python", "Databases", "Web Technologies"]</code></pre>
+modules = ["Python", "Databases", "Web Technologies"]
+empty = []</code></pre>
+<p>Lists keep their items in the order you put them in. An empty list <code>[]</code> is useful when you want to start with nothing and add items as your program runs.</p>
 <br>
 <h2>Accessing Items</h2>
-<p>Like strings, list items are numbered from index 0:</p>
+<p>Lists use exactly the same indexing as strings, which you met in Lesson 4. The first item is at index 0, and <code>-1</code> is the last item. <code>len()</code> tells you how many items there are:</p>
 <pre><code class="language-python">print(modules[0])
 print(modules[-1])
 print(len(modules))</code></pre>
 <pre><code>Python
 Web Technologies
 3</code></pre>
+<p>If you ask for an index that does not exist, such as <code>modules[3]</code> in a list of three items, Python raises an <code>IndexError</code>. Remember that a list of three items has indexes 0, 1 and 2.</p>
 <br>
 <h2>Changing a List</h2>
+<p>There is one big difference between lists and strings. Strings cannot be changed once created; methods like <code>.upper()</code> give you a new string. Lists, however, <strong>can</strong> be changed directly, and their methods modify the list itself:</p>
 <pre><code class="language-python">modules.append("Networking")     # add to the end
-modules.remove("Databases")      # remove an item
-modules[0] = "Python Basics"     # replace an item
+modules.remove("Databases")      # remove an item by value
+modules[0] = "Python Basics"     # replace the item at index 0
 print(modules)</code></pre>
 <pre><code>['Python Basics', 'Web Technologies', 'Networking']</code></pre>
+<p>Other useful tools include <code>.sort()</code>, which arranges the list in order, and the <code>in</code> keyword, which checks whether something is in the list and gives <code>True</code> or <code>False</code>, e.g. <code>"Python" in modules</code>.</p>
+<p>Because methods like <code>.sort()</code> change the list directly, you call them on their own line. Writing <code>marks = marks.sort()</code> is a common mistake: <code>.sort()</code> returns nothing, so you would lose your list.</p>
 <br>
 <h2>Working Through a List</h2>
-<p>A <code>for</code> loop visits each item in turn:</p>
+<p>Lists and <code>for</code> loops are a natural pair. A <code>for</code> loop visits each item in turn, just as it visited each character of a string:</p>
 <pre><code class="language-python">for mark in marks:
     print(mark)</code></pre>
-<p>Python also has built-in functions that work on lists of numbers: <code>sum()</code>, <code>min()</code> and <code>max()</code>. You can check whether an item is in a list with <code>in</code>, e.g. <code>"Python" in modules</code>, and sort a list with <code>.sort()</code>.</p>
+<p>A nice convention is to give the list a plural name (<code>marks</code>) and the loop variable the singular (<code>mark</code>). The code then reads as "for each mark in marks".</p>
+<br>
+<h2>Built-in Functions for Lists</h2>
+<p>Python has built-in functions that work on whole lists of numbers, saving you from writing loops for common jobs:</p>
+<ul>
+    <li><code>sum(marks)</code> adds up every item</li>
+    <li><code>min(marks)</code> finds the smallest item</li>
+    <li><code>max(marks)</code> finds the largest item</li>
+</ul>
+<p>Combining these with <code>len()</code> gives you the average: the total divided by how many items there are.</p>
+<br>
+<h2>Common Mistakes</h2>
+<ul>
+    <li><strong>Counting from 1</strong> instead of 0, which can cause an <code>IndexError</code>.</li>
+    <li><strong>Writing <code>marks = marks.sort()</code></strong>, which replaces your list with <code>None</code>.</li>
+    <li><strong>Using round brackets</strong> instead of square brackets to create a list.</li>
+</ul>
 <br>
 <h2>Your Task</h2>
 <ol>
     <li>Use a <code>for</code> loop to print each mark in the <code>marks</code> list.</li>
     <li>Print the highest and lowest marks.</li>
-    <li>Calculate and print the average mark (the total divided by the number of marks). You should get <code>65.0</code>.</li>
+    <li>Calculate and print the average mark. You should get <code>65.0</code>.</li>
     <li>Add a new mark of 77 to the list, sort it, and print the updated list.</li>
 </ol>
 <br>
 <h2>Extension Tasks</h2>
 <ul>
-    <li>Build a shopping list: start with an empty list <code>[]</code>, keep asking the user for items until they type <code>done</code>, then print each item on its own line.</li>
-    <li>Count how many marks in the list are 70 or above.</li>
-    <li>A <strong>dictionary</strong> stores values against labels (keys) instead of positions: <code>student = {"name": "Sam", "mark": 72}</code>. Create one and print <code>student["name"]</code>.</li>
+    <li>Build a shopping list: start with an empty list, keep asking the user for items until they type <code>done</code>, then print each item on its own line. This combines a <code>while</code> loop, <code>input()</code> and <code>.append()</code>.</li>
+    <li>Count how many marks in the list are 70 or above, using a loop, an <code>if</code> and an accumulator.</li>
+    <li>A <strong>dictionary</strong> stores values against labels (called keys) instead of numbered positions: <code>student = {"name": "Sam", "mark": 72}</code>. Create one and print <code>student["name"]</code>. You will use dictionaries much more later in the module.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>A list stores a collection of values in order, inside square brackets.</li>
+    <li>List indexing works the same way as strings, starting at 0.</li>
+    <li>Lists can be changed directly with methods such as <code>.append()</code>, <code>.remove()</code> and <code>.sort()</code>.</li>
+    <li><code>sum()</code>, <code>min()</code>, <code>max()</code> and <code>len()</code> work on whole lists.</li>
 </ul>

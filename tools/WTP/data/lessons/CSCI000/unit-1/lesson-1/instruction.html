@@ -1,6 +1,6 @@
 <h1>Tutorial</h1> <!--Lesson 1: Hello, World!-->
-<p>Welcome to Python! Python is a high-level, interpreted programming language that is widely used in web development, data science, automation and artificial intelligence. It is known for its simple, readable syntax, which makes it an excellent first language.</p>
-<p>In this unit you will work through twelve short lessons. Each one introduces a single idea, gives you a task to complete in the editor, and finishes with extension tasks if you want an extra challenge.</p>
+<p>Welcome to Python! Python is a high-level, interpreted programming language used in web development, data science, automation and artificial intelligence. "High-level" means it is written in a way that is close to plain English, so you can focus on solving problems rather than on how the computer works internally. "Interpreted" means Python reads and runs your code one line at a time, which makes it quick to experiment with.</p>
+<p>In this unit you will work through twelve short lessons. Each one introduces a single idea, explains how it works, gives you a task to complete in the editor, and finishes with extension tasks if you want an extra challenge.</p>
 <br>
 <p>In this unit, we will cover:</p>
 <ul>
@@ -14,26 +14,49 @@
     <li>Bringing it all together in a small game</li>
 </ul>
 <br>
-<h2>Using the Editor</h2>
-<p>The code editor on the right already contains some starter code. To run it, click the "Run" button and the output will be displayed below. "Clear" empties the output, and your code is saved automatically as you type.</p>
+<h2>What Is a Program?</h2>
+<p>A program is simply a list of instructions for the computer to follow. Python starts at the first line of your file and works downwards, carrying out each instruction in order. It does exactly what you tell it, no more and no less, so the order you write things in matters.</p>
+<p>When your program wants to show you something, it writes it to the <strong>console</strong>. On this platform, the console is the output area below the editor.</p>
 <br>
-<h3>Outputting Text to the Console</h3>
-<p>In Python, you use the <code>print()</code> function to output text to the console. This lets you display information to the user and check what your code is doing.</p>
+<h2>Using the Editor</h2>
+<p>The code editor on the right already contains some starter code. To run it, click the "Run" button and the output will be displayed below. "Clear" empties the output, and your code is saved automatically as you type, so you can leave and come back without losing your work.</p>
+<br>
+<h2>Outputting Text to the Console</h2>
+<p>The first instruction most programmers learn is how to display a message. In Python, you do this with the <code>print()</code> function.</p>
+<p>A <strong>function</strong> is a named command that performs a job for you. You use (or "call") a function by writing its name followed by round brackets. Anything you put inside the brackets is the information you are giving the function to work with. Here, we give <code>print()</code> the message we want it to display:</p>
 <pre><code class="language-python">print("Hello, World!")</code></pre>
 <p>When you run this code, it will output:</p>
 <pre><code>Hello, World!</code></pre>
-<p>Text inside quotation marks is called a <strong>string</strong>. You can use single or double quotes, as long as the opening and closing quotes match.</p>
-<p>Each <code>print()</code> starts on a new line:</p>
+<p>Notice that the quotation marks do not appear in the output. They are there to tell Python where the text starts and ends.</p>
+<br>
+<h3>Strings</h3>
+<p>A piece of text inside quotation marks is called a <strong>string</strong> (think of it as a string of characters joined together). You can use single quotes <code>'like this'</code> or double quotes <code>"like this"</code>, as long as the opening and closing quotes match.</p>
+<p>The quotes really matter. Without them, Python assumes the word is the name of something it should already know about. If it cannot find anything with that name, it stops and shows an error:</p>
+<pre><code class="language-python">print(Hello)</code></pre>
+<pre><code>NameError: name 'Hello' is not defined</code></pre>
+<p>Don't worry when you see an error. Errors are Python's way of telling you exactly what went wrong and on which line. Reading them carefully is one of the most useful skills you will develop.</p>
+<br>
+<h3>Several Lines of Output</h3>
+<p>Each <code>print()</code> displays its message on a new line. Because Python works from top to bottom, the lines appear in the order you wrote them:</p>
 <pre><code class="language-python">print("Welcome to Python programming!")
 print("This is my second line.")</code></pre>
 <p>This will output:</p>
 <pre><code>Welcome to Python programming!
 This is my second line.</code></pre>
 <br>
-<h3>Comments</h3>
-<p>Any line that begins with <code>#</code> is a <strong>comment</strong>. Python ignores comments completely; they are notes for people reading your code.</p>
+<h2>Comments</h2>
+<p>As your programs grow, it helps to leave notes explaining what your code does and why. Any line that begins with <code>#</code> is a <strong>comment</strong>. Python ignores comments completely; they exist only for people reading the code, including you in a few weeks' time.</p>
 <pre><code class="language-python"># This line greets the user
 print("Hello!")</code></pre>
+<p>Good comments explain the <em>purpose</em> of the code rather than repeating it word for word. You will see comments marked <code>TODO</code> in the starter code throughout this unit; these show you where to write your answers.</p>
+<br>
+<h2>Common Mistakes</h2>
+<ul>
+    <li><strong>Missing quotes</strong> around text, which causes a <code>NameError</code>.</li>
+    <li><strong>Mismatched quotes</strong>, such as <code>"Hello'</code>, which causes a <code>SyntaxError</code>.</li>
+    <li><strong>A missing bracket</strong> at the end of the line, which also causes a <code>SyntaxError</code>.</li>
+    <li><strong>A capital letter</strong>: <code>Print()</code> is not the same as <code>print()</code>. Python is case-sensitive.</li>
+</ul>
 <br>
 <h2>Your Task</h2>
 <ol>
@@ -42,10 +65,19 @@ print("Hello!")</code></pre>
     <li>Print one interesting fact about yourself.</li>
     <li>Add a comment above each line explaining what it does.</li>
 </ol>
+<p>Once it works, try deliberately making one of the mistakes above, run the code, and read the error message. Then fix it.</p>
 <br>
 <h2>Extension Tasks</h2>
 <ul>
     <li><code>print()</code> can take several values separated by commas. Try <code>print("Python", "is", "fun")</code>. What does Python put between the values?</li>
-    <li>Change the separator with <code>sep</code>: <code>print("01", "10", "2026", sep="/")</code>.</li>
+    <li>You can change what goes between the values with <code>sep</code>: <code>print("01", "10", "2026", sep="/")</code>. Use it to print a date in your own format.</li>
     <li>Inside a string, <code>\n</code> starts a new line. Print a three-line poem using a single <code>print()</code>.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>A program is a list of instructions that Python runs from top to bottom.</li>
+    <li><code>print()</code> displays information in the console.</li>
+    <li>Text must go inside matching quotation marks; this is called a string.</li>
+    <li>Lines starting with <code>#</code> are comments and are ignored by Python.</li>
 </ul>

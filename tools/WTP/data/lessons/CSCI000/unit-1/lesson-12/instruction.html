@@ -1,29 +1,43 @@
 <h1>Tutorial</h1> <!--Lesson 12: Putting It Together - Number Guessing Game-->
-<p>In this final lesson you will combine everything from this unit to build a complete game. The computer picks a secret number between 1 and 100, and the player keeps guessing until they find it, getting a hint after each guess.</p>
+<p>Congratulations on reaching the final lesson of this unit! You now know enough Python to build a complete, working game. In this lesson you will combine variables, input, comparisons, <code>if</code> statements, a <code>while</code> loop and a function into a number guessing game.</p>
+<p>The computer picks a secret number between 1 and 100. The player keeps guessing, and after each guess the program says whether the guess was too high or too low. When the player finds the number, the program tells them how many attempts they took.</p>
 <br>
 <h2>Importing a Module</h2>
-<p>Python comes with many ready-made <strong>modules</strong> of extra functions. To use one, you <code>import</code> it at the top of your file. The <code>random</code> module can pick random numbers:</p>
+<p>To pick a random number, we need a tool that is not built into Python by default. Python comes with a large library of ready-made <strong>modules</strong>, each containing extra functions for a particular kind of job: maths, dates and times, files and much more. To use a module, you <code>import</code> it at the top of your file.</p>
+<p>The <code>random</code> module contains functions for generating random numbers:</p>
 <pre><code class="language-python">import random
 
-secret = random.randint(1, 100)   # a whole number from 1 to 100
+secret = random.randint(1, 100)
 print(secret)</code></pre>
-<p>Run this a few times and you will get a different number each time.</p>
+<p><code>random.randint(1, 100)</code> means "use the <code>randint</code> function from the <code>random</code> module". It returns a random whole number between 1 and 100. Unlike <code>range()</code>, both ends are included here. Run this a few times and you will get a different number each time.</p>
 <br>
-<h2>Planning the Game</h2>
-<p>Before writing code, it helps to plan the steps:</p>
+<h2>Plan Before You Code</h2>
+<p>Experienced programmers rarely start typing straight away. They first break the problem into small steps, written in plain English. This is called <strong>decomposition</strong>, and it turns a big, vague problem into a list of small problems you already know how to solve.</p>
+<p>Here is a plan for the game, with the Python idea each step needs:</p>
 <ol>
-    <li>Pick a random secret number.</li>
-    <li>Set the number of attempts to 0.</li>
-    <li>Repeat until the guess is correct:
+    <li>Pick a random secret number. <em>(the <code>random</code> module)</em></li>
+    <li>Set the number of attempts to 0. <em>(a variable)</em></li>
+    <li>Repeat until the guess is correct: <em>(a <code>while</code> loop)</em>
         <ul>
-            <li>Ask the player for a guess and convert it to an integer.</li>
-            <li>Add 1 to the attempts.</li>
-            <li>If the guess is too high or too low, tell the player.</li>
+            <li>Ask the player for a guess and convert it to an integer. <em>(<code>input()</code> and <code>int()</code>)</em></li>
+            <li>Add 1 to the attempts. <em>(<code>+=</code>)</em></li>
+            <li>If the guess is too high or too low, tell the player. <em>(<code>if</code> and <code>elif</code>)</em></li>
         </ul>
     </li>
-    <li>Congratulate the player and tell them how many attempts they took.</li>
+    <li>Congratulate the player and tell them how many attempts they took. <em>(an f-string)</em></li>
 </ol>
-<p>Each step uses something you have already learnt: variables, input, comparisons, if statements, a while loop and a function.</p>
+<p>Every step uses something from an earlier lesson. If you get stuck on one part, go back to the lesson that covered it.</p>
+<br>
+<h2>How the Starter Code Is Organised</h2>
+<p>The starter code puts the game inside a function called <code>play_game()</code> and calls it at the bottom. Wrapping the game in a function keeps it tidy and means you can easily run it again, which you will need for the "play again" extension.</p>
+<p>Inside the function, <code>secret</code>, <code>attempts</code> and <code>guess</code> are already set up. <code>guess</code> starts at 0 for the same reason <code>password</code> started as an empty string in Lesson 8: the <code>while</code> condition is checked before the first guess, so the variable needs to exist already. Since the secret is never 0, the loop is guaranteed to run at least once.</p>
+<br>
+<h2>Testing and Debugging</h2>
+<p>A game based on random numbers can be tricky to test, because you do not know the right answer. Two useful techniques:</p>
+<ul>
+    <li><strong>Print the secret while testing.</strong> Add <code>print(secret)</code> near the top so you can check your logic, then remove it when the game works.</li>
+    <li><strong>Build it up gradually.</strong> Get the loop working first, then add the hints, then the attempt counter. Run your code after each small change rather than writing everything and hoping it works.</li>
+</ul>
 <br>
 <h2>Your Task</h2>
 <p>Complete the <code>play_game()</code> function in the starter code so the game works as planned above. A sample game might look like this:</p>
@@ -34,12 +48,74 @@ Your guess: 25
 Too low!
 Your guess: 37
 Correct! You got it in 3 attempts.</code></pre>
-<p>Tip: while testing, temporarily print the secret number so you can check your logic.</p>
+<p>A good strategy for the player is to guess the middle of the remaining range each time. This approach, called a <strong>binary search</strong>, guarantees you can find any number from 1 to 100 in at most 7 guesses. It is also an important algorithm you will meet again in computing.</p>
+<p>Once your game works, move on to the Extension Challenge below and see how many levels you can complete.</p>
 <br>
-<h2>Extension Tasks</h2>
+<h2>Extension Challenge: Level Up Your Game</h2>
+<p>Finished already? Each level below adds one new feature to <strong>the same game</strong>, and each one is a little harder than the last. Work through them in order, and make sure your game still works after every level before moving on. It is a good idea to use the Download button to save a copy each time you complete a level, so you always have a working version to go back to.</p>
+<br>
+<h3>Level 1: Getting Warmer</h3>
+<p>Make the hints more helpful. If the guess is within 5 of the secret number, add <code>You're very close!</code> to the hint.</p>
+<p><strong>New idea:</strong> <code>abs()</code> gives the distance between two numbers, ignoring whether it is positive or negative. <code>abs(guess - secret)</code> is 3 whether the guess is 3 above or 3 below.</p>
+<pre><code>Your guess: 40
+Too low! You're very close!</code></pre>
+<br>
+<h3>Level 2: Limited Lives</h3>
+<p>Give the player a maximum of 7 attempts. Show how many they have left after each wrong guess. If they run out, reveal the secret number and end the game.</p>
+<p><strong>Think about:</strong> your <code>while</code> loop now has two reasons to stop. You can combine them with <code>and</code> in the condition, or use <code>break</code>. After the loop, how will you know whether the player won or ran out of attempts?</p>
+<pre><code>Too high! 4 attempts left.
+...
+Out of attempts! The number was 63.</code></pre>
+<br>
+<h3>Level 3: No Cheating</h3>
+<p>If the player guesses a number outside 1 to 100, tell them it is out of range and ask again. An invalid guess should <strong>not</strong> use up one of their attempts.</p>
+<p><strong>Think about:</strong> where in the loop should the attempt counter be increased now?</p>
+<pre><code>Your guess: 150
+Please guess a number between 1 and 100.</code></pre>
+<br>
+<h3>Level 4: Play Again</h3>
+<p>When a game ends, ask <code>Play again? (y/n)</code>. If the player types <code>y</code>, start a brand new game with a new secret number. If they type <code>n</code>, print a goodbye message.</p>
+<p><strong>Think about:</strong> this needs a second loop <em>outside</em> the game. Because the game is already inside <code>play_game()</code>, the outer loop only needs to call the function again. Make <code>play_game()</code> <code>return</code> the number of attempts the player took (or <code>None</code> if they lost); you will need it in Level 6.</p>
+<br>
+<h3>Level 5: Difficulty Settings</h3>
+<p>Before each game, let the player choose a difficulty:</p>
 <ul>
-    <li>Limit the player to 7 attempts. If they run out, reveal the number and end the game.</li>
-    <li>When the game ends, ask <code>Play again? (y/n)</code> and start a new game if they answer <code>y</code>.</li>
-    <li>Add difficulty levels: easy (1 to 10), medium (1 to 50) and hard (1 to 100). Pass the maximum number into <code>play_game()</code> as a parameter.</li>
-    <li>Keep track of the player's best score across several games using a list.</li>
+    <li>Easy: 1 to 10, with 5 attempts</li>
+    <li>Medium: 1 to 50, with 7 attempts</li>
+    <li>Hard: 1 to 100, with 7 attempts</li>
 </ul>
+<p>Change <code>play_game()</code> so it takes two parameters, the highest possible number and the number of attempts, e.g. <code>play_game(50, 7)</code>. Every message that mentions 100 must now use the parameter instead. Your Level 3 check should use it too.</p>
+<br>
+<h3>Level 6: High Scores</h3>
+<p>Keep a list of the attempts taken in every game the player <em>wins</em>. When they choose to stop playing, print a summary:</p>
+<pre><code>Games won: 3
+Best score: 4 attempts
+Average: 5.3 attempts</code></pre>
+<p><strong>Think about:</strong> where should the list be created so that it is not reset at the start of every game? What should happen if the player never won a game? (Dividing by <code>len()</code> of an empty list causes a <code>ZeroDivisionError</code>.)</p>
+<br>
+<h3>Level 7: Crash-Proof Input</h3>
+<p>At the moment, typing a word such as <code>fifty</code> crashes the game with a <code>ValueError</code>. Make your game handle this: if the input is not a whole number, print a friendly message and ask again, without using up an attempt.</p>
+<p><strong>New idea:</strong> the string method <code>.isdigit()</code> returns <code>True</code> if every character in a string is a digit. Check the input <em>before</em> converting it with <code>int()</code>. Make sure the difficulty menu and the play again question cope with unexpected answers too.</p>
+<br>
+<h3>Level 8: Turn the Tables (Boss Level)</h3>
+<p>Write a new function, <code>computer_guesses()</code>, where the roles are reversed. The player thinks of a number between 1 and 100, and the computer has to guess it. After each guess the player types <code>h</code> (too high), <code>l</code> (too low) or <code>c</code> (correct).</p>
+<pre><code>Think of a number between 1 and 100.
+Is it 50? (h/l/c): h
+Is it 25? (h/l/c): l
+Is it 37? (h/l/c): c
+I got it in 3 guesses!</code></pre>
+<p><strong>Think about:</strong> the computer should use the binary search strategy described above. Keep two variables, <code>low</code> and <code>high</code>, for the range the number could still be in. Each guess is the middle of that range, <code>(low + high) // 2</code>. If the guess is too high, what is the new <code>high</code>? If it is too low, what is the new <code>low</code>?</p>
+<p>For a final twist, detect when the player is cheating. If their answers are impossible (when <code>low</code> becomes greater than <code>high</code>), the computer should call them out.</p>
+<br>
+<h2>Unit Recap</h2>
+<p>In this unit you have learnt how to:</p>
+<ul>
+    <li>Output text with <code>print()</code> and get input with <code>input()</code></li>
+    <li>Store data in variables and work with ints, floats, strings and booleans</li>
+    <li>Make decisions with <code>if</code>, <code>elif</code> and <code>else</code></li>
+    <li>Repeat code with <code>while</code> and <code>for</code> loops</li>
+    <li>Store collections of data in lists</li>
+    <li>Organise code into reusable functions</li>
+    <li>Use a module from Python's standard library</li>
+</ul>
+<p>These building blocks are the foundation of almost every program you will ever write. Well done!</p>

@@ -1,5 +1,8 @@
 <h1>Tutorial</h1> <!--Lesson 9: For Loops and range()-->
-<p>A <code>for</code> loop repeats code once for each item in a sequence. It is the natural choice when you know how many times you want to repeat.</p>
+<p>In the last lesson you used <code>while</code> loops, which repeat until a condition changes. Python's other loop, the <code>for</code> loop, is designed for a slightly different job: going through a sequence of items one at a time. In practice, <code>for</code> loops are the more common of the two.</p>
+<br>
+<h2>Looping Over a Sequence</h2>
+<p>A <code>for</code> loop takes each item in a sequence in turn and runs the indented block once for each one. A string is a sequence of characters, so you can loop over it:</p>
 <pre><code class="language-python">for letter in "Python":
     print(letter)</code></pre>
 <pre><code>P
@@ -8,23 +11,48 @@ t
 h
 o
 n</code></pre>
-<p>On each pass, the variable <code>letter</code> holds the next character.</p>
+<p>You can read the first line almost as English: "for each letter in the string Python, do the following". The variable <code>letter</code> is called the <strong>loop variable</strong>. On the first pass it holds <code>"P"</code>, on the second <code>"y"</code>, and so on, until there are no characters left and the loop ends.</p>
+<p>You choose the name of the loop variable yourself. <code>letter</code> describes what it holds, which makes the code easy to read.</p>
+<p>Unlike a <code>while</code> loop, there is no counter to set up and update, and no condition that might accidentally never become <code>False</code>. The <code>for</code> loop handles all of that for you, which is why it cannot become an infinite loop when working through a sequence.</p>
 <br>
 <h2>The range() Function</h2>
-<p><code>range()</code> produces a sequence of numbers to loop over:</p>
+<p>Often you want to repeat something a set number of times, or work through a series of numbers. The <code>range()</code> function produces a sequence of numbers for a <code>for</code> loop to work through. It can be used in three ways:</p>
 <ul>
-    <li><code>range(5)</code> gives 0, 1, 2, 3, 4 (it stops <strong>before</strong> 5)</li>
-    <li><code>range(1, 6)</code> gives 1, 2, 3, 4, 5</li>
-    <li><code>range(0, 11, 2)</code> gives 0, 2, 4, 6, 8, 10 (the third value is the step)</li>
+    <li><code>range(5)</code> gives 0, 1, 2, 3, 4. With one number, it starts at 0 and stops <strong>before</strong> that number.</li>
+    <li><code>range(1, 6)</code> gives 1, 2, 3, 4, 5. With two numbers, you choose the start and the stop.</li>
+    <li><code>range(0, 11, 2)</code> gives 0, 2, 4, 6, 8, 10. The third number is the <strong>step</strong>, i.e. how much to go up by each time. A negative step counts down.</li>
 </ul>
 <pre><code class="language-python">for i in range(1, 4):
     print(f"Round {i}")</code></pre>
 <pre><code>Round 1
 Round 2
 Round 3</code></pre>
+<p>As with slicing in Lesson 4, the stop value is never included. This trips almost everyone up at first. A useful rule: <code>range(1, 4)</code> stops before 4, so if you want to include a number, set the stop to one more than it.</p>
+<p>You will often see <code>i</code> used as the loop variable when counting. It is a long-standing convention, short for "index".</p>
+<br>
+<h2>Building Up a Total</h2>
+<p>A very common pattern is to create a variable before the loop and add to it on each pass. This is called an <strong>accumulator</strong>:</p>
+<pre><code class="language-python">total = 0
+
+for number in range(1, 5):
+    total += number
+
+print(total)</code></pre>
+<pre><code>10</code></pre>
+<p>Tracing it: <code>total</code> starts at 0, then becomes 1, then 3, then 6, then 10. The <code>print</code> is not indented, so it runs once after the loop has finished rather than on every pass.</p>
 <br>
 <h2>while or for?</h2>
-<p>Use a <code>for</code> loop when you know how many repetitions you need, or are working through a sequence. Use a <code>while</code> loop when you are repeating until something happens, such as the user typing the right answer.</p>
+<ul>
+    <li>Use a <code>for</code> loop when you know how many repetitions you need, or when you are working through a sequence.</li>
+    <li>Use a <code>while</code> loop when you are repeating <em>until</em> something happens, such as the user typing the right answer.</li>
+</ul>
+<br>
+<h2>Common Mistakes</h2>
+<ul>
+    <li><strong>Forgetting that the stop value is excluded</strong>. <code>range(1, 10)</code> stops at 9.</li>
+    <li><strong>Indenting a line that should run once</strong>, such as a final total, so it runs on every pass.</li>
+    <li><strong>Forgetting to convert input</strong> before passing it to <code>range()</code>, which needs a whole number.</li>
+</ul>
 <br>
 <h2>Your Task</h2>
 <ol>
@@ -34,7 +62,15 @@ Round 3</code></pre>
 <br>
 <h2>Extension Tasks</h2>
 <ul>
-    <li>Use a loop to add up all the numbers from 1 to 100. You should get 5050.</li>
-    <li>FizzBuzz: print the numbers 1 to 30, but print <code>Fizz</code> for multiples of 3, <code>Buzz</code> for multiples of 5, and <code>FizzBuzz</code> for multiples of both.</li>
-    <li>Use one loop inside another to print a 5 by 5 square of <code>*</code> characters.</li>
+    <li>Use an accumulator to add up all the numbers from 1 to 100. You should get 5050.</li>
+    <li>FizzBuzz: print the numbers 1 to 30, but print <code>Fizz</code> for multiples of 3, <code>Buzz</code> for multiples of 5, and <code>FizzBuzz</code> for multiples of both. Hint: use <code>%</code> and think carefully about the order of your conditions.</li>
+    <li>Put one loop inside another to print a 5 by 5 square of <code>*</code> characters.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>A <code>for</code> loop runs once for each item in a sequence.</li>
+    <li><code>range(start, stop, step)</code> produces a sequence of numbers, stopping before <code>stop</code>.</li>
+    <li>An accumulator is a variable you add to on each pass of a loop.</li>
+    <li>Use <code>for</code> when you know how many times; use <code>while</code> for "until".</li>
 </ul>

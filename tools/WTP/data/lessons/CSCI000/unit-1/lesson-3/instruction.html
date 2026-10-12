@@ -1,12 +1,15 @@
 <h1>Tutorial</h1> <!--Lesson 3: Arithmetic and Operators-->
-<p>Python can be used as a powerful calculator. These are the arithmetic operators you will use most often:</p>
+<p>Computers were originally built to do calculations, and Python makes this easy. Whether you are adding up a shopping basket, working out an average or converting between units, you will use the arithmetic operators covered in this lesson.</p>
+<br>
+<h2>The Arithmetic Operators</h2>
+<p>An <strong>operator</strong> is a symbol that tells Python to perform an action on one or more values. Most of these will look familiar from maths, although multiplication uses <code>*</code> rather than &times;:</p>
 <ul>
     <li><code>+</code> addition</li>
     <li><code>-</code> subtraction</li>
     <li><code>*</code> multiplication</li>
-    <li><code>/</code> division (always gives a float)</li>
-    <li><code>//</code> floor division (divides and rounds down to a whole number)</li>
-    <li><code>%</code> modulus (the remainder after division)</li>
+    <li><code>/</code> division</li>
+    <li><code>//</code> floor division</li>
+    <li><code>%</code> modulus (remainder)</li>
     <li><code>**</code> exponent (to the power of)</li>
 </ul>
 <pre><code class="language-python">print(7 + 3)
@@ -20,21 +23,43 @@ print(2 ** 3)</code></pre>
 1
 8</code></pre>
 <br>
+<h3>Division, Floor Division and Remainder</h3>
+<p>The first three operators behave as you would expect, but the division operators deserve a closer look.</p>
+<p>Normal division <code>/</code> always gives a float, even when the answer is a whole number. <code>10 / 2</code> gives <code>5.0</code>, not <code>5</code>.</p>
+<p>Floor division <code>//</code> and modulus <code>%</code> work as a pair. Imagine sharing 7 sweets between 2 people. Each person gets <code>7 // 2</code>, which is 3 sweets, and there is <code>7 % 2</code>, which is 1 sweet, left over. Floor division answers "how many whole times does it fit?" and modulus answers "what is left over?"</p>
+<p>The modulus operator turns out to be surprisingly useful. For example, a number is even if dividing it by 2 leaves no remainder, so <code>number % 2</code> is 0 for every even number.</p>
+<br>
 <h2>Order of Operations</h2>
-<p>Python follows the same order as BODMAS in maths: brackets first, then powers, then multiplication and division, then addition and subtraction.</p>
+<p>When a calculation has several operators, Python follows the same order as BODMAS in maths: brackets first, then powers, then multiplication and division, then addition and subtraction.</p>
 <pre><code class="language-python">print(2 + 3 * 4)
 print((2 + 3) * 4)</code></pre>
 <pre><code>14
 20</code></pre>
+<p>In the first line, Python multiplies <code>3 * 4</code> before adding 2. In the second, the brackets force the addition to happen first. If you are ever unsure, add brackets: they make your intention clear to Python and to anyone reading your code.</p>
 <br>
 <h2>Calculating with Variables</h2>
-<p>Arithmetic works with variables too, and you can store the result in a new variable:</p>
+<p>Arithmetic becomes far more useful when combined with variables. Instead of typing numbers directly, you store them in variables with meaningful names and calculate with those:</p>
 <pre><code class="language-python">price = 12.50
 quantity = 3
 subtotal = price * quantity
 print(subtotal)</code></pre>
 <pre><code>37.5</code></pre>
-<p>A common shortcut is to update a variable using its own value. <code>count += 1</code> is the same as <code>count = count + 1</code>. There are also <code>-=</code>, <code>*=</code> and <code>/=</code>.</p>
+<p>Remember that Python works out the right-hand side of <code>=</code> first. On the third line it looks up <code>price</code> (12.50) and <code>quantity</code> (3), multiplies them, and stores the result, 37.5, in <code>subtotal</code>. If the price changes later, you only need to update one line.</p>
+<br>
+<h3>Updating a Variable</h3>
+<p>It is very common to change a variable based on its current value, such as adding points to a score:</p>
+<pre><code class="language-python">score = 10
+score = score + 5
+print(score)</code></pre>
+<pre><code>15</code></pre>
+<p>Read the second line as "take the current score, add 5, and store the result back in score". Because this pattern is so common, Python has a shortcut: <code>score += 5</code> does exactly the same thing. There are also <code>-=</code>, <code>*=</code> and <code>/=</code>.</p>
+<br>
+<h2>Common Mistakes</h2>
+<ul>
+    <li><strong>Using <code>x</code> for multiplication</strong>. Python uses <code>*</code>.</li>
+    <li><strong>Forgetting the order of operations</strong>. <code>10 + 20 / 2</code> is 20.0, not 15.0.</li>
+    <li><strong>Doing maths with numbers in quotes</strong>. <code>"5" * 3</code> gives <code>555</code>, because it repeats the string three times.</li>
+</ul>
 <br>
 <h2>Your Task</h2>
 <ol>
@@ -47,6 +72,15 @@ print(subtotal)</code></pre>
 <h2>Extension Tasks</h2>
 <ul>
     <li>A film lasts 135 minutes. Use <code>//</code> and <code>%</code> to print how many hours and minutes that is.</li>
-    <li>A number is even if dividing it by 2 leaves no remainder. Use <code>%</code> to check whether 1,234,567 is even or odd.</li>
+    <li>Use <code>%</code> to check whether 1234567 is even or odd.</li>
     <li>Use <code>round(value, 2)</code> to round the result of <code>10 / 3</code> to two decimal places.</li>
+    <li>Try <code>print(0.1 + 0.2)</code>. The answer is not quite what you would expect, because computers store decimal numbers in binary and some cannot be represented exactly. This is why <code>round()</code> is useful when displaying money.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>Python supports <code>+ - * / // % **</code>.</li>
+    <li><code>/</code> always gives a float; <code>//</code> gives the whole part and <code>%</code> gives the remainder.</li>
+    <li>Python follows BODMAS, and brackets let you control the order.</li>
+    <li><code>score += 5</code> is a shortcut for <code>score = score + 5</code>.</li>
 </ul>

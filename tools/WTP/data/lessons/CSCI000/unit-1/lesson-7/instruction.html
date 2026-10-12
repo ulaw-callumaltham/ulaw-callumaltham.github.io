@@ -1,5 +1,8 @@
 <h1>Tutorial</h1> <!--Lesson 7: Making Decisions with if Statements-->
-<p>An <code>if</code> statement lets your program choose what to do based on a condition.</p>
+<p>Until now, every line of every program has run, one after another, every time. Real programs need to make choices: show an error if the password is wrong, give a discount if the customer is a student, end the game if the player runs out of lives. In this lesson you will use the booleans from Lesson 6 to control which parts of your code run.</p>
+<br>
+<h2>The if Statement</h2>
+<p>An <code>if</code> statement runs a block of code only when a condition is <code>True</code>:</p>
 <pre><code class="language-python">temperature = 25
 
 if temperature &gt; 20:
@@ -7,14 +10,38 @@ if temperature &gt; 20:
     print("Don't forget your sunglasses.")
 
 print("Have a good day!")</code></pre>
-<p>Two things are essential:</p>
-<ul>
-    <li>The line with the condition ends in a colon <code>:</code></li>
-    <li>The code that belongs to the <code>if</code> is <strong>indented</strong> by four spaces. Python uses indentation to know which lines are inside the <code>if</code>. The final print is not indented, so it always runs.</li>
-</ul>
+<pre><code>It's warm today.
+Don't forget your sunglasses.
+Have a good day!</code></pre>
+<p>Here is how Python reads it:</p>
+<ol>
+    <li>It checks the condition <code>temperature &gt; 20</code>. Since 25 is greater than 20, the condition is <code>True</code>.</li>
+    <li>Because the condition is <code>True</code>, it runs the two indented lines.</li>
+    <li>The final <code>print</code> is not indented, so it is not part of the <code>if</code>. It runs no matter what.</li>
+</ol>
+<p>Try changing <code>temperature</code> to 15. The two indented lines are skipped, and only <code>Have a good day!</code> is printed.</p>
 <br>
-<h2>else and elif</h2>
-<p><code>else</code> runs when the condition is <code>False</code>. <code>elif</code> (short for "else if") lets you check further conditions in turn.</p>
+<h3>Colons and Indentation</h3>
+<p>Two details are essential:</p>
+<ul>
+    <li>The line containing the condition ends with a colon <code>:</code>. The colon means "the block of code that belongs to this starts on the next line".</li>
+    <li>The code that belongs to the <code>if</code> is <strong>indented</strong>, normally by four spaces. Many languages use curly brackets to group code; Python uses indentation instead. Every line indented at the same level after the colon is part of the block, and the block ends at the first line that is not indented.</li>
+</ul>
+<p>Because indentation has meaning in Python, it must be consistent. Mixing different amounts of indentation causes an <code>IndentationError</code>.</p>
+<br>
+<h2>else: The Alternative</h2>
+<p>Often you want to do one thing if a condition is true and something else if it is not. <code>else</code> provides that alternative, and needs no condition of its own:</p>
+<pre><code class="language-python">age = 15
+
+if age &gt;= 18:
+    print("You can vote.")
+else:
+    print("You can't vote yet.")</code></pre>
+<pre><code>You can't vote yet.</code></pre>
+<p>Exactly one of the two blocks will always run; never both, never neither.</p>
+<br>
+<h2>elif: More Than Two Options</h2>
+<p>When there are several possibilities, use <code>elif</code> (short for "else if") to check further conditions in turn:</p>
 <pre><code class="language-python">temperature = 12
 
 if temperature &gt; 20:
@@ -24,7 +51,26 @@ elif temperature &gt; 10:
 else:
     print("Cold")</code></pre>
 <pre><code>Mild</code></pre>
-<p>Python checks each condition from top to bottom and runs only the <strong>first</strong> block whose condition is <code>True</code>. The order of your conditions therefore matters.</p>
+<p>Python checks each condition from top to bottom. As soon as it finds one that is <code>True</code>, it runs that block and skips the rest of the chain entirely. The <code>else</code> at the end catches anything that did not match.</p>
+<br>
+<h3>Why the Order Matters</h3>
+<p>Because only the <strong>first</strong> matching block runs, the order of your conditions is important. Look at this incorrect version:</p>
+<pre><code class="language-python">temperature = 25
+
+if temperature &gt; 10:
+    print("Mild")
+elif temperature &gt; 20:
+    print("Warm")</code></pre>
+<pre><code>Mild</code></pre>
+<p>25 is greater than 10, so the first condition is <code>True</code> and Python prints <code>Mild</code>. It never reaches the check for warm weather. When conditions overlap like this, put the most specific (here, the highest) one first.</p>
+<br>
+<h2>Common Mistakes</h2>
+<ul>
+    <li><strong>A missing colon</strong> at the end of an <code>if</code>, <code>elif</code> or <code>else</code> line causes a <code>SyntaxError</code>.</li>
+    <li><strong>Forgetting to indent</strong>, or indenting inconsistently, causes an <code>IndentationError</code>.</li>
+    <li><strong>Using <code>=</code> instead of <code>==</code></strong> in a condition.</li>
+    <li><strong>Putting conditions in the wrong order</strong>, so a later one is never reached.</li>
+</ul>
 <br>
 <h2>Your Task</h2>
 <p>Write a program that converts a mark into a UK degree classification:</p>
@@ -38,11 +84,19 @@ else:
 <ol>
     <li>Ask the user to enter a mark and convert it to an integer.</li>
     <li>Use <code>if</code>, <code>elif</code> and <code>else</code> to print the correct classification.</li>
-    <li>Test it with the boundary marks 70, 69, 40 and 39.</li>
+    <li>Test it with the boundary marks 70, 69, 40 and 39. Testing the values either side of a boundary is a good habit, because that is where mistakes usually hide.</li>
 </ol>
 <br>
 <h2>Extension Tasks</h2>
 <ul>
     <li>Before classifying, check the mark is between 0 and 100. If not, print <code>Invalid mark</code> instead.</li>
-    <li>Write a cinema ticket pricer: under 12 pays £5, 65 or over pays £6, everyone else pays £10. Then ask whether they are a student, and if so take £2 off (you will need an <code>if</code> inside another <code>if</code> or a separate check).</li>
+    <li>Write a cinema ticket pricer: under 12 pays £5, 65 or over pays £6, everyone else pays £10. Then ask whether they are a student, and if so take £2 off. You can put an <code>if</code> inside another <code>if</code>; just indent it one more level.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li><code>if</code> runs a block only when its condition is <code>True</code>.</li>
+    <li><code>elif</code> checks further conditions, and <code>else</code> catches everything else.</li>
+    <li>Only the first matching block runs, so order matters.</li>
+    <li>Conditions end with a colon, and the block is indented.</li>
 </ul>

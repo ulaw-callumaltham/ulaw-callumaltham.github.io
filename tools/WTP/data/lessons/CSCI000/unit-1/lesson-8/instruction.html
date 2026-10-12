@@ -1,5 +1,9 @@
 <h1>Tutorial</h1> <!--Lesson 8: While Loops-->
-<p>Loops let you repeat code without writing it out again and again. A <code>while</code> loop keeps repeating <strong>as long as</strong> its condition is <code>True</code>.</p>
+<p>Imagine you wanted to print the numbers 1 to 100. You could write 100 <code>print()</code> lines, but that would be slow and error-prone, and what if you then needed 1 to 1,000? Repeating tasks is something computers are brilliant at, and in programming we do it with <strong>loops</strong>.</p>
+<p>Python has two kinds of loop. This lesson covers the <code>while</code> loop, and the next covers the <code>for</code> loop.</p>
+<br>
+<h2>The while Loop</h2>
+<p>A <code>while</code> loop keeps repeating a block of code <strong>as long as</strong> its condition is <code>True</code>. It looks very similar to an <code>if</code> statement, and uses the same colon and indentation rules. The difference is that an <code>if</code> runs its block once, whereas a <code>while</code> goes back and checks the condition again after every pass.</p>
 <pre><code class="language-python">count = 1
 
 while count &lt;= 5:
@@ -13,26 +17,49 @@ print("Done!")</code></pre>
 4
 5
 Done!</code></pre>
-<p>Each time round the loop, Python checks the condition. Once <code>count</code> reaches 6, the condition becomes <code>False</code> and the loop stops.</p>
+<br>
+<h3>Tracing the Loop</h3>
+<p>Following a loop step by step (called <strong>tracing</strong>) is the best way to understand it:</p>
+<ul>
+    <li><code>count</code> starts at 1. Is 1 &lt;= 5? Yes, so print 1 and increase <code>count</code> to 2.</li>
+    <li>Is 2 &lt;= 5? Yes, so print 2 and increase <code>count</code> to 3.</li>
+    <li>This continues for 3, 4 and 5.</li>
+    <li>After printing 5, <code>count</code> becomes 6. Is 6 &lt;= 5? No, so the loop stops and Python moves on to <code>print("Done!")</code>.</li>
+</ul>
+<p>Almost every counting loop has the same three parts. Learn to spot them:</p>
+<ol>
+    <li><strong>Set up</strong> a variable before the loop (<code>count = 1</code>).</li>
+    <li><strong>Check</strong> a condition at the start of each pass (<code>count &lt;= 5</code>).</li>
+    <li><strong>Update</strong> the variable inside the loop (<code>count += 1</code>), so that the condition eventually becomes <code>False</code>.</li>
+</ol>
 <br>
 <h2>Avoiding Infinite Loops</h2>
-<p>If the condition never becomes <code>False</code>, the loop runs forever. In the example above, forgetting <code>count += 1</code> would do exactly that. If your program ever freezes, refresh the page; your code is saved automatically.</p>
+<p>If the condition never becomes <code>False</code>, the loop runs forever. This is called an <strong>infinite loop</strong>. In the example above, forgetting <code>count += 1</code> would do exactly that: <code>count</code> would stay at 1, and 1 is always less than 5.</p>
+<p>Everyone writes an infinite loop sooner or later. If your program ever freezes, refresh the page; your code is saved automatically. Then check that the variable in your condition is actually changing inside the loop.</p>
 <br>
-<h2>Looping Until the User Gets It Right</h2>
-<p><code>while</code> loops are ideal when you don't know in advance how many times to repeat:</p>
+<h2>Looping Until Something Happens</h2>
+<p><code>while</code> loops really shine when you do not know in advance how many times to repeat. For example, you might keep asking for a password until the user gets it right:</p>
 <pre><code class="language-python">password = ""
 
 while password != "python123":
     password = input("Enter the password: ")
 
 print("Access granted!")</code></pre>
+<p>Notice that <code>password</code> is set to an empty string before the loop. This is needed because the condition is checked before the first pass, and Python cannot compare a variable that does not exist yet. Since <code>""</code> is not equal to <code>"python123"</code>, the loop runs at least once. It may run once or fifty times, depending on the user.</p>
 <br>
 <h2>Leaving a Loop Early</h2>
-<p>The <code>break</code> keyword exits a loop immediately, even if the condition is still <code>True</code>.</p>
+<p>Sometimes you want to stop a loop part-way through. The <code>break</code> keyword exits the loop immediately, even if the condition is still <code>True</code>, and the program carries on from the first line after the loop. You will usually see <code>break</code> inside an <code>if</code> statement, e.g. "if the user types quit, break".</p>
+<br>
+<h2>Common Mistakes</h2>
+<ul>
+    <li><strong>Forgetting to update the variable</strong> inside the loop, which causes an infinite loop.</li>
+    <li><strong>Not setting the variable up</strong> before the loop, which causes a <code>NameError</code>.</li>
+    <li><strong>Off-by-one errors</strong>: using <code>&lt;</code> when you meant <code>&lt;=</code>, so the loop runs one time too few.</li>
+</ul>
 <br>
 <h2>Your Task</h2>
 <ol>
-    <li>Write a countdown that prints the numbers from 10 down to 1, then prints <code>Lift off!</code></li>
+    <li>Write a countdown that prints the numbers from 10 down to 1, then prints <code>Lift off!</code> Think about the three parts: where does the variable start, what is the condition, and how does it change each time?</li>
     <li>Extend the password example in the starter code so it counts how many attempts the user takes, and prints the number of attempts once they get in.</li>
 </ol>
 <br>
@@ -40,4 +67,12 @@ print("Access granted!")</code></pre>
 <ul>
     <li>Only allow three attempts at the password. Use <code>break</code> or an extra condition, and print <code>Account locked</code> if all three are wrong.</li>
     <li>Write a running total: keep asking the user for numbers and adding them up until they enter 0, then print the total.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>A <code>while</code> loop repeats as long as its condition is <code>True</code>.</li>
+    <li>Counting loops need a set-up, a condition and an update.</li>
+    <li>If the condition never becomes <code>False</code>, you have an infinite loop.</li>
+    <li><code>break</code> exits a loop immediately.</li>
 </ul>

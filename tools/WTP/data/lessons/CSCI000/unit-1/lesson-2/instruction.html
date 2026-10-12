@@ -1,5 +1,9 @@
 <h1>Tutorial</h1> <!--Lesson 2: Variables and Data Types-->
-<p>A <strong>variable</strong> is a named container that stores a value so you can use it later in your program. You create a variable by giving it a name and using <code>=</code> to assign it a value.</p>
+<p>Almost every program needs to remember things: a user's name, a score in a game, the price of an item in a basket. Programs store this information in <strong>variables</strong>.</p>
+<br>
+<h2>What Is a Variable?</h2>
+<p>A useful way to picture a variable is as a labelled box. The label is the variable's <strong>name</strong>, and the thing inside the box is its <strong>value</strong>. Whenever you use the name in your code, Python looks inside the box and uses whatever is stored there.</p>
+<p>You create a variable by writing a name, an equals sign, and a value:</p>
 <pre><code class="language-python">name = "Sam"
 age = 21
 print(name)
@@ -7,29 +11,43 @@ print(age)</code></pre>
 <p>This will output:</p>
 <pre><code>Sam
 21</code></pre>
-<p>A variable can be given a new value at any time, and the old value is replaced:</p>
+<p>Let's look at what happens line by line:</p>
+<ol>
+    <li><code>name = "Sam"</code> creates a box labelled <code>name</code> and puts the string <code>"Sam"</code> inside it.</li>
+    <li><code>age = 21</code> creates a second box labelled <code>age</code> holding the number 21.</li>
+    <li><code>print(name)</code> looks inside the <code>name</code> box and prints what it finds.</li>
+    <li><code>print(age)</code> does the same for <code>age</code>.</li>
+</ol>
+<p>Notice that <code>print(name)</code> has no quotes. With quotes, <code>print("name")</code> would print the word <em>name</em> itself rather than the value stored in the variable.</p>
+<br>
+<h3>The Equals Sign Means "Store"</h3>
+<p>In maths, <code>=</code> means two things are equal. In Python, it means "take the value on the right and store it in the variable on the left". This is called <strong>assignment</strong>. Python always works out the right-hand side first, then stores the result.</p>
+<p>Because of this, a variable can be given a new value at any time. The old value is simply thrown away:</p>
 <pre><code class="language-python">score = 10
 score = 15
 print(score)</code></pre>
 <pre><code>15</code></pre>
+<p>This is why they are called <em>variables</em>: their values can vary as your program runs.</p>
 <br>
 <h2>Naming Rules</h2>
+<p>Python has a few rules about what you can call a variable, plus some conventions that make code easier to read:</p>
 <ul>
-    <li>Names can contain letters, numbers and underscores, but cannot start with a number.</li>
-    <li>Names are case-sensitive: <code>Age</code> and <code>age</code> are different variables.</li>
-    <li>By convention, Python uses lowercase words separated by underscores, such as <code>first_name</code>. This is called <strong>snake_case</strong>.</li>
-    <li>Choose names that describe the value: <code>total_price</code> is far clearer than <code>x</code>.</li>
+    <li>Names can contain letters, numbers and underscores, but cannot start with a number. <code>player1</code> is fine; <code>1player</code> is not.</li>
+    <li>Names cannot contain spaces. Use an underscore instead.</li>
+    <li>Names are case-sensitive: <code>Age</code> and <code>age</code> are two different variables.</li>
+    <li>By convention, Python uses lowercase words separated by underscores, such as <code>first_name</code>. This style is called <strong>snake_case</strong>.</li>
+    <li>Choose names that describe the value. <code>total_price</code> tells the reader exactly what it holds; <code>x</code> tells them nothing.</li>
 </ul>
 <br>
 <h2>Data Types</h2>
-<p>Every value in Python has a <strong>type</strong>. The four basic types are:</p>
+<p>Every value in Python has a <strong>type</strong>, which tells Python what kind of data it is and therefore what you can do with it. You can add two numbers together, but it makes no sense to multiply someone's name by their postcode. The four basic types are:</p>
 <ul>
-    <li><strong>int</strong> &ndash; whole numbers, e.g. <code>42</code></li>
-    <li><strong>float</strong> &ndash; numbers with a decimal point, e.g. <code>1.75</code></li>
-    <li><strong>str</strong> &ndash; text (strings), e.g. <code>"Leeds"</code></li>
-    <li><strong>bool</strong> &ndash; either <code>True</code> or <code>False</code></li>
+    <li><strong>int</strong> (integer): a whole number, such as <code>42</code> or <code>-7</code></li>
+    <li><strong>float</strong> (floating-point number): a number with a decimal point, such as <code>1.75</code></li>
+    <li><strong>str</strong> (string): text, such as <code>"Leeds"</code></li>
+    <li><strong>bool</strong> (boolean): either <code>True</code> or <code>False</code>, used for yes/no values</li>
 </ul>
-<p>You can check the type of any value with the <code>type()</code> function:</p>
+<p>You do not have to tell Python which type a variable is; it works it out from the value you give it. You can always check using the <code>type()</code> function:</p>
 <pre><code class="language-python">print(type(42))
 print(type(1.75))
 print(type("Leeds"))
@@ -38,7 +56,21 @@ print(type(True))</code></pre>
 &lt;class 'float'&gt;
 &lt;class 'str'&gt;
 &lt;class 'bool'&gt;</code></pre>
-<p>Note that <code>"42"</code> (in quotes) is a string, not a number.</p>
+<br>
+<h3>Why Types Matter</h3>
+<p>The same symbol can behave differently depending on the types involved. Compare these two lines:</p>
+<pre><code class="language-python">print(2 + 2)
+print("2" + "2")</code></pre>
+<pre><code>4
+22</code></pre>
+<p>The first adds two numbers. The second joins two strings together, because <code>"2"</code> in quotes is text, not a number. Mixing up types is one of the most common causes of bugs for new programmers, so it is worth getting into the habit of asking "what type is this?"</p>
+<br>
+<h2>Common Mistakes</h2>
+<ul>
+    <li><strong>Using a variable before creating it</strong>, or misspelling its name, causes a <code>NameError</code>.</li>
+    <li><strong>Putting quotes around a variable name</strong> prints the name itself instead of its value.</li>
+    <li><strong>Writing <code>true</code> or <code>false</code></strong> in lowercase. Booleans must start with a capital letter: <code>True</code> and <code>False</code>.</li>
+</ul>
 <br>
 <h2>Your Task</h2>
 <ol>
@@ -51,4 +83,13 @@ print(type(True))</code></pre>
 <ul>
     <li>Python lets you assign several variables at once: <code>x, y = 5, 10</code>. Try it, then swap the values of <code>x</code> and <code>y</code> in a single line.</li>
     <li>What is the type of <code>"True"</code>, and of <code>7.0</code>? Predict first, then check.</li>
+    <li>Give a variable a number, print its type, then give it a string and print its type again. What does this tell you about Python variables?</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>A variable is a named place to store a value.</li>
+    <li><code>=</code> stores the value on the right in the variable on the left.</li>
+    <li>The four basic types are int, float, str and bool.</li>
+    <li>The type of a value decides what you can do with it.</li>
 </ul>

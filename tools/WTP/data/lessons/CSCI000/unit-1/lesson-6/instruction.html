@@ -1,7 +1,8 @@
 <h1>Tutorial</h1> <!--Lesson 6: Booleans and Comparisons-->
-<p>Programs constantly need to answer yes-or-no questions: is the password correct? Is the user old enough? Python answers these with the boolean values <code>True</code> and <code>False</code>.</p>
+<p>Programs constantly need to answer yes-or-no questions. Is the password correct? Is the user old enough? Is the basket empty? Before we can make our programs take different actions (which you will do in the next lesson), we need a way to ask these questions and get an answer. In Python, the answer is always one of two <strong>boolean</strong> values: <code>True</code> or <code>False</code>.</p>
 <br>
 <h2>Comparison Operators</h2>
+<p>A comparison checks how two values relate to each other and produces <code>True</code> or <code>False</code>:</p>
 <ul>
     <li><code>==</code> equal to</li>
     <li><code>!=</code> not equal to</li>
@@ -16,14 +17,30 @@ print("apple" == "Apple")</code></pre>
 <pre><code>True
 False
 False</code></pre>
-<p>Notice that string comparisons are case-sensitive. Also be careful not to confuse <code>=</code> (assigns a value) with <code>==</code> (compares two values).</p>
+<p>The last result surprises many people. String comparisons are case-sensitive, so a capital A is a completely different character from a lowercase a. This is exactly why passwords are case-sensitive.</p>
+<br>
+<h3>= Versus ==</h3>
+<p>This is one of the most common mistakes in programming, so it is worth being clear:</p>
+<ul>
+    <li>A single <code>=</code> <strong>assigns</strong>: "store this value".</li>
+    <li>A double <code>==</code> <strong>compares</strong>: "are these two values the same?"</li>
+</ul>
+<p>A helpful way to read <code>==</code> aloud is "is equal to", which reminds you that it is asking a question.</p>
+<br>
+<h3>Storing the Answer</h3>
+<p>Because a comparison produces a value, you can store it in a variable just like a number or string:</p>
+<pre><code class="language-python">age = 16
+is_adult = age &gt;= 18
+print(is_adult)</code></pre>
+<pre><code>False</code></pre>
+<p>Python works out <code>age &gt;= 18</code> first, which gives <code>False</code>, and then stores that value in <code>is_adult</code>. Giving conditions a clear name like this can make complicated code much easier to read.</p>
 <br>
 <h2>Logical Operators</h2>
-<p>You can combine conditions with <code>and</code>, <code>or</code> and <code>not</code>:</p>
+<p>Real decisions often depend on more than one thing. You might go for a walk if it is the weekend <em>and</em> it is not raining. Python lets you combine conditions using three <strong>logical operators</strong>:</p>
 <ul>
-    <li><code>and</code> is <code>True</code> only if both sides are <code>True</code></li>
-    <li><code>or</code> is <code>True</code> if at least one side is <code>True</code></li>
-    <li><code>not</code> flips <code>True</code> to <code>False</code> and vice versa</li>
+    <li><code>and</code> is <code>True</code> only if <strong>both</strong> sides are <code>True</code>. "I need a ticket <em>and</em> ID to get in."</li>
+    <li><code>or</code> is <code>True</code> if <strong>at least one</strong> side is <code>True</code>. "I can pay by cash <em>or</em> card."</li>
+    <li><code>not</code> flips a value: <code>True</code> becomes <code>False</code> and vice versa.</li>
 </ul>
 <pre><code class="language-python">is_weekend = True
 is_raining = False
@@ -31,6 +48,15 @@ print(is_weekend and not is_raining)
 print(is_weekend or is_raining)</code></pre>
 <pre><code>True
 True</code></pre>
+<p>Working through the first print: <code>not is_raining</code> is <code>not False</code>, which is <code>True</code>. So the expression becomes <code>True and True</code>, which is <code>True</code>.</p>
+<p>When combining several conditions, you can add brackets to make the meaning clear, e.g. <code>(age &gt;= 18) and (has_ticket)</code>.</p>
+<br>
+<h2>Common Mistakes</h2>
+<ul>
+    <li><strong>Using <code>=</code> when you mean <code>==</code></strong>.</li>
+    <li><strong>Writing <code>=&gt;</code> or <code>=&lt;</code></strong>. The equals sign always comes second: <code>&gt;=</code> and <code>&lt;=</code>.</li>
+    <li><strong>Forgetting case</strong> when comparing strings.</li>
+</ul>
 <br>
 <h2>Your Task</h2>
 <p>A cinema lets someone in if they are 18 or over, have a ticket, and are not banned.</p>
@@ -42,6 +68,15 @@ True</code></pre>
 <br>
 <h2>Extension Tasks</h2>
 <ul>
-    <li>Python allows chained comparisons. Use <code>1 &lt;= number &lt;= 100</code> to check whether a number is between 1 and 100.</li>
+    <li>Python allows chained comparisons, just like in maths. Use <code>1 &lt;= number &lt;= 100</code> to check whether a number is between 1 and 100.</li>
     <li>Ask the user to type a password and print <code>True</code> if it matches a stored password and <code>False</code> if it does not.</li>
+    <li>Make the password check ignore capital letters by using <code>.lower()</code> on both strings.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>Comparisons produce a boolean: <code>True</code> or <code>False</code>.</li>
+    <li><code>=</code> assigns a value; <code>==</code> compares two values.</li>
+    <li><code>and</code>, <code>or</code> and <code>not</code> combine or flip conditions.</li>
+    <li>String comparisons are case-sensitive.</li>
 </ul>

@@ -1,15 +1,35 @@
 <h1>Tutorial</h1> <!--Lesson 11: Functions-->
-<p>A <strong>function</strong> is a named block of code that performs a task. You have already used built-in functions such as <code>print()</code>, <code>len()</code> and <code>input()</code>. Now you will write your own.</p>
+<p>You have been using functions since your very first line of Python: <code>print()</code>, <code>input()</code>, <code>len()</code> and <code>int()</code> are all functions that someone else wrote. In this lesson you will write your own.</p>
+<br>
+<h2>Why Write Functions?</h2>
+<p>A function is a named block of code that performs one specific job. Writing your own functions has several big advantages:</p>
+<ul>
+    <li><strong>Reuse</strong>: write the code once, then use it as many times as you like by calling its name.</li>
+    <li><strong>Readability</strong>: a well-named function such as <code>calculate_vat()</code> tells the reader what the code does without them needing to read every line.</li>
+    <li><strong>Easier fixes</strong>: if there is a bug, you fix it in one place rather than in every copy.</li>
+    <li><strong>Breaking problems down</strong>: large programs are built from many small functions, each solving one part of the problem.</li>
+</ul>
+<br>
+<h2>Defining and Calling a Function</h2>
 <pre><code class="language-python">def greet():
     print("Hello!")
     print("Welcome to Python.")
 
 greet()
 greet()</code></pre>
-<p>The <code>def</code> keyword defines the function. The indented code inside it only runs when the function is <strong>called</strong> by writing its name followed by brackets.</p>
+<pre><code>Hello!
+Welcome to Python.
+Hello!
+Welcome to Python.</code></pre>
+<p>There are two separate steps here:</p>
+<ol>
+    <li><strong>Defining</strong> the function. The <code>def</code> keyword (short for "define") is followed by the function's name, round brackets and a colon. The indented lines underneath are the function's body. Defining a function does <em>not</em> run it; it just teaches Python what <code>greet</code> means.</li>
+    <li><strong>Calling</strong> the function. Writing <code>greet()</code> tells Python to run the body. Here we call it twice, so the messages appear twice.</li>
+</ol>
+<p>A function must be defined before it is called, so definitions usually go at the top of your file. Function names follow the same snake_case rules as variables.</p>
 <br>
-<h2>Parameters</h2>
-<p>Parameters let you pass information into a function:</p>
+<h2>Parameters: Passing Information In</h2>
+<p>A function becomes far more useful when you can give it information to work with. You do this with <strong>parameters</strong>, which are variables listed inside the brackets of the definition:</p>
 <pre><code class="language-python">def greet(name):
     print(f"Hello, {name}!")
 
@@ -17,28 +37,53 @@ greet("Sam")
 greet("Priya")</code></pre>
 <pre><code>Hello, Sam!
 Hello, Priya!</code></pre>
+<p>When you call <code>greet("Sam")</code>, the value <code>"Sam"</code> (called an <strong>argument</strong>) is placed into the parameter <code>name</code>, and the body runs using it. The next call puts <code>"Priya"</code> in instead. Functions can have several parameters, separated by commas.</p>
 <br>
 <h2>Returning a Value</h2>
-<p>The <code>return</code> keyword sends a result back to wherever the function was called, so you can store it or use it in other calculations:</p>
+<p>So far our functions have printed things. But often you want a function to work something out and give the answer back to your program so you can keep using it. That is what <code>return</code> does:</p>
 <pre><code class="language-python">def add(a, b):
     return a + b
 
 total = add(3, 4)
 print(total * 2)</code></pre>
 <pre><code>14</code></pre>
-<p>The difference between <code>print</code> and <code>return</code> is important: <code>print</code> only displays a value, whereas <code>return</code> hands it back so your program can keep using it. A function without a <code>return</code> gives back <code>None</code>.</p>
+<p>When Python reaches <code>return</code>, it leaves the function immediately and sends the value back to wherever the function was called. Here, <code>add(3, 4)</code> is replaced by 7, which is stored in <code>total</code> and then doubled.</p>
+<br>
+<h3>print Versus return</h3>
+<p>This is the most important idea in the lesson, and a very common source of confusion. Think of a calculator:</p>
+<ul>
+    <li><code>print</code> is like the calculator showing the answer on its screen. You can see it, but you cannot do anything else with it in your program.</li>
+    <li><code>return</code> is like the calculator handing you the answer on a piece of paper. You can store it, use it in another calculation, or print it yourself.</li>
+</ul>
+<p>A function without a <code>return</code> statement gives back a special value called <code>None</code>, meaning "nothing". If you see <code>None</code> appearing in your output, it usually means you printed the result of a function that does not return anything.</p>
+<br>
+<h2>Common Mistakes</h2>
+<ul>
+    <li><strong>Forgetting to call the function</strong>. Defining it alone does nothing.</li>
+    <li><strong>Forgetting the brackets</strong> when calling it: <code>greet</code> instead of <code>greet()</code>.</li>
+    <li><strong>Using <code>print</code> when you meant <code>return</code></strong>, so the result cannot be used elsewhere.</li>
+    <li><strong>Calling a function before it is defined</strong>, which causes a <code>NameError</code>.</li>
+</ul>
 <br>
 <h2>Your Task</h2>
 <ol>
     <li>Complete <code>area_of_rectangle(width, height)</code> so it returns the area. The test line should print <code>20</code>.</li>
-    <li>Complete <code>classify_mark(mark)</code> so it <strong>returns</strong> the degree classification from Lesson 7 as a string.</li>
+    <li>Complete <code>classify_mark(mark)</code> so it <strong>returns</strong> the degree classification from Lesson 7 as a string. You can have a <code>return</code> inside each branch of an <code>if</code>/<code>elif</code>/<code>else</code>.</li>
     <li>Call <code>classify_mark()</code> with several different marks to test it.</li>
 </ol>
-<p>Until you complete them, the test lines will print <code>None</code>.</p>
+<p>Until you complete them, the test lines will print <code>None</code>. Now you know why!</p>
 <br>
 <h2>Extension Tasks</h2>
 <ul>
     <li>Write <code>is_even(number)</code> that returns <code>True</code> or <code>False</code>.</li>
     <li>Write <code>average(numbers)</code> that takes a list and returns its average. Test it with the marks list from Lesson 10.</li>
-    <li>You will often see programs structured with a <code>main()</code> function and the line <code>if __name__ == "__main__":</code> at the bottom. This runs <code>main()</code> only when the file is run directly. Reorganise your test code into a <code>main()</code> function using this pattern.</li>
+    <li>You will often see programs structured with a <code>main()</code> function and the line <code>if __name__ == "__main__":</code> at the bottom. This runs <code>main()</code> only when the file is run directly, which matters once your programs are split across several files. Reorganise your test code into a <code>main()</code> function using this pattern.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li><code>def</code> defines a function; calling it by name runs it.</li>
+    <li>Parameters let you pass information into a function.</li>
+    <li><code>return</code> sends a value back so your program can use it.</li>
+    <li><code>print</code> only displays a value; a function without <code>return</code> gives back <code>None</code>.</li>
 </ul>

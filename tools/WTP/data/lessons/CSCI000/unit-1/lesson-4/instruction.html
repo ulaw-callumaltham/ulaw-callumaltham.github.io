@@ -1,24 +1,30 @@
 <h1>Tutorial</h1> <!--Lesson 4: Working with Strings-->
-<p>Strings are one of the most common data types you will work with. Python gives you many ways to combine, format and inspect them.</p>
+<p>Text is everywhere in software: names, messages, emails, web pages, passwords. Being able to build, inspect and change strings is one of the most practical skills in programming, and Python makes it particularly easy.</p>
 <br>
 <h2>Joining Strings</h2>
-<p>You can join (concatenate) strings with <code>+</code>:</p>
+<p>You can join (or <strong>concatenate</strong>) strings with the <code>+</code> operator. When used with strings, <code>+</code> does not add; it sticks the strings together end to end:</p>
 <pre><code class="language-python">first_name = "Ada"
 last_name = "Lovelace"
 full_name = first_name + " " + last_name
 print(full_name)</code></pre>
 <pre><code>Ada Lovelace</code></pre>
-<p>You cannot join a string and a number directly. This causes a <code>TypeError</code>:</p>
+<p>Notice the <code>" "</code> in the middle. Python never adds spaces for you, so without it you would get <code>AdaLovelace</code>.</p>
+<br>
+<h3>Mixing Strings and Numbers</h3>
+<p>Python will not let you join a string and a number directly:</p>
 <pre><code class="language-python">age = 36
 print("Age: " + age)</code></pre>
-<p>One fix is to convert the number to a string first with <code>str(age)</code>.</p>
+<pre><code>TypeError: can only concatenate str (not "int") to str</code></pre>
+<p>Python refuses because it cannot tell what you mean. Do you want to add numbers or join text? Rather than guessing, it raises a <code>TypeError</code>. One fix is to convert the number to a string first with <code>str(age)</code>, which turns 36 into <code>"36"</code>.</p>
 <br>
 <h2>f-strings</h2>
-<p>A neater approach is an <strong>f-string</strong>. Put an <code>f</code> before the opening quote and place variables inside curly brackets:</p>
+<p>Joining lots of pieces with <code>+</code> quickly becomes messy. A cleaner approach is an <strong>f-string</strong> (formatted string). Put the letter <code>f</code> before the opening quote, then place any variable inside curly brackets <code>{ }</code>. Python swaps each one for its value and handles the conversion to text for you:</p>
 <pre><code class="language-python">print(f"{full_name} was {age} when she died.")</code></pre>
 <pre><code>Ada Lovelace was 36 when she died.</code></pre>
+<p>f-strings are the most common way to build messages in modern Python, and you will use them throughout the rest of this unit.</p>
 <br>
-<h2>Useful String Tools</h2>
+<h2>String Methods</h2>
+<p>Strings come with built-in tools called <strong>methods</strong>. You use a method by writing a dot after the string, followed by the method's name and brackets. You can think of it as asking the string to do something to itself:</p>
 <pre><code class="language-python">print(len(full_name))         # number of characters
 print(full_name.upper())      # all capitals
 print(full_name.lower())      # all lowercase
@@ -27,15 +33,26 @@ print(full_name.replace("Ada", "Augusta"))</code></pre>
 ADA LOVELACE
 ada lovelace
 Augusta Lovelace</code></pre>
+<p><code>len()</code> is a function rather than a method, which is why it is written differently, but it is used constantly with strings. It counts every character, including spaces.</p>
+<p>An important detail: string methods do not change the original string. <code>full_name.upper()</code> gives you back a <em>new</em> string in capitals, and <code>full_name</code> itself stays the same. If you want to keep the result, store it in a variable, e.g. <code>shouting = full_name.upper()</code>.</p>
 <br>
 <h2>Indexing and Slicing</h2>
-<p>Each character has a position called an <strong>index</strong>. Indexes start at 0, and negative indexes count from the end.</p>
+<p>A string is a sequence of characters, and each character has a numbered position called an <strong>index</strong>. Python starts counting at 0, so the first character is at index 0, the second at index 1, and so on. Negative indexes count backwards from the end, so <code>-1</code> is always the last character.</p>
 <pre><code class="language-python">print(full_name[0])     # first character
 print(full_name[-1])    # last character
 print(full_name[0:3])   # characters 0, 1 and 2</code></pre>
 <pre><code>A
 e
 Ada</code></pre>
+<p>The third line is a <strong>slice</strong>, which takes a section of the string. <code>[0:3]</code> means "start at index 0 and stop <em>before</em> index 3". The stop position is never included. This can feel odd at first, but it means <code>[0:3]</code> always gives you exactly 3 characters.</p>
+<br>
+<h2>Common Mistakes</h2>
+<ul>
+    <li><strong>Forgetting the <code>f</code></strong> before an f-string, so the curly brackets are printed literally.</li>
+    <li><strong>Forgetting spaces</strong> when joining strings with <code>+</code>.</li>
+    <li><strong>Expecting a method to change the original string</strong> without storing the result.</li>
+    <li><strong>Starting to count from 1</strong>. The first character is at index 0.</li>
+</ul>
 <br>
 <h2>Your Task</h2>
 <ol>
@@ -48,7 +65,15 @@ Ada</code></pre>
 <br>
 <h2>Extension Tasks</h2>
 <ul>
-    <li>The slice <code>[::-1]</code> reverses a string. Print your name backwards.</li>
+    <li>The slice <code>[::-1]</code> steps backwards through the whole string. Use it to print your name in reverse.</li>
     <li>Use <code>.count("a")</code> to count how many times a letter appears in a sentence.</li>
-    <li>Check whether a word is a palindrome (reads the same backwards), e.g. <code>"level"</code>, by comparing it to its reverse.</li>
+    <li>A palindrome reads the same backwards, like <code>"level"</code>. Print whether a word is a palindrome by comparing it to its reverse with <code>==</code>.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li><code>+</code> joins strings; Python never adds spaces for you.</li>
+    <li>f-strings let you put variables inside text using <code>{ }</code>.</li>
+    <li>Methods such as <code>.upper()</code> return a new string and leave the original unchanged.</li>
+    <li>Indexes start at 0, and slices stop before the end position.</li>
 </ul>
