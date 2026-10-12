@@ -1,0 +1,186 @@
+{
+  "unitId": 1,
+  "unitTitle": "Python Basics",
+  "lessons": [
+    {
+      "id": 1,
+      "title": "Hello, World!",
+      "description": "Use print() to output text and write comments",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI000/unit-1/lesson-1/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI000/unit-1/lesson-1/starter.py"
+      },
+      "hints": [
+        "Text must be inside quotation marks, e.g. print(\"Sam\").",
+        "Each print() outputs on its own line.",
+        "Comments start with # and are ignored by Python."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Variables and Data Types",
+      "description": "Store values in variables and explore Python's basic data types",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI000/unit-1/lesson-2/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI000/unit-1/lesson-2/starter.py"
+      },
+      "hints": [
+        "Strings need quotes; numbers and True/False do not.",
+        "A float needs a decimal point, e.g. 1.75.",
+        "Use print(type(name)) to see a variable's type."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Arithmetic and Operators",
+      "description": "Use Python's arithmetic operators to perform calculations",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI000/unit-1/lesson-3/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI000/unit-1/lesson-3/starter.py"
+      },
+      "hints": [
+        "subtotal = price * quantity",
+        "20% is the same as multiplying by 0.2.",
+        "total = subtotal + vat"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Working with Strings",
+      "description": "Join, format, index and slice strings",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI000/unit-1/lesson-4/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI000/unit-1/lesson-4/starter.py"
+      },
+      "hints": [
+        "Join strings with +, and remember to add a space: first_name + \" \" + last_name",
+        "The first character of a string is at index 0, e.g. first_name[0].",
+        "In an f-string, put variables inside curly brackets: f\"{full_name}\""
+      ]
+    },
+    {
+      "id": 5,
+      "title": "User Input and Type Conversion",
+      "description": "Ask the user for information and convert it to the right type",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI000/unit-1/lesson-5/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI000/unit-1/lesson-5/starter.py"
+      },
+      "hints": [
+        "input() always returns a string.",
+        "Wrap input() in int() to get a whole number: int(input(\"Year? \"))",
+        "If 5 and 3 gives 53, you have joined two strings instead of adding two numbers."
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Booleans and Comparisons",
+      "description": "Compare values and combine conditions with and, or and not",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI000/unit-1/lesson-6/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI000/unit-1/lesson-6/starter.py"
+      },
+      "hints": [
+        "Use == to compare and = to assign.",
+        "can_enter = age >= 18 and has_ticket and not is_banned",
+        "and is only True if every part is True."
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Making Decisions with if Statements",
+      "description": "Use if, elif and else to choose what your program does",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI000/unit-1/lesson-7/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI000/unit-1/lesson-7/starter.py"
+      },
+      "hints": [
+        "Every if, elif and else line ends with a colon.",
+        "Indent the code inside each block by four spaces.",
+        "Check the highest boundary first: if mark >= 70, then elif mark >= 60, and so on."
+      ]
+    },
+    {
+      "id": 8,
+      "title": "While Loops",
+      "description": "Repeat code while a condition is True",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI000/unit-1/lesson-8/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI000/unit-1/lesson-8/starter.py"
+      },
+      "hints": [
+        "Start the countdown at 10 and use while count >= 1.",
+        "Subtract 1 each time with count -= 1, or the loop will never end.",
+        "Create attempts = 0 before the loop and add 1 inside it."
+      ]
+    },
+    {
+      "id": 9,
+      "title": "For Loops and range()",
+      "description": "Repeat code a set number of times using for loops",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI000/unit-1/lesson-9/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI000/unit-1/lesson-9/starter.py"
+      },
+      "hints": [
+        "range(1, 13) gives the numbers 1 to 12.",
+        "Convert the input to a number with int() before multiplying.",
+        "Use an f-string for the format: f\"{number} x {i} = {number * i}\""
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Lists",
+      "description": "Store and work with collections of values",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI000/unit-1/lesson-10/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI000/unit-1/lesson-10/starter.py"
+      },
+      "hints": [
+        "max(marks) and min(marks) give the highest and lowest values.",
+        "The average is sum(marks) / len(marks).",
+        "Use marks.append(77) and then marks.sort()."
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Functions",
+      "description": "Write reusable functions with parameters and return values",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI000/unit-1/lesson-11/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI000/unit-1/lesson-11/starter.py"
+      },
+      "hints": [
+        "Replace pass with a return statement, e.g. return width * height.",
+        "You can have several return statements in one function, one in each if/elif/else branch.",
+        "If your test prints None, the function is not returning anything yet."
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Putting It Together: Number Guessing Game",
+      "description": "Combine everything from this unit to build a number guessing game",
+      "language": "python",
+      "instructionFile": "data/lessons/CSCI000/unit-1/lesson-12/instruction.html",
+      "starterCode": {
+        "python": "data/lessons/CSCI000/unit-1/lesson-12/starter.py"
+      },
+      "hints": [
+        "Use while guess != secret: as your loop condition.",
+        "Inside the loop: get the guess with int(input(...)), then add 1 to attempts.",
+        "Compare with if guess > secret: and elif guess < secret:"
+      ]
+    }
+  ]
+}
