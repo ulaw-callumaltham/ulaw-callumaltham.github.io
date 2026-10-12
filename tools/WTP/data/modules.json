@@ -9,7 +9,7 @@
             "unitCount": 1,
             "weeks": 1,
             "entryDate": "October 2026",
-            "unitsFile": "data/modules/CSCI71520-units.json"
+            "unitsFile": "data/modules/CSCI000-units.json"
         },
         {
             "id": "CSCI71585",

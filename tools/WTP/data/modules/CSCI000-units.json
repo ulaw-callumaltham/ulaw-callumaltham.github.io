@@ -9,7 +9,7 @@
       "description": "In this unit, you will learn the fundamentals of Python programming, including syntax, data types, control structures, and basic functions. By the end of this unit, you will be able to write simple Python programs and understand the core concepts of programming in Python.",
       "week": 1,
       "unlockDate": "2026-10-12",
-      "lessonCount": 8,
+      "lessonCount": 12,
       "technologies": ["Python"],
       "lessonsFile": "data/lessons/CSCI71520/unit-1/lessons.json"
     }
