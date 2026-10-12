@@ -20,7 +20,7 @@
             "unitCount": 10,
             "weeks": 10,
             "entryDate": "October 2026",
-            "unitsFile": "data/modules/CSCI71585-units.json"
+            "unitsFile": "data/modules/CSCI71520-units.json"
         }
     ]
 }
