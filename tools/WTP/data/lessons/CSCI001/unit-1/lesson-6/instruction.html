@@ -1,0 +1,51 @@
+<h1>Tutorial</h1> <!--Lesson 6: Component: Project Cards-->
+<p>Employers want to see what you can <strong>do</strong>, not just what you say you can do. The projects section is where you provide that evidence, and it will grow throughout your course. In this lesson you will build it using one of the most common patterns on the web: the <strong>card</strong>.</p>
+<br>
+<h2>What Is a Card?</h2>
+<p>A card is a box that groups everything about one item: a heading, a short description and some extra details. You have seen them everywhere: product listings, news articles, streaming services. They work well for projects because each one is self-contained and easy to scan.</p>
+<pre><code class="language-html">&lt;article class="card"&gt;
+    &lt;h3&gt;Portfolio Website&lt;/h3&gt;
+    &lt;p&gt;The website you are looking at, built during induction week.&lt;/p&gt;
+    &lt;p class="tech"&gt;HTML, CSS&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+<p><code>&lt;article&gt;</code> is a semantic element for a self-contained piece of content that would still make sense on its own. Each project card fits that description. Notice the heading is an <code>&lt;h3&gt;</code>, because it sits inside the Projects section's <code>&lt;h2&gt;</code>.</p>
+<br>
+<h2>Repeating a Pattern</h2>
+<p>All three cards use exactly the same HTML structure and the same classes; only the text changes. This is the real power of classes: you write the CSS once, and every element with that class is styled the same way. To add a fourth project later, you copy a card and change its text, and it is styled automatically.</p>
+<br>
+<h2>Arranging Cards in a Grid</h2>
+<p>To place the cards side by side, they are wrapped in a container and styled with <strong>CSS Grid</strong>:</p>
+<pre><code class="language-css">.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}</code></pre>
+<p>The second line looks complicated, but it reads as: "create as many columns as will fit, each at least 220 pixels wide, and share any spare space equally between them" (<code>1fr</code> means one fraction of the available space). The result is a <strong>responsive</strong> layout: three columns on a laptop, two on a tablet and one on a phone, with no extra code.</p>
+<p>Most visitors to your portfolio, including recruiters, will be looking on their phone, so layouts that adapt to the screen size are essential.</p>
+<br>
+<h2>Making a Card Look Like a Card</h2>
+<p>A white background, padding, rounded corners and a subtle <code>box-shadow</code> lift the card off the page. The shadow value <code>0 2px 8px rgba(0, 0, 0, 0.1)</code> means: no horizontal offset, 2 pixels down, 8 pixels of blur, in black at 10% opacity.</p>
+<br>
+<h2>What If I Don't Have Projects Yet?</h2>
+<p>That is completely normal at the start of a course. Your portfolio website is itself your first project, and you may have built something in the Python session. For the rest, add a "Coming Soon" card naming the module the project will come from. As the year goes on, you will replace these with real work.</p>
+<br>
+<h2>Your Task</h2>
+<ol>
+    <li>The first card is done for you. Add two more <code>&lt;article class="card"&gt;</code> elements inside the <code>card-grid</code> div.</li>
+    <li>Give each one an <code>&lt;h3&gt;</code>, a description and a <code>tech</code> paragraph.</li>
+    <li>Complete the <code>.card-grid</code>, <code>.card</code>, <code>.card h3</code> and <code>.tech</code> rules in the CSS tab.</li>
+    <li>Make the preview narrower or wider (if your screen allows) and watch the cards rearrange.</li>
+</ol>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Add a link at the bottom of each card, e.g. View on GitHub, using what you learnt in Lesson 3.</li>
+    <li>Make cards react when the mouse is over them with a <code>.card:hover</code> rule, e.g. a stronger shadow. <code>:hover</code> is a <strong>pseudo-class</strong>, which selects an element only while it is in a particular state.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>A card groups everything about one item; article is a good semantic element for it.</li>
+    <li>Classes let you style many elements with one rule.</li>
+    <li>CSS Grid with repeat(auto-fit, minmax(...)) creates a responsive layout.</li>
+</ul>

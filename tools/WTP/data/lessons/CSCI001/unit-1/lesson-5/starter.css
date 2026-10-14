@@ -1,0 +1,52 @@
+/* ========== Lesson 4: Base styles ========== */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    color: #333333;
+    background-color: #f7f7f9;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background-color: #44294A;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 0 0 12px 12px;
+}
+
+header h1 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+section {
+    margin: 40px 0;
+}
+
+h2 {
+    color: #94248C;
+    border-bottom: 2px solid #94248C;
+    padding-bottom: 5px;
+}
+
+.profile-photo {
+    width: 160px;
+    border-radius: 50%;
+}
+
+/* ========== Lesson 5: Skills ========== */
+
+/* TODO: Remove the bullet points and padding, then lay the items out
+   in a row that wraps using display: flex; flex-wrap: wrap; gap: 10px; */
+.skills {
+
+}
+
+/* TODO: Style each skill as a "tag": background colour, text colour,
+   padding: 6px 14px; and border-radius: 20px; */
+.skills li {
+
+}

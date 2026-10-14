@@ -1,0 +1,59 @@
+<h1>Tutorial</h1> <!--Lesson 4: Styling with CSS-->
+<p>Your page now has a clear structure, but it looks plain. First impressions matter: visitors form an opinion of a website within a few seconds, and a clean, consistent design suggests attention to detail. In this lesson you will start styling your portfolio with CSS.</p>
+<br>
+<h2>What Is CSS?</h2>
+<p>CSS (Cascading Style Sheets) controls how HTML content looks: colours, fonts, spacing and layout. Keeping content (HTML) and presentation (CSS) separate is a key principle of web development. It means you could completely change the look of your site without touching a single word of its content. Switch to the CSS tab in the editor to write your styles.</p>
+<br>
+<h2>How a CSS Rule Works</h2>
+<p>CSS is written as a set of <strong>rules</strong>. Each rule says which elements to style, and how:</p>
+<pre><code class="language-css">h2 {
+    color: #94248C;
+    border-bottom: 2px solid #94248C;
+}</code></pre>
+<ul>
+    <li>The <strong>selector</strong> (<code>h2</code>) chooses which elements the rule applies to; here, every h2 on the page.</li>
+    <li>The curly brackets contain one or more <strong>declarations</strong>.</li>
+    <li>Each declaration has a <strong>property</strong> (what to change) and a <strong>value</strong> (what to change it to), separated by a colon and ended with a semicolon.</li>
+</ul>
+<p>A missing semicolon or bracket is the most common CSS mistake. Unlike Python, CSS does not show an error; the broken rule is simply ignored, so if a style does not appear, check your punctuation first.</p>
+<br>
+<h2>Selectors</h2>
+<p>There are three kinds of selector you will use most:</p>
+<ul>
+    <li>An <strong>element selector</strong> such as <code>section</code> styles every element of that type.</li>
+    <li>A <strong>class selector</strong> starts with a full stop, such as <code>.profile-photo</code>, and styles every element with <code>class="profile-photo"</code>. Classes let you style specific elements without affecting all elements of the same type.</li>
+    <li>A <strong>descendant selector</strong> such as <code>header h1</code> styles only the h1 elements that are inside a header.</li>
+</ul>
+<br>
+<h2>Colour, Fonts and Spacing</h2>
+<p>Colours can be written as names (<code>white</code>) or hex codes (<code>#44294A</code>). Pick two or three colours and use them consistently. Most importantly, make sure there is strong contrast between text and background so your page is easy to read for everyone.</p>
+<p>Spacing is controlled with two properties, best understood as part of the <strong>box model</strong>: every element is a rectangular box.</p>
+<ul>
+    <li><code>padding</code> is the space <strong>inside</strong> the box, between its content and its edge.</li>
+    <li><code>margin</code> is the space <strong>outside</strong> the box, pushing other elements away.</li>
+</ul>
+<p>Setting a <code>max-width</code> on the body with <code>margin: 0 auto</code> keeps your text in a comfortable column in the middle of wide screens, instead of stretching right across them.</p>
+<br>
+<h2>Your Task</h2>
+<p>The CSS tab contains empty rules, with suggested values in the comments above each one.</p>
+<ol>
+    <li>Fill in the <code>body</code> rule to set the font, line height, text and background colours, and the centred column.</li>
+    <li>Style the <code>header</code> with a background colour, white text, padding and centred text.</li>
+    <li>Space out the sections and style the h2 headings.</li>
+    <li>Change at least one colour to make the design your own. Keep the contrast strong.</li>
+</ol>
+<p>A rule for <code>.profile-photo</code> is already included so you can see a class selector in action: <code>border-radius: 50%</code> turns the square photo into a circle.</p>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Try a different font, such as <code>Georgia, serif</code> or <code>Verdana, sans-serif</code>. The fonts after the first are fallbacks in case it is not available.</li>
+    <li>Search for an online contrast checker and test your text and background colours. Aim for a ratio of at least 4.5:1.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>CSS controls appearance; HTML controls content and structure.</li>
+    <li>A rule is a selector followed by declarations of property: value;</li>
+    <li>Class selectors start with a full stop and target elements by their class attribute.</li>
+    <li>padding is space inside an element; margin is space outside it.</li>
+</ul>

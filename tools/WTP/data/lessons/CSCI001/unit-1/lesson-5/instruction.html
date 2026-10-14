@@ -1,0 +1,62 @@
+<h1>Tutorial</h1> <!--Lesson 5: Component: Skills List-->
+<p>From this lesson onwards, you will build <strong>components</strong>: reusable building blocks that present a particular kind of information. Most portfolio sites are made from a small number of components like these, arranged in different ways. The first is a skills list.</p>
+<br>
+<h2>Lists in HTML</h2>
+<p>HTML has two main kinds of list:</p>
+<ul>
+    <li><code>&lt;ul&gt;</code> an <strong>unordered</strong> list, for items where the order does not matter (shown with bullet points by default)</li>
+    <li><code>&lt;ol&gt;</code> an <strong>ordered</strong> list, for steps or rankings (shown with numbers)</li>
+</ul>
+<p>Each item in either kind of list goes inside an <code>&lt;li&gt;</code> (list item) element:</p>
+<pre><code class="language-html">&lt;ul class="skills"&gt;
+    &lt;li&gt;Python&lt;/li&gt;
+    &lt;li&gt;SQL&lt;/li&gt;
+    &lt;li&gt;Stakeholder communication&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<p>A skills list is a list of separate items in no particular order, so <code>&lt;ul&gt;</code> is the right choice. Using a real list, rather than a paragraph of words separated by commas, also means a screen reader will announce "list, 6 items", which helps users understand the content.</p>
+<br>
+<h2>Choosing Your Skills</h2>
+<p>Include a mix of:</p>
+<ul>
+    <li><strong>Technical skills</strong> you are learning on the course, such as HTML, CSS, Python and SQL. It is fine to include skills you are still developing; your projects will show the level.</li>
+    <li><strong>Transferable skills</strong> from your previous degree, work or other experience, such as research, data analysis, project management, customer service or report writing. These are often what set conversion students apart.</li>
+</ul>
+<p>Be honest. An interviewer may well ask you about anything listed on your portfolio.</p>
+<br>
+<h2>Turning a List into Tags</h2>
+<p>A bulleted list works, but many portfolios show skills as rounded "tags". This uses a technique called <strong>flexbox</strong>, which arranges the children of an element in a row.</p>
+<pre><code class="language-css">.skills {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}</code></pre>
+<ul>
+    <li><code>list-style: none</code> and <code>padding: 0</code> remove the bullet points and the default indent.</li>
+    <li><code>display: flex</code> lines the list items up in a row.</li>
+    <li><code>flex-wrap: wrap</code> lets the items move onto a new line when they run out of space, so the list works on narrow screens.</li>
+    <li><code>gap</code> adds space between the items.</li>
+</ul>
+<p>Then style each item with <code>.skills li</code>, giving it a background colour, padding and a large <code>border-radius</code> to round the corners into a pill shape.</p>
+<p>Notice that the HTML has not changed at all to achieve this. It is still a plain list, and the CSS alone changes how it looks. This is the separation of content and presentation from the last lesson in action.</p>
+<br>
+<h2>Your Task</h2>
+<ol>
+    <li>In the Skills section, add a <code>&lt;ul&gt;</code> with <code>class="skills"</code>.</li>
+    <li>Add at least six skills: a mix of technical and transferable.</li>
+    <li>Complete the <code>.skills</code> and <code>.skills li</code> rules in the CSS tab.</li>
+</ol>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Split your skills into two lists with <code>&lt;h3&gt;</code> headings: Technical Skills and Transferable Skills.</li>
+    <li>Add a second class to your technical skills, e.g. <code>&lt;li class="tech-skill"&gt;</code>, and give them a different colour. An element can have several classes separated by spaces.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>Use ul for unordered items and ol for ordered steps; each item is an li.</li>
+    <li>Flexbox (display: flex) arranges elements in a row; flex-wrap lets them wrap.</li>
+    <li>The same HTML can look completely different depending on the CSS.</li>
+</ul>

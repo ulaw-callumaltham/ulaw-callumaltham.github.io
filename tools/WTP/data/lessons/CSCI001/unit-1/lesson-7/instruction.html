@@ -1,0 +1,51 @@
+<h1>Tutorial</h1> <!--Lesson 7: Component: Experience Timeline-->
+<p>For a conversion student, the Experience and Education section is particularly important. It tells the story of how you arrived here, whether through a previous degree, work, or both, and shows an employer what you bring that a typical computing graduate does not. In this lesson you will present it as a timeline.</p>
+<br>
+<h2>Presenting a History</h2>
+<p>A CV lists your history in reverse chronological order: most recent first. Your portfolio should do the same, because a visitor is most interested in what you are doing now. A timeline adds a visual line down the side, which makes the sequence easy to follow at a glance.</p>
+<p>For each entry, include:</p>
+<ul>
+    <li><strong>The dates</strong>, so the order is clear</li>
+    <li><strong>The role or qualification</strong>, as the entry's heading</li>
+    <li><strong>The organisation</strong> and <strong>one key achievement</strong>. Lead with what you achieved rather than a list of duties, and include a number if you can: "Reduced weekly reporting time by 30%" is far more memorable than "Responsible for reporting".</li>
+</ul>
+<p>This is a summary, not your whole CV. Three or four entries is usually enough, and you can link to your full CV or LinkedIn profile for the details.</p>
+<br>
+<h2>Building the Component</h2>
+<p>Each entry uses the same structure, just like the project cards:</p>
+<pre><code class="language-html">&lt;div class="timeline"&gt;
+    &lt;div class="entry"&gt;
+        &lt;p class="date"&gt;2026 – present&lt;/p&gt;
+        &lt;h3&gt;MSc Computing&lt;/h3&gt;
+        &lt;p&gt;University of Law. Studying software development and databases.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p><code>&lt;div&gt;</code> is a general-purpose container with no meaning of its own. It is used purely to group elements so they can be styled together. Use a semantic element when one fits; use a div when you just need a box.</p>
+<br>
+<h2>Drawing the Line</h2>
+<p>The timeline's line is simply a left border on the container:</p>
+<pre><code class="language-css">.timeline {
+    border-left: 3px solid #94248C;
+    padding-left: 20px;
+}</code></pre>
+<p>The <code>padding-left</code> pushes the entries away from the line so the text does not touch it. Small styling choices like this, such as making the dates smaller and coloured, create a <strong>visual hierarchy</strong>: the reader's eye goes to the most important information first.</p>
+<br>
+<h2>Your Task</h2>
+<ol>
+    <li>The first entry is done for you. Add at least two more <code>&lt;div class="entry"&gt;</code> elements for your previous qualifications and any work or volunteering, most recent first.</li>
+    <li>Write each one with a date, a heading and one achievement.</li>
+    <li>Complete the <code>.timeline</code>, <code>.entry</code>, <code>.date</code> and <code>.entry h3</code> rules in the CSS tab.</li>
+</ol>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Add a small circle on the line for each entry. Give <code>.entry</code> the rule <code>position: relative;</code>, then use <code>.entry::before</code> with <code>content: "";</code>, a width and height of 12px, a background colour, <code>border-radius: 50%</code>, <code>position: absolute;</code> and <code>left: -28px;</code>. This is your first taste of positioning, which you will cover properly in Web Technologies.</li>
+    <li>Rewrite one of your entries so it leads with an achievement and includes a number.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>List experience most recent first, and lead with achievements.</li>
+    <li>div is a general-purpose container for grouping and styling.</li>
+    <li>A simple border can create a strong visual effect such as a timeline.</li>
+</ul>

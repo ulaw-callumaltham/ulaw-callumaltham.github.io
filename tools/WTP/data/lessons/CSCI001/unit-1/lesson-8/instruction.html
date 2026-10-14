@@ -1,0 +1,48 @@
+<h1>Tutorial</h1> <!--Lesson 8: Navigation and Contact-->
+<p>Your portfolio now has all its main content. The last two pieces are about helping visitors use it: a navigation menu so they can jump to the section they care about, and a contact section so they know how to reach you. After all, the point of a portfolio is to start a conversation.</p>
+<br>
+<h2>Linking Within a Page</h2>
+<p>In Lesson 3 you linked to other websites. Links can also jump to a specific place on the <strong>same</strong> page. This takes two steps.</p>
+<p>First, give the target element an <code>id</code>. An id is a unique name; unlike a class, each id can only be used once on a page:</p>
+<pre><code class="language-html">&lt;section id="projects"&gt;</code></pre>
+<p>Then link to it using <code>#</code> followed by the id. The <code>#</code> tells the browser to look on the current page rather than go to a new one:</p>
+<pre><code class="language-html">&lt;a href="#projects"&gt;Projects&lt;/a&gt;</code></pre>
+<p>Clicking the link scrolls straight to that section. On a long single-page portfolio, this saves visitors from scrolling past content they are not interested in.</p>
+<br>
+<h2>The Navigation Menu</h2>
+<p>A group of navigation links belongs inside a <code>&lt;nav&gt;</code> element, which screen readers announce as navigation. It usually goes in the header so it is the first thing visitors see:</p>
+<pre><code class="language-html">&lt;nav&gt;
+    &lt;a href="#about"&gt;About&lt;/a&gt;
+    &lt;a href="#skills"&gt;Skills&lt;/a&gt;
+    &lt;a href="#projects"&gt;Projects&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+<p>The CSS uses flexbox again, the same technique as the skills list, to line the links up in a row. Removing the underline with <code>text-decoration: none</code> gives a cleaner look, and the <code>nav a:hover</code> rule brings it back when the mouse is over a link, so visitors can still tell they are links.</p>
+<br>
+<h2>Contact Links</h2>
+<p>Make it as easy as possible for someone to get in touch. A special kind of link, <code>mailto:</code>, opens the visitor's email program with your address already filled in:</p>
+<pre><code class="language-html">&lt;a href="mailto:alex.morgan@example.com"&gt;Email&lt;/a&gt;</code></pre>
+<p>Use a professional email address, and consider a separate one for job hunting. Alongside it, link to your LinkedIn and GitHub profiles, which you will develop in your Professional Development module. Your portfolio, LinkedIn and GitHub should feel like three parts of one consistent presence.</p>
+<p>Note that any email address published on a website can be collected by spam bots. Many developers accept this for a job-hunting address; others leave the email out and rely on LinkedIn for contact. It is your choice.</p>
+<br>
+<h2>Your Task</h2>
+<ol>
+    <li>Give each section an id: <code>about</code>, <code>skills</code>, <code>projects</code>, <code>experience</code> and <code>contact</code>.</li>
+    <li>Add a <code>&lt;nav&gt;</code> inside the header with a link to each section.</li>
+    <li>In the Contact section, add a list with <code>class="contact-links"</code> containing links for Email (using <code>mailto:</code>), LinkedIn and GitHub.</li>
+    <li>Complete the nav, contact and footer rules in the CSS tab.</li>
+    <li>Test every link in the preview.</li>
+</ol>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Add <code>scroll-behavior: smooth;</code> to a new <code>html</code> rule in your CSS so the page glides to each section instead of jumping.</li>
+    <li>Add a Back to top link in the footer using <code>href="#"</code>.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>An id is a unique name for one element; href="#id" links to it.</li>
+    <li>Group navigation links in a nav element.</li>
+    <li>mailto: links open an email with your address filled in.</li>
+    <li>Your portfolio, LinkedIn and GitHub should present one consistent identity.</li>
+</ul>

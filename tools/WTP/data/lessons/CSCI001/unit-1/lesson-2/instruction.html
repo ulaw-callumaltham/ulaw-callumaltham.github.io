@@ -1,0 +1,57 @@
+<h1>Tutorial</h1> <!--Lesson 2: Structuring Your Page-->
+<p>Before adding any more content, it helps to decide how the page is organised. Think back to the portfolio sites you looked at in Session 1. Almost all of them followed a similar pattern: a header introducing the person, a series of sections (about, skills, projects, experience, contact) and a footer. In this lesson you will build that skeleton.</p>
+<br>
+<h2>Semantic Elements</h2>
+<p>HTML has a set of <strong>semantic</strong> elements. Semantic means "carrying meaning": the name of the element describes what kind of content it holds.</p>
+<ul>
+    <li><code>&lt;header&gt;</code> the introductory content at the top of the page</li>
+    <li><code>&lt;nav&gt;</code> a set of navigation links (you will add this in Lesson 8)</li>
+    <li><code>&lt;main&gt;</code> the main content of the page; there should be only one</li>
+    <li><code>&lt;section&gt;</code> a themed group of content, usually with its own heading</li>
+    <li><code>&lt;footer&gt;</code> the closing content at the bottom of the page</li>
+</ul>
+<p>None of these change how the page looks on their own. So why use them?</p>
+<ul>
+    <li><strong>Accessibility.</strong> Screen readers use them to let visually impaired users jump straight to the main content or between sections. An accessible portfolio is also a good signal to employers.</li>
+    <li><strong>Search engines</strong> use them to understand which parts of your page matter most.</li>
+    <li><strong>Readability.</strong> Your code is easier to understand when the structure is named, both for you and for anyone reviewing your work.</li>
+</ul>
+<br>
+<h2>Nesting Elements</h2>
+<p>Elements can be placed inside other elements; this is called <strong>nesting</strong>. A section contains its heading and content, and <code>&lt;main&gt;</code> contains all the sections:</p>
+<pre><code class="language-html">&lt;main&gt;
+    &lt;section&gt;
+        &lt;h2&gt;About Me&lt;/h2&gt;
+        &lt;p&gt;I am an MSc Computing student...&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h2&gt;Skills&lt;/h2&gt;
+    &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+<p>An element must be closed inside the element that contains it. Think of it like brackets in maths: the last one opened is the first one closed. Indenting nested elements is not required by the browser, but it makes the structure much easier to see and to check.</p>
+<br>
+<h2>Heading Levels</h2>
+<p>Headings should form an outline of the page, like the contents page of a book. Your name is the <code>&lt;h1&gt;</code>, each section title is an <code>&lt;h2&gt;</code>, and items inside a section (such as individual projects) will be <code>&lt;h3&gt;</code>. Do not choose a heading level because of its size; size can be changed with CSS later. Choose it based on where it sits in the outline.</p>
+<br>
+<h2>Your Task</h2>
+<ol>
+    <li>Wrap your <code>&lt;h1&gt;</code> and tagline in a <code>&lt;header&gt;</code> element.</li>
+    <li>Create a <code>&lt;main&gt;</code> element containing five <code>&lt;section&gt;</code> elements, each with an <code>&lt;h2&gt;</code>: About Me, Skills, Projects, Experience and Education, and Contact.</li>
+    <li>Move your introduction paragraph into the About Me section.</li>
+    <li>Add a <code>&lt;footer&gt;</code> after <code>&lt;/main&gt;</code> containing a paragraph with <code>&amp;copy;</code>, the year and your name.</li>
+</ol>
+<p><code>&amp;copy;</code> is an <strong>HTML entity</strong>, a code that displays a special character. It shows as ©. Entities exist for characters that are hard to type or that have a special meaning in HTML, such as <code>&amp;lt;</code> for &lt;.</p>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Is there a section your plan from Session 1 needs that is not on this list, such as Volunteering, Publications or Interests? Add it in the right place.</li>
+    <li>Check your nesting: every opening tag should have a matching closing tag at the same indentation level.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>Semantic elements describe what their content is: header, nav, main, section, footer.</li>
+    <li>They help screen readers, search engines and other developers.</li>
+    <li>Headings form an outline: h1 for your name, h2 for sections, h3 for items within them.</li>
+</ul>

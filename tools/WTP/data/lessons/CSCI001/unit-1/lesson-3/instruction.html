@@ -1,0 +1,52 @@
+<h1>Tutorial</h1> <!--Lesson 3: Text, Images and Links-->
+<p>The About Me section is often the most-read part of a portfolio. It is where a visitor decides whether you are someone they want to know more about. In this lesson you will write it properly, using an image, emphasis and links.</p>
+<br>
+<h2>Writing for the Web</h2>
+<p>People rarely read web pages word for word; they skim. Good web writing uses short paragraphs (two or three sentences), puts the most important point first, and highlights key phrases so they stand out. A useful structure for an About Me section is:</p>
+<ol>
+    <li><strong>Who you are now</strong>: your course and what you are focusing on.</li>
+    <li><strong>Where you have come from</strong>: your previous study or work, and what it taught you.</li>
+    <li><strong>Where you are going</strong>: the kind of role or work you are aiming for.</li>
+</ol>
+<p>Whatever you did before this course, whether a previous degree, a job, volunteering or something else, it is a strength, not something to hide. Employers value people who bring knowledge of another subject or industry into technology.</p>
+<br>
+<h2>Emphasis</h2>
+<p><code>&lt;strong&gt;</code> marks text as important, and browsers show it in bold. <code>&lt;em&gt;</code> marks text that would be stressed when spoken, and browsers show it in italics. Use them sparingly: if everything is bold, nothing stands out.</p>
+<pre><code class="language-html">&lt;p&gt;I am an &lt;strong&gt;MSc Computing student&lt;/strong&gt; with a background in healthcare.&lt;/p&gt;</code></pre>
+<br>
+<h2>Images</h2>
+<p>Images are added with the <code>&lt;img&gt;</code> element. Unlike most elements, it has no closing tag, because it does not wrap any content. Instead, everything it needs is given in <strong>attributes</strong>: extra information written inside the opening tag as <code>name="value"</code>.</p>
+<pre><code class="language-html">&lt;img src="https://placehold.co/160x160?text=Photo" alt="Photo of Alex Morgan" class="profile-photo"&gt;</code></pre>
+<ul>
+    <li><code>src</code> (source) is the address of the image.</li>
+    <li><code>alt</code> (alternative text) describes the image. It is read aloud by screen readers and shown if the image fails to load. Every image should have one.</li>
+    <li><code>class</code> gives the element a name that CSS can target. You will use it to make the photo round in the next lesson.</li>
+</ul>
+<p>For now, use the placeholder address above. When you put your site online later in the course, you can replace it with a professional photo of yourself. Use the same photo as your LinkedIn profile so that people recognise you across platforms.</p>
+<br>
+<h2>Links</h2>
+<p>Links are what make the web a web. They are created with the <code>&lt;a&gt;</code> (anchor) element, and the <code>href</code> attribute holds the address to go to:</p>
+<pre><code class="language-html">&lt;a href="https://www.linkedin.com" target="_blank"&gt;my LinkedIn profile&lt;/a&gt;</code></pre>
+<p>The text between the tags is what the visitor clicks, so make it describe where the link goes. "My LinkedIn profile" is far more useful than "click here", especially for screen reader users, who often jump from link to link.</p>
+<p><code>target="_blank"</code> opens the link in a new tab, so visitors do not lose your portfolio when they follow a link away from it.</p>
+<br>
+<h2>Your Task</h2>
+<ol>
+    <li>Add an image to the About Me section using the placeholder address, with meaningful alt text and <code>class="profile-photo"</code>.</li>
+    <li>Replace the introduction with two or three short paragraphs following the who/where from/where to structure above. Use your Session 1 plan.</li>
+    <li>Use <code>&lt;strong&gt;</code> to highlight one key phrase.</li>
+    <li>Add a link to your LinkedIn profile (or to https://www.linkedin.com if you do not have one yet) that opens in a new tab.</li>
+</ol>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Read your About Me section aloud. Does it sound like you? Would it make sense to someone outside computing?</li>
+    <li>Ask the person next to you to read it in 15 seconds, then tell you the three things they remember. Are they the three things you wanted them to remember?</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>Web visitors skim, so write short paragraphs and lead with the key point.</li>
+    <li>Attributes give extra information to an element, written as name="value".</li>
+    <li>Every image needs alt text, and link text should describe where the link goes.</li>
+</ul>

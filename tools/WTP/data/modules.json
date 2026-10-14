@@ -12,6 +12,17 @@
             "unitsFile": "data/modules/CSCI000-units.json"
         },
         {
+            "id": "CSCI001",
+            "code": "CSCI001",
+            "title": "CS Induction - Building Your Web Presence",
+            "description": "In this unit, you will build the first version of your own portfolio website using HTML and CSS, giving you a starting point for your professional web presence that you can develop throughout your course.",
+            "level": 7,
+            "unitCount": 1,
+            "weeks": 1,
+            "entryDate": "October 2026",
+            "unitsFile": "data/modules/CSCI001-units.json"
+        },
+        {
             "id": "CSCI71585",
             "code": "CSCI71585",
             "title": "Web Technologies",

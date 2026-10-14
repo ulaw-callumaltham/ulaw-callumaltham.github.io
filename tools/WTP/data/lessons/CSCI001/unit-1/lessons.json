@@ -1,0 +1,150 @@
+{
+  "unitId": 1,
+  "unitTitle": "Building Your Portfolio Website",
+  "lessons": [
+    {
+      "id": 1,
+      "title": "Anatomy of a Web Page",
+      "description": "Learn the basic structure of an HTML page and start your portfolio",
+      "language": "web",
+      "instructionFile": "data/lessons/CSCI001/unit-1/lesson-1/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI001/unit-1/lesson-1/starter.html",
+        "css": "data/lessons/CSCI001/unit-1/lesson-1/starter.css"
+      },
+      "hints": [
+        "Change the text between <title> and </title> at the top of the page.",
+        "A main heading is written as <h1>Your Name</h1>.",
+        "Each paragraph goes inside its own <p> and </p> tags."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Structuring Your Page",
+      "description": "Organise your portfolio into meaningful sections using semantic HTML",
+      "language": "web",
+      "instructionFile": "data/lessons/CSCI001/unit-1/lesson-2/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI001/unit-1/lesson-2/starter.html",
+        "css": "data/lessons/CSCI001/unit-1/lesson-2/starter.css"
+      },
+      "hints": [
+        "Put <header> before your h1 and </header> after your tagline.",
+        "Each section looks like: <section> <h2>Skills</h2> </section>",
+        "All five sections go between <main> and </main>; the footer goes after </main>."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Text, Images and Links",
+      "description": "Write your About Me section with formatted text, an image and links",
+      "language": "web",
+      "instructionFile": "data/lessons/CSCI001/unit-1/lesson-3/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI001/unit-1/lesson-3/starter.html",
+        "css": "data/lessons/CSCI001/unit-1/lesson-3/starter.css"
+      },
+      "hints": [
+        "An image is written as <img src=\"address\" alt=\"description\">; it has no closing tag.",
+        "Wrap a phrase in <strong> and </strong> to mark it as important.",
+        "A link is <a href=\"https://www.linkedin.com\" target=\"_blank\">LinkedIn</a>."
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Styling with CSS",
+      "description": "Use CSS to control colours, fonts and spacing on your portfolio",
+      "language": "web",
+      "instructionFile": "data/lessons/CSCI001/unit-1/lesson-4/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI001/unit-1/lesson-4/starter.html",
+        "css": "data/lessons/CSCI001/unit-1/lesson-4/starter.css"
+      },
+      "hints": [
+        "Each declaration is property: value; and must end with a semicolon.",
+        "Copy the suggested values from the comments in the CSS tab into the empty rules.",
+        "If a style does not appear, check the selector is spelt the same as in your HTML."
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Component: Skills List",
+      "description": "Present your skills as a styled list of tags",
+      "language": "web",
+      "instructionFile": "data/lessons/CSCI001/unit-1/lesson-5/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI001/unit-1/lesson-5/starter.html",
+        "css": "data/lessons/CSCI001/unit-1/lesson-5/starter.css"
+      },
+      "hints": [
+        "A list starts with <ul class=\"skills\"> and each skill is <li>Skill</li>.",
+        "In the CSS, list-style: none; removes the bullet points.",
+        "display: flex; flex-wrap: wrap; gap: 10px; puts the items in a row that wraps."
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Component: Project Cards",
+      "description": "Showcase your work with a responsive grid of project cards",
+      "language": "web",
+      "instructionFile": "data/lessons/CSCI001/unit-1/lesson-6/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI001/unit-1/lesson-6/starter.html",
+        "css": "data/lessons/CSCI001/unit-1/lesson-6/starter.css"
+      },
+      "hints": [
+        "Copy the whole first <article class=\"card\"> ... </article> and paste it twice, then change the text.",
+        "The cards must stay inside <div class=\"card-grid\"> for the grid to work.",
+        "grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); makes the grid responsive."
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Component: Experience Timeline",
+      "description": "Present your education and experience as a timeline",
+      "language": "web",
+      "instructionFile": "data/lessons/CSCI001/unit-1/lesson-7/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI001/unit-1/lesson-7/starter.html",
+        "css": "data/lessons/CSCI001/unit-1/lesson-7/starter.css"
+      },
+      "hints": [
+        "Copy the first <div class=\"entry\"> ... </div> to create the others.",
+        "List the most recent entry first.",
+        "border-left: 3px solid #94248C; on .timeline draws the vertical line."
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Navigation and Contact",
+      "description": "Add in-page navigation, contact links and a footer",
+      "language": "web",
+      "instructionFile": "data/lessons/CSCI001/unit-1/lesson-8/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI001/unit-1/lesson-8/starter.html",
+        "css": "data/lessons/CSCI001/unit-1/lesson-8/starter.css"
+      },
+      "hints": [
+        "Add id=\"about\" to the About section's opening tag: <section id=\"about\">",
+        "A nav link to it is <a href=\"#about\">About</a>; the # means \"on this page\".",
+        "An email link is <a href=\"mailto:your.email@example.com\">Email</a>."
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Final Task: Your Portfolio Template",
+      "description": "Bring everything together and personalise your own portfolio template",
+      "language": "web",
+      "instructionFile": "data/lessons/CSCI001/unit-1/lesson-9/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI001/unit-1/lesson-9/starter.html",
+        "css": "data/lessons/CSCI001/unit-1/lesson-9/starter.css"
+      },
+      "hints": [
+        "Work through the checklist one item at a time and check the preview after each change.",
+        "Search the HTML for [ and Your Name to find any placeholder text you have missed.",
+        "Use the Download button to save your work before trying the extension challenges."
+      ]
+    }
+  ]
+}

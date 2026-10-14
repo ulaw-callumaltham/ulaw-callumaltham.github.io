@@ -1,0 +1,72 @@
+<h1>Tutorial</h1> <!--Lesson 1: Anatomy of a Web Page-->
+<p>In this unit you will build the first version of your own portfolio website. A portfolio site is a place on the web that you control, where employers can find out who you are, what you can do, and how to contact you. It sits at the centre of your web presence and links out to your LinkedIn and GitHub profiles.</p>
+<p>You will cover HTML and CSS in much more depth in your Web Technologies module, so this unit focuses on just enough to get a working site. Each lesson adds one new section to the same page, and the final lesson brings everything together into a template you can keep building on throughout the year.</p>
+<br>
+<p>In this unit, we will cover:</p>
+<ul>
+    <li>The structure of an HTML page</li>
+    <li>Organising a page into meaningful sections</li>
+    <li>Adding text, images and links</li>
+    <li>Styling a page with CSS</li>
+    <li>Building common portfolio components: a skills list, project cards, a timeline and a contact section</li>
+    <li>Putting it all together into your own portfolio template</li>
+</ul>
+<br>
+<h2>Using the Editor</h2>
+<p>The editor has separate tabs for HTML and CSS. As you type, the preview shows what your page looks like in a browser. Your work is saved automatically, and each lesson's starter code picks up where the previous lesson left off, so if you fall behind you will still have a complete page to work with.</p>
+<p>Keep the web presence plan you made in Session 1 to hand. Wherever the starter code contains placeholder text, replace it with your own content from that plan.</p>
+<br>
+<h2>What Is HTML?</h2>
+<p>HTML (HyperText Markup Language) describes the <strong>content and structure</strong> of a web page: which parts are headings, which are paragraphs, which are images and links. It does not control how things look; that is the job of CSS, which you will meet in Lesson 4.</p>
+<p>HTML works by wrapping content in <strong>tags</strong>. Most tags come in pairs: an opening tag such as <code>&lt;p&gt;</code> and a closing tag with a forward slash, such as <code>&lt;/p&gt;</code>. Together with the content between them, they form an <strong>element</strong>.</p>
+<pre><code class="language-html">&lt;p&gt;This is a paragraph.&lt;/p&gt;</code></pre>
+<p>The browser does not display the tags themselves. It reads them to understand what each piece of content is, and displays it accordingly.</p>
+<br>
+<h2>The Structure of a Page</h2>
+<p>Every HTML page follows the same basic outline. Open the starter code and you will see something like this:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My Portfolio&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Visible content goes here --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Working from the top:</p>
+<ul>
+    <li><code>&lt;!DOCTYPE html&gt;</code> tells the browser this is a modern HTML page.</li>
+    <li><code>&lt;html lang="en"&gt;</code> wraps the whole page. The <code>lang</code> attribute tells browsers and screen readers the page is in English.</li>
+    <li><code>&lt;head&gt;</code> holds information <strong>about</strong> the page that is not shown on it. The <code>&lt;title&gt;</code> appears in the browser tab and in search results, so it matters for how people find you.</li>
+    <li><code>&lt;body&gt;</code> holds everything visitors actually see.</li>
+</ul>
+<p>The lines starting <code>&lt;!--</code> and ending <code>--&gt;</code> are <strong>comments</strong>. Like Python comments, the browser ignores them. The starter code uses them to mark your TODO tasks.</p>
+<br>
+<h2>Headings and Paragraphs</h2>
+<p>HTML has six levels of heading, from <code>&lt;h1&gt;</code> (most important) to <code>&lt;h6&gt;</code>. A page should have exactly one <code>&lt;h1&gt;</code>, which says what the whole page is about. On a portfolio, that is your name.</p>
+<pre><code class="language-html">&lt;h1&gt;Alex Morgan&lt;/h1&gt;
+&lt;p&gt;MSc Computing student | Aspiring data analyst&lt;/p&gt;
+&lt;p&gt;I spent six years in retail management before moving into technology.&lt;/p&gt;</code></pre>
+<br>
+<h2>Your Task</h2>
+<ol>
+    <li>Change the page <code>&lt;title&gt;</code> to your name followed by <code>| Portfolio</code>.</li>
+    <li>Add an <code>&lt;h1&gt;</code> containing your name.</li>
+    <li>Add a paragraph with a one-line tagline describing who you are and what you are aiming for.</li>
+    <li>Add a second paragraph introducing yourself in one or two sentences.</li>
+</ol>
+<p>Your tagline is the first thing an employer reads, so make it specific. "Student" tells them very little; "MSc Computing student with a background in finance" tells them a lot.</p>
+<br>
+<h2>Extension Tasks</h2>
+<ul>
+    <li>Right-click the preview and choose View Page Source or Inspect (if your browser allows it inside the preview) to see how the browser has read your HTML.</li>
+    <li>Try adding an <code>&lt;h2&gt;</code> and an <code>&lt;h3&gt;</code> to see how the sizes change by default. You will remove them in the next lesson.</li>
+</ul>
+<br>
+<h2>Recap</h2>
+<ul>
+    <li>HTML describes the content and structure of a page using tags.</li>
+    <li><code>&lt;head&gt;</code> holds information about the page; <code>&lt;body&gt;</code> holds what visitors see.</li>
+    <li>Use one <code>&lt;h1&gt;</code> per page; on a portfolio, it is your name.</li>
+</ul>

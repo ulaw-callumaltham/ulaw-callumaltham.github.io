@@ -1,0 +1,17 @@
+{
+  "moduleId": "CSCI001",
+  "moduleCode": "CSCI001",
+  "moduleTitle": "CS Induction - Building Your Web Presence",
+  "units": [
+    {
+      "id": 1,
+      "title": "Building Your Portfolio Website",
+      "description": "In this unit, you will build the first version of your own portfolio website using HTML and CSS. You will learn how to structure a web page, style it, and create common portfolio components: a skills list, project cards, an experience timeline and a contact section. By the end of this unit, you will have a personal portfolio template that you can keep developing throughout your course.",
+      "week": 1,
+      "unlockDate": "2026-10-14",
+      "lessonCount": 9,
+      "technologies": ["HTML", "CSS"],
+      "lessonsFile": "data/lessons/CSCI001/unit-1/lessons.json"
+    }
+  ]
+}
