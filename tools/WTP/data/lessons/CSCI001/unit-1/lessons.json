@@ -7,10 +7,12 @@
       "title": "Anatomy of a Web Page",
       "description": "Learn the basic structure of an HTML page and start your portfolio",
       "language": "web",
+      "activePanels": [
+        "html"
+      ],
       "instructionFile": "data/lessons/CSCI001/unit-1/lesson-1/instruction.html",
       "starterCode": {
-        "html": "data/lessons/CSCI001/unit-1/lesson-1/starter.html",
-        "css": "data/lessons/CSCI001/unit-1/lesson-1/starter.css"
+        "html": "data/lessons/CSCI001/unit-1/lesson-1/starter.html"
       },
       "hints": [
         "Change the text between <title> and </title> at the top of the page.",
@@ -23,10 +25,12 @@
       "title": "Structuring Your Page",
       "description": "Organise your portfolio into meaningful sections using semantic HTML",
       "language": "web",
+      "activePanels": [
+        "html"
+      ],
       "instructionFile": "data/lessons/CSCI001/unit-1/lesson-2/instruction.html",
       "starterCode": {
-        "html": "data/lessons/CSCI001/unit-1/lesson-2/starter.html",
-        "css": "data/lessons/CSCI001/unit-1/lesson-2/starter.css"
+        "html": "data/lessons/CSCI001/unit-1/lesson-2/starter.html"
       },
       "hints": [
         "Put <header> before your h1 and </header> after your tagline.",
@@ -39,10 +43,12 @@
       "title": "Text, Images and Links",
       "description": "Write your About Me section with formatted text, an image and links",
       "language": "web",
+      "activePanels": [
+        "html"
+      ],
       "instructionFile": "data/lessons/CSCI001/unit-1/lesson-3/instruction.html",
       "starterCode": {
-        "html": "data/lessons/CSCI001/unit-1/lesson-3/starter.html",
-        "css": "data/lessons/CSCI001/unit-1/lesson-3/starter.css"
+        "html": "data/lessons/CSCI001/unit-1/lesson-3/starter.html"
       },
       "hints": [
         "An image is written as <img src=\"address\" alt=\"description\">; it has no closing tag.",
@@ -55,6 +61,10 @@
       "title": "Styling with CSS",
       "description": "Use CSS to control colours, fonts and spacing on your portfolio",
       "language": "web",
+      "activePanels": [
+        "html",
+        "css"
+      ],
       "instructionFile": "data/lessons/CSCI001/unit-1/lesson-4/instruction.html",
       "starterCode": {
         "html": "data/lessons/CSCI001/unit-1/lesson-4/starter.html",
@@ -71,6 +81,10 @@
       "title": "Component: Skills List",
       "description": "Present your skills as a styled list of tags",
       "language": "web",
+      "activePanels": [
+        "html",
+        "css"
+      ],
       "instructionFile": "data/lessons/CSCI001/unit-1/lesson-5/instruction.html",
       "starterCode": {
         "html": "data/lessons/CSCI001/unit-1/lesson-5/starter.html",
@@ -87,6 +101,10 @@
       "title": "Component: Project Cards",
       "description": "Showcase your work with a responsive grid of project cards",
       "language": "web",
+      "activePanels": [
+        "html",
+        "css"
+      ],
       "instructionFile": "data/lessons/CSCI001/unit-1/lesson-6/instruction.html",
       "starterCode": {
         "html": "data/lessons/CSCI001/unit-1/lesson-6/starter.html",
@@ -103,6 +121,10 @@
       "title": "Component: Experience Timeline",
       "description": "Present your education and experience as a timeline",
       "language": "web",
+      "activePanels": [
+        "html",
+        "css"
+      ],
       "instructionFile": "data/lessons/CSCI001/unit-1/lesson-7/instruction.html",
       "starterCode": {
         "html": "data/lessons/CSCI001/unit-1/lesson-7/starter.html",
@@ -119,6 +141,10 @@
       "title": "Navigation and Contact",
       "description": "Add in-page navigation, contact links and a footer",
       "language": "web",
+      "activePanels": [
+        "html",
+        "css"
+      ],
       "instructionFile": "data/lessons/CSCI001/unit-1/lesson-8/instruction.html",
       "starterCode": {
         "html": "data/lessons/CSCI001/unit-1/lesson-8/starter.html",
@@ -135,6 +161,10 @@
       "title": "Final Task: Your Portfolio Template",
       "description": "Bring everything together and personalise your own portfolio template",
       "language": "web",
+      "activePanels": [
+        "html",
+        "css"
+      ],
       "instructionFile": "data/lessons/CSCI001/unit-1/lesson-9/instruction.html",
       "starterCode": {
         "html": "data/lessons/CSCI001/unit-1/lesson-9/starter.html",
