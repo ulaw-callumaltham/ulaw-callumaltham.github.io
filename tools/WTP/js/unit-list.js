@@ -63,6 +63,15 @@ function updateModuleHeader(module) {
             <span>Entry: ${module.entryDate}</span>
         </div>
     `;
+
+    // Archived modules link back to the archive, not the current list
+    if (module.archived === true) {
+        const backLink = document.querySelector('.breadcrumb-link');
+        if (backLink) {
+            backLink.href = 'index.html?view=archived';
+            backLink.textContent = '← Archived Modules';
+        }
+    }
 }
 
 // Create a unit card element

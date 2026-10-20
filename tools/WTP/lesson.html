@@ -16,6 +16,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <!-- Piodide for Python execution -->
      <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+     <!-- Acorn JS parser (for infinite loop protection in the preview) -->
+    <script src="https://cdn.jsdelivr.net/npm/acorn@8.11.3/dist/acorn.js"></script>
 
     <!-- CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
@@ -261,6 +263,16 @@
                                 <span class="save-status">●</span>
                                 <span class="save-text">Saved</span>
                             </div>
+
+                            <button class="editor-control-btn" id="saveNowBtn" title="Save your work now (Ctrl+S)">
+                                <span>✓</span>
+                                <span>Save</span>
+                            </button>
+
+                            <button class="editor-control-btn" id="resetCodeBtn" title="Restore the starter code for this lesson">
+                                <span>↺</span>
+                                <span>Reset</span>
+                            </button>
                             
                             <!-- Download Button -->
                             <button class="editor-control-btn" id="saveCodeBtn" title="Download your code as files">
@@ -283,7 +295,18 @@
                                 <span class="save-status">●</span>
                                 <span class="save-text">Saved</span>
                             </div>
-                            <!-- Add Download Button -->
+
+                            <button class="editor-control-btn" id="pythonSaveNowBtn" title="Save your work now (Ctrl+S)">
+                                <span>✓</span>
+                                <span>Save</span>
+                            </button>
+
+                            <button class="editor-control-btn" id="pythonResetCodeBtn" title="Restore the starter code for this lesson">
+                                <span>↺</span>
+                                <span>Reset</span>
+                            </button>
+
+                            <!-- Download Button -->
                             <button class="editor-control-btn" id="downloadPythonBtn" title="Download your Python code">
                                 <span>↓</span>
                                 <span>Download</span>
@@ -295,7 +318,10 @@
                     <!-- Preview Pane -->
                     <div class="preview-pane">
                         <div class="preview-label">
-                            <span>Preview</span>
+                                <div class="preview-label-left">
+                                    <span>Preview</span>
+                                    <span class="preview-page-title" id="previewPageTitle" title="Your page's &lt;title&gt;"></span>
+                                </div>
                             <div class="preview-controls">
                                 <button class="preview-control-btn" id="fullscreenBtn" title="Fullscreen preview">
                                     <span class="fullscreen-icon">⛶</span>
@@ -399,7 +425,10 @@
     <!-- Fullscreen Preview Overlay -->
     <div class="fullscreen-overlay" id="fullscreenOverlay">
         <div class="fullscreen-header">
-            <span class="fullscreen-title">Preview</span>
+                <div class="fullscreen-title preview-label-left">
+                    <span>Preview</span>
+                    <span class="preview-page-title" id="previewPageTitle" title="Your page's &lt;title&gt;"></span>
+                </div>
             <button class="fullscreen-close" id="fullscreenClose">✕ Close (Esc)</button>
         </div>
         <div class="fullscreen-preview-container">

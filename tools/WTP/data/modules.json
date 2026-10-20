@@ -9,7 +9,8 @@
             "unitCount": 1,
             "weeks": 1,
             "entryDate": "October 2026",
-            "unitsFile": "data/modules/CSCI000-units.json"
+            "unitsFile": "data/modules/CSCI000-units.json",
+            "archived": true
         },
         {
             "id": "CSCI001",
@@ -20,7 +21,8 @@
             "unitCount": 1,
             "weeks": 1,
             "entryDate": "October 2026",
-            "unitsFile": "data/modules/CSCI001-units.json"
+            "unitsFile": "data/modules/CSCI001-units.json",
+            "archived": true
         },
         {
             "id": "CSCI71585",

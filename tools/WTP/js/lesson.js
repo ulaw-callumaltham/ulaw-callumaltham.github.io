@@ -7,6 +7,8 @@ const urlParams = new URLSearchParams(window.location.search);
 const moduleId = urlParams.get('module') || 'Module Not Identified';
 const unitId = parseInt(urlParams.get('unit')) || 1;
 const lessonId = parseInt(urlParams.get('lesson')) || 1;
+// Sandbox mode: lesson.html?module=sandbox
+const isSandbox = moduleId === 'sandbox';
 
 // // DOM elements
 const lessonUnitTitle = document.querySelector('.lesson-unit-title');
@@ -37,14 +39,23 @@ function initializeCodeMirrorEditors() {
         ? 'material-darker' 
         : 'default';
     
+    // Tab inserts spaces (matches auto-indent on Enter, avoids tab/space mixing).
+    // With a selection, Tab/Shift+Tab indent or outdent the selected lines.
+    const indentKeys = {
+        'Tab': cm => cm.somethingSelected()
+            ? cm.indentSelection('add')
+            : cm.execCommand('insertSoftTab'),
+        'Shift-Tab': cm => cm.indentSelection('subtract')
+    };
+
     // HTML Editor
     htmlEditorCM = CodeMirror.fromTextArea(document.getElementById('htmlEditor'), {
         mode: 'htmlmixed',
         theme: theme,
         lineNumbers: true,
         lineWrapping: true,
-        indentUnit: 2,
-        tabSize: 2,
+        indentUnit: 4,
+        tabSize: 4,
         indentWithTabs: false,
         autoCloseBrackets: true,
         autoCloseTags: true,
@@ -57,9 +68,10 @@ function initializeCodeMirrorEditors() {
         theme: theme,
         lineNumbers: true,
         lineWrapping: true,
-        indentUnit: 2,
-        tabSize: 2,
+        indentUnit: 4,
+        tabSize: 4,
         indentWithTabs: false,
+        extraKeys: indentKeys,
         autoCloseBrackets: true,
         matchBrackets: true
     });
@@ -70,9 +82,10 @@ function initializeCodeMirrorEditors() {
         theme: theme,
         lineNumbers: true,
         lineWrapping: true,
-        indentUnit: 2,
-        tabSize: 2,
+        indentUnit: 4,
+        tabSize: 4,
         indentWithTabs: false,
+        extraKeys: indentKeys,
         autoCloseBrackets: true,
         matchBrackets: true
     });
@@ -86,6 +99,7 @@ function initializeCodeMirrorEditors() {
         indentUnit: 4,
         tabSize: 4,
         indentWithTabs: false,
+        extraKeys: indentKeys,
         autoCloseBrackets: true,
         matchBrackets: true
     });
@@ -194,73 +208,265 @@ function showConfirmation(title, message, confirmText = 'Confirm', cancelText = 
 //     previewDoc.close();
 // }
 
+/// ===========================
+// Shared Preview Document Builder
+// ===========================
+
+// Read an attribute value from a single tag string, in any attribute order
+function getTagAttribute(tag, name) {
+    const match = tag.match(new RegExp('\\s' + name + '\\s*=\\s*["\']([^"\']*)["\']', 'i'));
+    return match ? match[1] : null;
+}
+
+// True for URLs that point off-platform (CDNs, Google Fonts, etc.)
+function isExternalUrl(url) {
+    return /^(https?:)?\/\//i.test(url) || /^data:/i.test(url);
+}
+
+// ===========================
+// Infinite Loop Protection (preview only)
+// ===========================
+
+const LOOP_TIME_LIMIT_MS = 1000;
+const LOOP_TYPES = new Set([
+    'ForStatement', 'ForInStatement', 'ForOfStatement', 'WhileStatement', 'DoWhileStatement'
+]);
+
+// Runs inside the preview. Tells the lesson page, then stops the script.
+// No newline at the end, so the student's line numbers stay the same.
+const LOOP_STOP_PRELUDE =
+    'var __loopStop=__loopStop||function(line){' +
+    'try{var h=window.opener||window.parent;' +
+    'if(h&&h!==window&&typeof h.reportInfiniteLoop==="function"){h.reportInfiniteLoop(line);}}catch(e){}' +
+    'throw new RangeError("Possible infinite loop stopped (line "+line+")");};';
+
+// Collect every loop, outermost first, with its parent node
+function collectLoops(node, parent, out) {
+    if (!node || typeof node.type !== 'string') return;
+    if (LOOP_TYPES.has(node.type)) out.push({ node, parent });
+
+    for (const key of Object.keys(node)) {
+        if (key === 'loc') continue;
+        const child = node[key];
+        if (Array.isArray(child)) {
+            child.forEach(c => collectLoops(c, node, out));
+        } else if (child && typeof child === 'object') {
+            collectLoops(child, node, out);
+        }
+    }
+}
+
+// Add a time check inside every loop. Returns the code unchanged if
+// Acorn isn't available or the code can't be parsed.
+function protectLoops(code) {
+    if (typeof acorn === 'undefined' || !/\b(for|while|do)\b/.test(code)) return code;
+
+    let ast;
+    try {
+        ast = acorn.parse(code, { ecmaVersion: 'latest', sourceType: 'script', locations: true });
+    } catch (error) {
+        return code;   // syntax error (e.g. half-typed) - it won't run anyway
+    }
+
+    const loops = [];
+    collectLoops(ast, null, loops);
+    if (loops.length === 0) return code;
+
+    const inserts = [];
+    loops.forEach(({ node, parent }, i) => {
+        const timer = `__lp${i}`;
+        const guard = `if(Date.now()-${timer}>${LOOP_TIME_LIMIT_MS}){__loopStop(${node.loc.start.line});}`;
+
+        // Wrap the loop (or its label) in a block that starts its timer
+        const target = parent && parent.type === 'LabeledStatement' ? parent : node;
+        inserts.push({ pos: target.start, text: `{var ${timer}=Date.now();`, i });
+        inserts.push({ pos: target.end, text: '}', i });
+
+        // Check the timer at the start of every iteration
+        if (node.body.type === 'BlockStatement') {
+            inserts.push({ pos: node.body.start + 1, text: guard, i });
+        } else {
+            inserts.push({ pos: node.body.start, text: '{' + guard, i });
+            inserts.push({ pos: node.body.end, text: '}', i });
+        }
+    });
+
+    // Insert from the end backwards so earlier positions stay valid;
+    // at the same position, outer loops' insertions end up first
+    inserts.sort((a, b) => b.pos - a.pos || b.i - a.i);
+
+    let protectedCode = code;
+    inserts.forEach(({ pos, text }) => {
+        protectedCode = protectedCode.slice(0, pos) + text + protectedCode.slice(pos);
+    });
+
+    return LOOP_STOP_PRELUDE + protectedCode;
+}
+
+// Called from inside the preview when a loop is stopped.
+// Throttled so inline + fullscreen + pop-out don't produce three toasts.
+let lastLoopWarning = 0;
+function reportInfiniteLoop(line) {
+    const now = Date.now();
+    if (now - lastLoopWarning < 3000) return;
+    lastLoopWarning = now;
+
+    showToast(`Your JavaScript was stopped: the loop on line ${line} ran for too long. Check its condition.`, 'error');
+}
+
+function buildPreviewDocument() {
+    let htmlCode = htmlEditorCM.getValue();
+    const cssCode = cssEditorCM.getValue();
+    const jsCode = jsEditorCM.getValue();
+
+    const safeJs = protectLoops(jsCode);
+
+    // Protect inline <script> blocks in the HTML too (not src scripts or non-JS types)
+    htmlCode = htmlCode.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi, (tag, attrs, content) => {
+        if (/\ssrc\s*=/i.test(attrs)) return tag;
+        if (/\stype\s*=\s*["'](?!text\/javascript|application\/javascript)[^"']*["']/i.test(attrs)) return tag;
+        return '<script' + attrs + '>' + protectLoops(content) + '<\/script>';
+    });
+
+    // CSS: swap the first LOCAL stylesheet link for the editor's CSS.
+    // External links (e.g. Google Fonts) are left untouched.
+    let cssPlaced = false;
+    htmlCode = htmlCode.replace(/<link\b[^>]*>/gi, (tag) => {
+        const rel = getTagAttribute(tag, 'rel');
+        const href = getTagAttribute(tag, 'href');
+
+        if (!rel || !/\bstylesheet\b/i.test(rel) || !href || isExternalUrl(href)) {
+            return tag;
+        }
+        if (cssPlaced) return '';   // drop any extra local links to avoid duplicate CSS
+        cssPlaced = true;
+        return '<style>' + cssCode + '</style>';
+    });
+
+    if (!cssPlaced) {
+        if (/<\/head>/i.test(htmlCode)) {
+            htmlCode = htmlCode.replace(/<\/head>/i, () => '<style>' + cssCode + '</style></head>');
+        } else if (/<\/body>/i.test(htmlCode)) {
+            htmlCode = htmlCode.replace(/<\/body>/i, () => '<style>' + cssCode + '</style></body>');
+        } else {
+            htmlCode = '<style>' + cssCode + '</style>' + htmlCode;
+        }
+    }
+
+    // JS: swap the first LOCAL <script src> for the editor's JS.
+    // External scripts (CDN libraries) are left untouched.
+    let jsPlaced = false;
+    htmlCode = htmlCode.replace(/<script\b[^>]*>\s*<\/script>/gi, (tag) => {
+        const src = getTagAttribute(tag, 'src');
+
+        if (!src || isExternalUrl(src)) {
+            return tag;
+        }
+        if (jsPlaced) return '';
+        jsPlaced = true;
+        return '<script>' + safeJs + '<\/script>';
+    });
+
+    if (!jsPlaced) {
+        if (/<\/body>/i.test(htmlCode)) {
+            htmlCode = htmlCode.replace(/<\/body>/i, () => '<script>' + safeJs + '<\/script></body>');
+        } else {
+            htmlCode = htmlCode + '<script>' + safeJs + '<\/script>';
+        }
+    }
+
+    return htmlCode;
+}
+
+
 // ===========================
 // Live Preview Auto-Refresh
 // ===========================
 
+// function updatePreview() {
+//     const previewFrame = document.getElementById('preview');
+//     const htmlEditor = document.getElementById('htmlEditor');
+//     const cssEditor = document.getElementById('cssEditor');
+//     const jsEditor = document.getElementById('jsEditor');
+    
+//     let htmlCode = htmlEditorCM.getValue();  // ← Change const to let
+//     const cssCode = cssEditorCM.getValue();
+//     const jsCode = jsEditorCM.getValue();
+        
+//     // Check if HTML has a <link> tag for stylesheet
+//     const hasLinkTag = /<link\s+rel=["']stylesheet["']\s+href=["'][^"']+["']\s*\/?>/gi.test(htmlCode);
+    
+//     if (hasLinkTag) {
+//         // Replace <link> with inline <style>
+//         htmlCode = htmlCode.replace(
+//             /<link\s+rel=["']stylesheet["']\s+href=["'][^"']+["']\s*\/?>/gi,
+//             '<style>' + cssCode + '</style>'
+//         );
+//     } else {
+//         // No <link> tag - inject CSS into <head> if it exists, otherwise add before </body>
+//         if (/<head>/i.test(htmlCode)) {
+//             htmlCode = htmlCode.replace(
+//                 /<\/head>/i,
+//                 '<style>' + cssCode + '</style></head>'
+//             );
+//         } else if (/<\/body>/i.test(htmlCode)) {
+//             htmlCode = htmlCode.replace(
+//                 /<\/body>/i,
+//                 '<style>' + cssCode + '</style></body>'
+//             );
+//         } else {
+//             // No head or body - just prepend CSS
+//             htmlCode = '<style>' + cssCode + '</style>' + htmlCode;
+//         }
+//     }
+    
+//     // Check if HTML has a <script src> tag
+//     const hasScriptTag = /<script\s+src=["'][^"']+["']\s*><\/script>/gi.test(htmlCode);
+    
+//     if (hasScriptTag) {
+//         // Replace <script src> with inline <script>
+//         htmlCode = htmlCode.replace(
+//             /<script\s+src=["'][^"']+["']\s*><\/script>/gi,
+//             '<script>' + jsCode + '</script>'
+//         );
+//     } else {
+//         // No <script src> tag - inject JS before </body> if it exists, otherwise append
+//         if (/<\/body>/i.test(htmlCode)) {
+//             htmlCode = htmlCode.replace(
+//                 /<\/body>/i,
+//                 '<script>' + jsCode + '</script></body>'
+//             );
+//         } else {
+//             // No body tag - just append
+//             htmlCode = htmlCode + '<script>' + jsCode + '</script>';
+//         }
+//     }
+    
+//     const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+//     previewDoc.open();
+//     previewDoc.write(htmlCode);
+//     previewDoc.close();
+// }
+
+// Show the page's <title> in the preview header (iframes have no tab of their own)
+function updatePreviewPageTitle(title) {
+    const trimmed = (title || '').trim();
+
+    document.querySelectorAll('.preview-page-title').forEach(el => {
+        el.textContent = trimmed || 'No title';
+        el.classList.toggle('untitled', !trimmed);
+    });
+}
+
 function updatePreview() {
     const previewFrame = document.getElementById('preview');
-    const htmlEditor = document.getElementById('htmlEditor');
-    const cssEditor = document.getElementById('cssEditor');
-    const jsEditor = document.getElementById('jsEditor');
-    
-    let htmlCode = htmlEditorCM.getValue();  // ← Change const to let
-    const cssCode = cssEditorCM.getValue();
-    const jsCode = jsEditorCM.getValue();
-        
-    // Check if HTML has a <link> tag for stylesheet
-    const hasLinkTag = /<link\s+rel=["']stylesheet["']\s+href=["'][^"']+["']\s*\/?>/gi.test(htmlCode);
-    
-    if (hasLinkTag) {
-        // Replace <link> with inline <style>
-        htmlCode = htmlCode.replace(
-            /<link\s+rel=["']stylesheet["']\s+href=["'][^"']+["']\s*\/?>/gi,
-            '<style>' + cssCode + '</style>'
-        );
-    } else {
-        // No <link> tag - inject CSS into <head> if it exists, otherwise add before </body>
-        if (/<head>/i.test(htmlCode)) {
-            htmlCode = htmlCode.replace(
-                /<\/head>/i,
-                '<style>' + cssCode + '</style></head>'
-            );
-        } else if (/<\/body>/i.test(htmlCode)) {
-            htmlCode = htmlCode.replace(
-                /<\/body>/i,
-                '<style>' + cssCode + '</style></body>'
-            );
-        } else {
-            // No head or body - just prepend CSS
-            htmlCode = '<style>' + cssCode + '</style>' + htmlCode;
-        }
-    }
-    
-    // Check if HTML has a <script src> tag
-    const hasScriptTag = /<script\s+src=["'][^"']+["']\s*><\/script>/gi.test(htmlCode);
-    
-    if (hasScriptTag) {
-        // Replace <script src> with inline <script>
-        htmlCode = htmlCode.replace(
-            /<script\s+src=["'][^"']+["']\s*><\/script>/gi,
-            '<script>' + jsCode + '</script>'
-        );
-    } else {
-        // No <script src> tag - inject JS before </body> if it exists, otherwise append
-        if (/<\/body>/i.test(htmlCode)) {
-            htmlCode = htmlCode.replace(
-                /<\/body>/i,
-                '<script>' + jsCode + '</script></body>'
-            );
-        } else {
-            // No body tag - just append
-            htmlCode = htmlCode + '<script>' + jsCode + '</script>';
-        }
-    }
-    
+    const htmlCode = buildPreviewDocument();
+
     const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
     previewDoc.open();
     previewDoc.write(htmlCode);
     previewDoc.close();
+    updatePreviewPageTitle(previewDoc.title);
 }
 
 
@@ -307,6 +513,10 @@ function setupPreviewListeners() {
 
 // Load lesson data
 async function loadLesson() {
+    if (isSandbox) {
+        await loadSandbox();
+        return;
+    }
     try {
         // Load module data to get module info
         const modulesResponse = await fetch('data/modules.json');
@@ -384,6 +594,64 @@ async function loadLesson() {
     } catch (error) {
         console.error('Error loading lesson:', error);
         showToast('Error loading lesson. Please try again.', 'error');
+    }
+}
+
+// ===========================
+// Sandbox Mode
+// ===========================
+
+async function loadSandbox() {
+    try {
+        // Built-in "lesson" so all existing editor/preview/save code works unchanged
+        currentUnit = { title: 'Sandbox' };
+        currentLesson = {
+            id: lessonId,
+            title: 'Sandbox',
+            language: 'web',
+            activePanels: ['html', 'css', 'js'],
+            starterCode: {
+                html: 'data/sandbox/starter.html',
+                css: 'data/sandbox/starter.css',
+                js: 'data/sandbox/starter.js'
+            }
+        };
+        allLessons = [currentLesson];
+
+        // Hides lesson-only UI (see lesson.css)
+        document.body.classList.add('sandbox-mode');
+
+        // Stops Ctrl+Enter from marking the sandbox "complete"
+        document.getElementById('completeBtn').disabled = true;
+
+        // Open the sidebar on Reference rather than Lessons
+        document.querySelectorAll('.sidebar-tab').forEach(t =>
+            t.classList.toggle('active', t.dataset.tab === 'reference'));
+        document.querySelectorAll('.sidebar-panel').forEach(p =>
+            p.classList.toggle('active', p.id === 'referencePanel'));
+
+        if (!htmlEditorCM) {
+            initializeCodeMirrorEditors();
+            setupPreviewListeners();
+        }
+
+        setupWebLesson();
+        lessonUnitTitle.innerHTML = '<span class="lesson-name">Sandbox</span>';
+        document.title = 'Sandbox | CS WTP';
+
+        // Starter code only if there's no saved sandbox work
+        const wipKey = `wip_${moduleId}_${unitId}_${lessonId}`;
+        if (!localStorage.getItem(wipKey)) {
+            await loadStarterCode(currentLesson);
+        }
+
+        setupEditorPanels(currentLesson);
+        restoreWorkInProgress();
+        startAutoSave();
+
+    } catch (error) {
+        console.error('Error loading sandbox:', error);
+        showToast('Error loading the sandbox. Please try again.', 'error');
     }
 }
 
@@ -516,11 +784,11 @@ function setupEditorPanels(lesson) {
         const editorType = tab.getAttribute('data-editor');
         
         // Enable/disable tabs based on activePanels
-        if (lesson.activePanels && lesson.activePanels.includes(editorType)) {
-            tab.classList.remove('disabled');
-        } else {
-            tab.classList.add('disabled');
-        }
+        const isActive = lesson.activePanels && lesson.activePanels.includes(editorType);
+
+        tab.classList.toggle('disabled', !isActive);
+        tab.disabled = !isActive;
+        tab.title = isActive ? '' : 'Not used in this lesson';
     });
     
     // Activate the first available panel
@@ -595,6 +863,9 @@ function markLessonComplete() {
         resetLessonProgress();
     } else {
         // Lesson is incomplete → Mark it complete
+        // Save immediately rather than waiting for the auto-save debounce
+        saveWorkInProgress();
+
         progress.push(lessonId);
         localStorage.setItem(progressKey, JSON.stringify(progress));
         
@@ -637,6 +908,7 @@ async function resetUnitProgress() {
             const wipKey = `wip_${moduleId}_${unitId}_${lesson.id}`;
             localStorage.removeItem(wipKey);
         });
+        hasUnsavedChanges = false;
         
         // If we're currently viewing a lesson in this unit, reload its starter code
         const wipKey = `wip_${moduleId}_${unitId}_${lessonId}`;
@@ -782,54 +1054,35 @@ let hasUnsavedChanges = false;
 // Start auto-saving work in progress
 function startAutoSave() {
     const language = currentLesson.language || 'web';
-    
-    if (language === 'python') {
-        // Show unsaved immediately on change
-        pythonEditorCM.on('change', () => {
+    const editors = language === 'python'
+        ? [pythonEditorCM]
+        : [htmlEditorCM, cssEditorCM, jsEditorCM];
+
+    // One shared timer: 10s after the last edit in ANY editor
+    const debouncedSave = debounce(() => {
+        if (!hasUnsavedChanges) return;
+        updateSaveIndicator('saving');
+        saveWorkInProgress();
+    }, 10000);
+
+    editors.forEach(cm => {
+        cm.on('change', (instance, change) => {
+            // Starter code loading, restoring and resets aren't student edits
+            if (change.origin === 'setValue') return;
+
+            hasUnsavedChanges = true;
             updateSaveIndicator('unsaved');
+            debouncedSave();
         });
-        
-        // Auto-save Python editor after delay
-        pythonEditorCM.on('change', debounce(() => {
-            updateSaveIndicator('saving');
-            saveWorkInProgress();
-        }, 10000));
-        
-    } else {
-        // Show unsaved immediately on change
-        htmlEditorCM.on('change', () => {
-            updateSaveIndicator('unsaved');
-        });
-        cssEditorCM.on('change', () => {
-            updateSaveIndicator('unsaved');
-        });
-        jsEditorCM.on('change', () => {
-            updateSaveIndicator('unsaved');
-        });
-        
-        // Auto-save Web editors after delay
-        htmlEditorCM.on('change', debounce(() => {
-            updateSaveIndicator('saving');
-            saveWorkInProgress();
-        }, 10000));
-        
-        cssEditorCM.on('change', debounce(() => {
-            updateSaveIndicator('saving');
-            saveWorkInProgress();
-        }, 10000));
-        
-        jsEditorCM.on('change', debounce(() => {
-            updateSaveIndicator('saving');
-            saveWorkInProgress();
-        }, 10000));
-    }
+    });
 }
 
 // Save work in progress to localStorage
 function saveWorkInProgress() {
 
-    if (isResetting) {
-        return; // Skip saving if we're in the middle of resetting progress
+     // Skip during resets, and when the student hasn't changed anything
+    if (isResetting || !hasUnsavedChanges) {
+        return;
     }
 
     const language = currentLesson.language || 'web';
@@ -862,7 +1115,45 @@ function saveWorkInProgress() {
         localStorage.setItem(wipKey, JSON.stringify(workInProgress));
     }
     
+    hasUnsavedChanges = false;
     updateSaveIndicator('saved');
+}
+
+// Manual save (button / Ctrl+S)
+function saveNow() {
+    if (!currentLesson || isResetting) return;
+    saveWorkInProgress();
+    showToast('Your work has been saved', 'success');
+}
+
+// Reset code to starter WITHOUT changing completion status
+async function resetLessonCode() {
+    const confirmReset = await showConfirmation(
+        'Reset Code?',
+        'This will replace your code with the original starter code for this lesson. Your completion status will not change. This cannot be undone.'
+    );
+
+    if (!confirmReset) return;
+
+    const language = currentLesson.language || 'web';
+    isResetting = true;
+
+    // Clear saved work, then reload starter code
+    const wipKey = `wip_${moduleId}_${unitId}_${lessonId}`;
+    localStorage.removeItem(wipKey);
+    hasUnsavedChanges = false;
+    await loadStarterCode(currentLesson);
+
+    if (language !== 'python' && typeof updatePreview === 'function') {
+        updatePreview();
+    }
+
+    setTimeout(() => {
+        isResetting = false;
+    }, 500);
+
+    updateSaveIndicator('saved');
+    showToast('Your code has been reset to the starter code.', 'info');
 }
 
 // Update save indicator
@@ -1005,6 +1296,7 @@ async function resetLessonProgress() {
         // Clear WIP from localStorage FIRST
         const wipKey = `wip_${moduleId}_${unitId}_${lessonId}`;
         localStorage.removeItem(wipKey);
+        hasUnsavedChanges = false;
         
         // THEN reload starter code based on language
         if (language === 'python') {
@@ -1074,23 +1366,28 @@ async function resetLessonProgress() {
 
 function saveCode() {
     const language = currentLesson.language || 'web';
-    const filename = `${moduleId}-Unit${unitId}-Lesson${lessonId}`;
+    const filename = isSandbox ? 'sandbox' : `${moduleId}-Unit${unitId}-Lesson${lessonId}`;
     
     if (language === 'python') {
-        // Python lesson - download single .py file (no zip needed)
+        // Python lesson - download as zip (raw .py files are blocked on managed Windows/Edge)
         const pythonCode = pythonEditorCM.getValue();
-        const blob = new Blob([pythonCode], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${filename}.py`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        
-        showToast('Python code downloaded successfully!', 'success');
-        
+
+        const zip = new JSZip();
+        zip.file('main.py', pythonCode);
+
+        zip.generateAsync({type: 'blob'}).then(function(content) {
+            const url = URL.createObjectURL(content);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${filename}.zip`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showToast('Python code downloaded successfully!', 'success');
+        });
+
     } else {
         // Web lesson - download HTML/CSS/JS as zip (multiple files)
         const htmlCode = htmlEditorCM.getValue();
@@ -1098,9 +1395,21 @@ function saveCode() {
         const jsCode = jsEditorCM.getValue();
         
         const zip = new JSZip();
+        const activePanels = currentLesson.activePanels || [];
+
+        // Include a file if its panel is used in this lesson, or if it has content
+        // (e.g. starter code supplied for a panel that isn't editable)
+        const shouldInclude = (panel, code) =>
+            activePanels.includes(panel) || code.trim() !== '';
+
         zip.file('index.html', htmlCode);
-        zip.file('styles.css', cssCode);
-        zip.file('script.js', jsCode);
+
+        if (shouldInclude('css', cssCode)) {
+            zip.file('styles.css', cssCode);
+        }
+        if (shouldInclude('js', jsCode)) {
+            zip.file('script.js', jsCode);
+        }
         
         zip.generateAsync({type: 'blob'}).then(function(content) {
             const url = URL.createObjectURL(content);
@@ -1201,27 +1510,35 @@ function closePopoutPreview() {
     updatePreview();
 }
 
+// function updatePopoutPreview() {
+//     if (!popoutWindow || popoutWindow.closed) return;
+    
+//     let htmlCode = htmlEditorCM.getValue();
+//     const cssCode = cssEditorCM.getValue();
+//     const jsCode = jsEditorCM.getValue();
+    
+//     // Replace <link> and <script> tags
+//     htmlCode = htmlCode.replace(
+//         /<link\s+rel=["']stylesheet["']\s+href=["'][^"']+["']\s*\/?>/gi,
+//         '<style>' + cssCode + '</style>'
+//     );
+    
+//     htmlCode = htmlCode.replace(
+//         /<script\s+src=["'][^"']+["']\s*><\/script>/gi,
+//         '<script>' + jsCode + '</script>'
+//     );
+    
+//     // Write to popout window
+//     popoutWindow.document.open();
+//     popoutWindow.document.write(htmlCode);
+//     popoutWindow.document.close();
+// }
+
 function updatePopoutPreview() {
     if (!popoutWindow || popoutWindow.closed) return;
-    
-    let htmlCode = htmlEditorCM.getValue();
-    const cssCode = cssEditorCM.getValue();
-    const jsCode = jsEditorCM.getValue();
-    
-    // Replace <link> and <script> tags
-    htmlCode = htmlCode.replace(
-        /<link\s+rel=["']stylesheet["']\s+href=["'][^"']+["']\s*\/?>/gi,
-        '<style>' + cssCode + '</style>'
-    );
-    
-    htmlCode = htmlCode.replace(
-        /<script\s+src=["'][^"']+["']\s*><\/script>/gi,
-        '<script>' + jsCode + '</script>'
-    );
-    
-    // Write to popout window
+
     popoutWindow.document.open();
-    popoutWindow.document.write(htmlCode);
+    popoutWindow.document.write(buildPreviewDocument());
     popoutWindow.document.close();
 }
 
@@ -1245,36 +1562,49 @@ function closeFullscreenPreview() {
     overlay.classList.remove('active');
 }
 
+// function updateFullscreenPreview() {
+//     const fullscreenPreview = document.getElementById('fullscreenPreview');
+//     const overlay = document.getElementById('fullscreenOverlay');
+    
+//     // Only update if fullscreen is active
+//     if (!overlay.classList.contains('active')) return;
+    
+//     const htmlEditor = document.getElementById('htmlEditor');
+//     const cssEditor = document.getElementById('cssEditor');
+//     const jsEditor = document.getElementById('jsEditor');
+    
+//     let htmlCode = htmlEditor.value;
+//     const cssCode = cssEditor.value;
+//     const jsCode = jsEditor.value;
+    
+//     // Replace <link> and <script> tags
+//     htmlCode = htmlCode.replace(
+//         /<link\s+rel=["']stylesheet["']\s+href=["'][^"']+["']\s*\/?>/gi,
+//         '<style>' + cssCode + '</style>'
+//     );
+    
+//     htmlCode = htmlCode.replace(
+//         /<script\s+src=["'][^"']+["']\s*><\/script>/gi,
+//         '<script>' + jsCode + '</script>'
+//     );
+    
+//     // Write to fullscreen iframe
+//     const fullscreenDoc = fullscreenPreview.contentDocument || fullscreenPreview.contentWindow.document;
+//     fullscreenDoc.open();
+//     fullscreenDoc.write(htmlCode);
+//     fullscreenDoc.close();
+// }
+
 function updateFullscreenPreview() {
     const fullscreenPreview = document.getElementById('fullscreenPreview');
     const overlay = document.getElementById('fullscreenOverlay');
-    
+
     // Only update if fullscreen is active
     if (!overlay.classList.contains('active')) return;
-    
-    const htmlEditor = document.getElementById('htmlEditor');
-    const cssEditor = document.getElementById('cssEditor');
-    const jsEditor = document.getElementById('jsEditor');
-    
-    let htmlCode = htmlEditor.value;
-    const cssCode = cssEditor.value;
-    const jsCode = jsEditor.value;
-    
-    // Replace <link> and <script> tags
-    htmlCode = htmlCode.replace(
-        /<link\s+rel=["']stylesheet["']\s+href=["'][^"']+["']\s*\/?>/gi,
-        '<style>' + cssCode + '</style>'
-    );
-    
-    htmlCode = htmlCode.replace(
-        /<script\s+src=["'][^"']+["']\s*><\/script>/gi,
-        '<script>' + jsCode + '</script>'
-    );
-    
-    // Write to fullscreen iframe
+
     const fullscreenDoc = fullscreenPreview.contentDocument || fullscreenPreview.contentWindow.document;
     fullscreenDoc.open();
-    fullscreenDoc.write(htmlCode);
+    fullscreenDoc.write(buildPreviewDocument());
     fullscreenDoc.close();
 }
 

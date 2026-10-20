@@ -95,6 +95,8 @@ const jsEditor = document.getElementById('jsEditor');
 
 editorTabs.forEach(tab => {
     tab.addEventListener('click', () => {
+        // Ignore panels that aren't used in this lesson
+        if (tab.classList.contains('disabled')) return;
         // Remove active from all tabs
         editorTabs.forEach(t => t.classList.remove('active'));
         
@@ -287,6 +289,47 @@ const saveCodeBtn = document.getElementById('saveCodeBtn');
 saveCodeBtn.addEventListener('click', () => {
     if (typeof saveCode === 'function') {
         saveCode();
+    }
+});
+
+// Manual Save Buttons
+['saveNowBtn', 'pythonSaveNowBtn'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) {
+        btn.addEventListener('click', () => {
+            if (typeof saveNow === 'function') {
+                saveNow();
+            }
+        });
+    }
+});
+
+// Reset Code Buttons (code only, completion status unchanged)
+['resetCodeBtn', 'pythonResetCodeBtn'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) {
+        btn.addEventListener('click', () => {
+            if (typeof resetLessonCode === 'function') {
+                resetLessonCode();
+            }
+        });
+    }
+});
+
+// Ctrl+S / Cmd+S saves work instead of opening the browser's "Save page" dialog
+document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        if (typeof saveNow === 'function') {
+            saveNow();
+        }
+    }
+});
+
+// Save silently when leaving the page (next lesson, sidebar link, closing the tab)
+window.addEventListener('pagehide', () => {
+    if (typeof currentLesson !== 'undefined' && currentLesson && !isResetting) {
+        saveWorkInProgress();
     }
 });
 

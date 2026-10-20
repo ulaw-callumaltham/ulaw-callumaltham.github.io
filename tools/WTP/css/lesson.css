@@ -2007,6 +2007,46 @@ textarea#jsEditor {
     padding-left: 8px !important;
 }
 
+/* Page title shown as a browser-style tab in the preview header */
+.preview-label-left {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    min-width: 0;
+}
+
+.preview-page-title {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 2px var(--spacing-sm);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.preview-page-title.untitled {
+    color: var(--text-tertiary);
+    font-style: italic;
+}
+
+/* ===========================
+   Sandbox Mode
+   =========================== */
+
+.sandbox-mode .instruction-panel,
+.sandbox-mode #prevLesson,
+.sandbox-mode #nextLesson,
+.sandbox-mode .action-footer,
+.sandbox-mode .sidebar-tab[data-tab="lessons"],
+.sandbox-mode .sidebar-tab[data-tab="hints"] {
+    display: none;
+}
 
 /* ===========================
    Responsive
