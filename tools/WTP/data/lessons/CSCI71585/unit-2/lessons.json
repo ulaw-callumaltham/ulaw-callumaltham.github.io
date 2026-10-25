@@ -1,73 +1,191 @@
 {
-  "unitId": 1,
-  "unitTitle": "Placeholder Unit 2 Title",
+  "unitId": 2,
+  "unitTitle": "HTML Fundamentals and Semantic Markup",
   "lessons": [
     {
       "id": 1,
-      "title": "Placeholder Lesson 1 Title",
-      "description": "Placeholder Lesson 1 Description",
+      "title": "What is HTML?",
+      "description": "How browsers read HTML, tag syntax, and the structure every web page needs.",
       "language": "web",
       "activePanels": ["html"],
       "instructionFile": "data/lessons/CSCI71585/unit-2/lesson-1/instruction.html",
       "starterCode": {
-        "html": "data/lessons/CSCI71585/unit-2/lesson-1/starter.html",
-        "css": "data/lessons/CSCI71585/unit-2/lesson-1/starter.css",
-        "js": "data/lessons/CSCI71585/unit-2/lesson-1/starter.js"
+        "html": "data/lessons/CSCI71585/unit-2/lesson-1/starter.html"
       },
       "hints": [
-        "Hello there!",
-        "General Kenobi!"
+        "Most elements need an opening tag and a matching closing tag with a forward slash, e.g. <title> and </title>.",
+        "Content you want to see on the page goes inside <body>. Information about the page, such as the <title>, goes inside <head>.",
+        "The <title> doesn't appear on the page itself. Check the title shown in the preview header instead.",
+        "Comments start with <!-- and end with -->. Anything between them is ignored by the browser."
       ]
     },
     {
       "id": 2,
-      "title": "Placeholder Lesson 2 Title",
-      "description": "Placeholder Lesson 2 Description",
+      "title": "Text Content",
+      "description": "Headings, paragraphs, line breaks, whitespace and character entities.",
       "language": "web",
       "activePanels": ["html"],
       "instructionFile": "data/lessons/CSCI71585/unit-2/lesson-2/instruction.html",
       "starterCode": {
-        "html": "data/lessons/CSCI71585/unit-2/lesson-2/starter.html",
-        "css": "data/lessons/CSCI71585/unit-2/lesson-2/starter.css",
-        "js": "data/lessons/CSCI71585/unit-2/lesson-2/starter.js"
+        "html": "data/lessons/CSCI71585/unit-2/lesson-2/starter.html"
       },
       "hints": [
-        "Placeholder hint 1 for lesson 2",
-        "Placeholder hint 2 for lesson 2"
+        "Headings go from <h1> (most important) to <h6> (least important). Don't skip levels, e.g. an <h2> should come before an <h3>.",
+        "Pressing Enter in your code doesn't create a new line on the page. Use separate <p> elements for new paragraphs, or <br> for a single line break.",
+        "Multiple spaces in your code collapse into one on the page. Only <pre> keeps your spacing exactly as typed.",
+        "To show a < or > character on the page, use the entities &lt; and &gt;. Entities always start with & and end with a semicolon."
       ]
     },
     {
       "id": 3,
-      "title": "Placeholder Lesson 3 Title",
-      "description": "Placeholder Lesson 3 Description",
+      "title": "Lists",
+      "description": "Organising content with unordered and ordered lists.",
       "language": "web",
-      "activePanels": ["html", "css"],
+      "activePanels": ["html"],
       "instructionFile": "data/lessons/CSCI71585/unit-2/lesson-3/instruction.html",
       "starterCode": {
-        "html": "data/lessons/CSCI71585/unit-2/lesson-3/starter.html",
-        "css": "data/lessons/CSCI71585/unit-2/lesson-3/starter.css",
-        "js": "data/lessons/CSCI71585/unit-2/lesson-3/starter.js"
+        "html": "data/lessons/CSCI71585/unit-2/lesson-3/starter.html"
       },
       "hints": [
-        "Placeholder hint 1 for lesson 3"
+        "Use <ul> when the order doesn't matter (bullet points) and <ol> when it does (numbered steps).",
+        "Every item in a list must be wrapped in its own <li> element.",
+        "Only <li> elements can go directly inside a <ul> or <ol>. Put any other content inside an <li>."
       ]
     },
     {
       "id": 4,
-      "title": "Placeholder Lesson 4 Title",
-      "description": "Placeholder Lesson 4 Description",
+      "title": "Formatting and Nesting",
+      "description": "Emphasising text with meaning, and placing elements correctly inside one another.",
       "language": "web",
-      "activePanels": ["html", "css", "js"],
+      "activePanels": ["html"],
       "instructionFile": "data/lessons/CSCI71585/unit-2/lesson-4/instruction.html",
       "starterCode": {
-        "html": "data/lessons/CSCI71585/unit-2/lesson-4/starter.html",
-        "css": "data/lessons/CSCI71585/unit-2/lesson-4/starter.css",
-        "js": "data/lessons/CSCI71585/unit-2/lesson-4/starter.js"
+        "html": "data/lessons/CSCI71585/unit-2/lesson-4/starter.html"
       },
       "hints": [
-        "Placeholder hint 1 for lesson 4",
-        "Placeholder hint 2 for lesson 4",
-        "Placeholder hint 3 for lesson 4"
+        "Use <strong> for important text and <em> for stressed text. <b> and <i> only change appearance, without adding meaning.",
+        "Close elements in the reverse order you opened them: <p><strong>text</strong></p>, not <p><strong>text</p></strong>.",
+        "A nested list goes inside an <li> of the outer list, not directly inside the <ul> or <ol>.",
+        "Indenting nested elements makes it much easier to see what sits inside what. Press Tab to indent."
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Attributes, Paths and Links",
+      "description": "Adding extra information to elements, understanding file paths, and linking pages together.",
+      "language": "web",
+      "activePanels": ["html"],
+      "instructionFile": "data/lessons/CSCI71585/unit-2/lesson-5/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-2/lesson-5/starter.html"
+      },
+      "hints": [
+        "Attributes go inside the opening tag, written as name=\"value\", e.g. <a href=\"https://www.example.com\">.",
+        "Links to other websites need the full address, including https://.",
+        "To link to a section on the same page, give the target element an id and link to it with a # in front, e.g. href=\"#contact\" links to id=\"contact\".",
+        "Each id must be unique: only one element on the page can use it."
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Images and Media",
+      "description": "Adding images, captions, video and audio, and writing useful alternative text.",
+      "language": "web",
+      "activePanels": ["html"],
+      "instructionFile": "data/lessons/CSCI71585/unit-2/lesson-6/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-2/lesson-6/starter.html"
+      },
+      "hints": [
+        "<img> has no closing tag. Everything it needs goes in its attributes, such as src and alt.",
+        "Good alt text describes what the image shows or does, as if you were describing it to someone who can't see it. Avoid starting with \"Image of\".",
+        "If your image doesn't appear, check the spelling and capitalisation of the file path in src.",
+        "Add the controls attribute to <video> and <audio> so users can play and pause them."
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Tables",
+      "description": "Presenting data in rows and columns with accessible table headers.",
+      "language": "web",
+      "activePanels": ["html"],
+      "instructionFile": "data/lessons/CSCI71585/unit-2/lesson-7/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-2/lesson-7/starter.html"
+      },
+      "hints": [
+        "Tables are built row by row: each <tr> is a row, and the cells go inside it.",
+        "Use <th> for header cells and <td> for data cells.",
+        "Header rows go inside <thead> and data rows go inside <tbody>.",
+        "If your columns don't line up, check that every row has the same number of cells."
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Grouping Content",
+      "description": "Using div and span, understanding block and inline elements, and naming elements with class.",
+      "language": "web",
+      "activePanels": ["html"],
+      "instructionFile": "data/lessons/CSCI71585/unit-2/lesson-8/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-2/lesson-8/starter.html"
+      },
+      "hints": [
+        "Use <div> to group block-level content, such as several paragraphs. Use <span> to mark part of a line of text.",
+        "Block elements start on a new line and take up the full width. Inline elements sit within a line of text.",
+        "Unlike id, a class can be used on many elements, and one element can have several classes separated by spaces, e.g. class=\"card featured\".",
+        "<div> and <span> don't change how your page looks on their own. Their purpose is to group content for styling later."
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Semantic Structure",
+      "description": "Structuring pages with meaningful elements, and why semantics matter for accessibility.",
+      "language": "web",
+      "activePanels": ["html"],
+      "instructionFile": "data/lessons/CSCI71585/unit-2/lesson-9/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-2/lesson-9/starter.html"
+      },
+      "hints": [
+        "A page should have only one <main> element, containing its primary content.",
+        "Use <nav> for groups of navigation links, not for every link on the page.",
+        "Use <article> for content that would make sense on its own, such as a blog post. Use <section> for a themed part of a larger page.",
+        "Ask yourself what each part of the page is, not what it looks like. If no semantic element fits, a <div> is fine."
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Forms and Buttons",
+      "description": "Collecting user input with labelled form fields and buttons.",
+      "language": "web",
+      "activePanels": ["html"],
+      "instructionFile": "data/lessons/CSCI71585/unit-2/lesson-10/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-2/lesson-10/starter.html"
+      },
+      "hints": [
+        "Connect each <label> to its input by matching the label's for attribute to the input's id.",
+        "Give every input a name attribute. This is how the data is identified when the form is submitted.",
+        "Choose the input type that matches the data, e.g. type=\"email\" or type=\"number\". The browser will help check it for you.",
+        "A <button> inside a form submits it by default. Use type=\"button\" for a button that shouldn't submit."
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Consolidation: Build and Validate",
+      "description": "Bring everything together in a complete semantic page and check it with the W3C validator.",
+      "language": "web",
+      "activePanels": ["html"],
+      "instructionFile": "data/lessons/CSCI71585/unit-2/lesson-11/instruction.html",
+      "starterCode": {
+        "html": "data/lessons/CSCI71585/unit-2/lesson-11/starter.html"
+      },
+      "hints": [
+        "Plan your page structure first: what goes in the <header>, <main> and <footer>?",
+        "Validate by copying all of your HTML and pasting it into the \"Validate by Direct Input\" tab of the W3C validator.",
+        "Fix validator errors from the top down. One early mistake, such as an unclosed tag, can cause several errors further down.",
+        "Warnings are suggestions rather than errors, but they are still worth reading."
       ]
     }
   ]
