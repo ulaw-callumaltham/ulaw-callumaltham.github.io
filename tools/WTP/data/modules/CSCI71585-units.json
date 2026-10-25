@@ -8,8 +8,8 @@
       "title": "HTML Fundamentals and Semantic Markup",
       "description": "In this unit, we will cover the basics of HTML, the foundational language of the web. You'll learn how to structure web pages using various HTML tags and elements according to semantic principles, and understand how to create content that can be displayed in a web browser.",
       "week": 2,
-      "unlockDate": "2026-01-01",
-      "lessonCount": 8,
+      "unlockDate": "2026-10-26",
+      "lessonCount": 11,
       "technologies": ["HTML"],
       "lessonsFile": "data/lessons/CSCI71585/unit-2/lessons.json"
     },
@@ -18,7 +18,7 @@
       "title": "CSS and Responsive Design",
       "description": "In this unit, we will explore CSS, the language used to style and layout web pages. You'll learn how to apply styles to HTML elements, create responsive designs that adapt to different screen sizes, and understand the principles of modern web design.",
       "week": 3,
-      "unlockDate": "2026-01-01",
+      "unlockDate": "2026-11-02",
       "lessonCount": 4,
       "technologies": ["HTML", "CSS"],
       "lessonsFile": "data/lessons/CSCI71585/unit-3/lessons.json"
@@ -28,7 +28,7 @@
       "title": "JavaScript Fundamentals",
       "description": "In this unit, we will explore the basics of JavaScript, the programming language that brings interactivity to web pages. You'll learn how to write JavaScript code, manipulate the DOM, and create dynamic user experiences.",
       "week": 4,
-      "unlockDate": "2026-01-01",
+      "unlockDate": "2026-11-09",
       "lessonCount": 5,
       "technologies": ["HTML", "CSS", "JavaScript"],
       "lessonsFile": "data/lessons/CSCI71585/unit-4/lessons.json"
@@ -38,7 +38,7 @@
       "title": "Advanced Front-End Technologies (CSS animations, transforms, custom properties, JS async/await, APIs, fetch, JSON, Form Handling, Client-Side Security)",
       "description": "In this unit, we will cover advanced front-end technologies that enhance the user experience. You'll learn about CSS animations, transforms, and custom properties, as well as JavaScript features like async/await, working with APIs, fetch, JSON, form handling, and client-side security best practices.",
       "week": 5,
-      "unlockDate": "2026-01-01",
+      "unlockDate": "2026-11-16",
       "lessonCount": 4,
       "technologies": ["HTML", "CSS", "JavaScript"],
       "lessonsFile": "data/lessons/CSCI71585/unit-5/lessons.json"
@@ -48,7 +48,7 @@
       "title": "User Focused Design and Accessibility",
       "description": "In this unit, we will explore the principles of user-focused design and accessibility. You'll learn how to create web experiences that are inclusive and meet the needs of all users, regardless of their abilities or disabilities.",
       "week": 7,
-      "unlockDate": "2026-01-01",
+      "unlockDate": "2026-12-07",
       "lessonCount": 5,
       "technologies": ["HTML", "CSS", "JavaScript"],
       "lessonsFile": "data/lessons/CSCI71585/unit-7/lessons.json"
@@ -58,7 +58,7 @@
       "title": "Web Application Security, Administration, and Management",
       "description": "In this unit, we will explore the principles of web application security, administration, and management. You'll learn how to implement security measures, manage web applications, and ensure the integrity and availability of your web applications.",
       "week": 9,
-      "unlockDate": "2026-01-01",
+      "unlockDate": "2027-01-11",
       "lessonCount": 6,
       "technologies": ["HTML", "CSS", "JavaScript"],
       "lessonsFile": "data/lessons/CSCI71585/unit-9/lessons.json"

@@ -1,0 +1,191 @@
+<h1>Tutorial</h1> <!--Lesson 1: What is HTML?-->
+<p>Every web page you have ever visited is built on HTML. In this unit you will learn how to write it properly: how a page is structured, which elements to use for different kinds of content, and how to choose elements by what content <em>means</em> rather than how it looks.</p>
+<p>This first lesson covers the foundations that everything else builds on: what HTML is, how its syntax works, and the structure every web page needs. Work through the page from top to bottom. Whenever you see a <strong>Try It</strong> section, make that change in the editor before moving on, and check the preview to see the result.</p>
+<br>
+
+<h2>What Is HTML?</h2>
+<p>HTML stands for <strong>HyperText Markup Language</strong>.</p>
+<ul>
+    <li><strong>HyperText</strong> is text that contains links to other text. Links are what connect individual pages into the World Wide Web.</li>
+    <li><strong>Markup</strong> means labelling content to describe what it is. HTML labels one piece of text as a heading, another as a paragraph, another as a link, and so on.</li>
+    <li><strong>Language</strong> means it has a defined set of rules (its syntax) that browsers understand.</li>
+</ul>
+<p>HTML is a <strong>markup language</strong>, not a programming language. It has no variables, loops or logic; it simply describes the <strong>content and structure</strong> of a page. How the page looks is controlled by <strong>CSS</strong>, and how it behaves is controlled by <strong>JavaScript</strong>. You will meet both in later units.</p>
+<div class="info-box"><strong>ℹ️ Info:</strong> HTML is maintained as a "living standard" by the WHATWG (Web Hypertext Application Technology Working Group). Rather than being released in numbered versions, it is updated continuously. You will often still hear it called <strong>HTML5</strong>, which is the name for modern HTML in general.</div>
+<br>
+
+<h3>How a Browser Uses HTML</h3>
+<p>When you visit a web page, a few things happen in order:</p>
+<ol>
+    <li>Your browser requests the page from a web server.</li>
+    <li>The server sends back an HTML file, which is just plain text.</li>
+    <li>The browser reads (or <strong>parses</strong>) the HTML from top to bottom and works out what each piece of content is.</li>
+    <li>The browser displays (or <strong>renders</strong>) the content on screen.</li>
+</ol>
+<p>The editor and preview in this platform work the same way: the preview is a browser displaying whatever HTML you write in the editor.</p>
+<br>
+
+<h2>Elements and Tags</h2>
+<p>HTML works by wrapping content in <strong>tags</strong>. Most tags come in pairs:</p>
+<ul>
+    <li>An <strong>opening tag</strong>: the element's name inside angle brackets, such as <code>&lt;p&gt;</code>.</li>
+    <li>A <strong>closing tag</strong>: the same name with a forward slash before it, such as <code>&lt;/p&gt;</code>.</li>
+</ul>
+<p>The opening tag, the closing tag and the content between them together form an <strong>element</strong>.</p>
+<pre><code class="language-html">&lt;p&gt;This is a paragraph.&lt;/p&gt;</code></pre>
+<p>Here, <code>&lt;p&gt;</code> is the opening tag, <code>This is a paragraph.</code> is the content, and <code>&lt;/p&gt;</code> is the closing tag. The whole line is a paragraph element.</p>
+<p>The browser does not display the tags themselves. It reads them to understand what each piece of content is, then displays the content accordingly.</p>
+<div class="tip-box"><strong>💡 Tip:</strong> HTML tag names are not case-sensitive, so <code>&lt;P&gt;</code> works the same as <code>&lt;p&gt;</code>. The standard convention is to always write them in lowercase, and you should follow it.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>In the editor, type <code>&lt;p&gt;Hello, world!&lt;/p&gt;</code> and check that the text appears in the preview.</li>
+    <li>Now delete the closing <code>&lt;/p&gt;</code> tag. Notice that the text <em>still</em> appears correctly.</li>
+    <li>Put the closing tag back.</li>
+</ol>
+<div class="warning-box"><strong>⚠️ Warning:</strong> Browsers are very forgiving. When HTML contains mistakes, they guess what you meant and display something anyway. This means a page can look correct while its code is broken, and different browsers may guess differently. Never rely on "it looks fine" as proof that your HTML is correct. You will learn how to check your code properly in the final lesson of this unit.</div>
+<br>
+
+<h3>Void Elements</h3>
+<p>A small number of elements have no content to wrap, so they have <strong>no closing tag</strong>. These are called <strong>void elements</strong>. For example, <code>&lt;br&gt;</code> creates a line break and <code>&lt;img&gt;</code> displays an image. Neither has anything to put between an opening and closing tag.</p>
+<pre><code class="language-html">&lt;p&gt;First line&lt;br&gt;Second line&lt;/p&gt;</code></pre>
+<div class="info-box"><strong>ℹ️ Info:</strong> You may see void elements written with a slash at the end, such as <code>&lt;br /&gt;</code>. This style comes from an older, stricter version of HTML called XHTML. It is still allowed, but it is not needed, and this unit does not use it.</div>
+<br>
+
+<h3>Elements Inside Elements</h3>
+<p>Elements can contain other elements. When one element sits inside another, the outer element is called the <strong>parent</strong> and the inner element is called the <strong>child</strong>.</p>
+<pre><code class="language-html">&lt;p&gt;This is &lt;em&gt;very&lt;/em&gt; important.&lt;/p&gt;</code></pre>
+<p>Here, the <code>&lt;em&gt;</code> element is a child of the <code>&lt;p&gt;</code> element. An element must be closed <strong>inside</strong> its parent, so the inner element always closes first. You will look at this in much more detail in Lesson 4.</p>
+<br>
+
+<h2>The Structure of an HTML Document</h2>
+<p>Every HTML page follows the same basic outline:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, web!&lt;/h1&gt;
+    &lt;p&gt;This is my first web page.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Each part has a specific job:</p>
+<ul>
+    <li><code>&lt;!DOCTYPE html&gt;</code>: the <strong>doctype declaration</strong>. It tells the browser the page is written in modern HTML. It is not an element and has no closing tag. It must be the very first line.</li>
+    <li><code>&lt;html&gt;</code>: the <strong>root element</strong>. Every other element on the page goes inside it.</li>
+    <li><code>&lt;head&gt;</code>: information <strong>about</strong> the page, such as its title and character encoding. Nothing in the head is displayed on the page itself.</li>
+    <li><code>&lt;body&gt;</code>: the <strong>content</strong> of the page. Everything the user sees goes here.</li>
+</ul>
+<p>The <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> are both children of <code>&lt;html&gt;</code>, and a page has exactly one of each.</p>
+<div class="warning-box"><strong>⚠️ Warning:</strong> Without the doctype, browsers switch into "quirks mode", where they imitate the behaviour of very old browsers from the 1990s. Your page may still appear, but layout and styling can behave unpredictably. Always include it.</div>
+<div class="tip-box"><strong>💡 Tip:</strong> Notice how elements inside <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> are indented. The browser ignores indentation, but it makes it much easier for people to see which elements sit inside which. Press <strong>Tab</strong> in the editor to indent a line.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>Delete everything in the editor.</li>
+    <li>Type out the outline above, starting with the doctype. Type it yourself rather than copying it; writing it from scratch is the quickest way to remember it.</li>
+    <li>Leave out the <code>&lt;meta&gt;</code> and <code>&lt;title&gt;</code> lines for now. Inside the <code>&lt;body&gt;</code>, add your <code>&lt;p&gt;Hello, world!&lt;/p&gt;</code> paragraph from earlier.</li>
+</ol>
+<br>
+
+<h3>The lang Attribute</h3>
+<p>The opening <code>&lt;html&gt;</code> tag contains <code>lang="en"</code>. This is an <strong>attribute</strong>: extra information written inside an opening tag as <code>name="value"</code>. You will learn about attributes properly in Lesson 5.</p>
+<p>The <code>lang</code> attribute states the language of the page's content. It matters because:</p>
+<ul>
+    <li><strong>Screen readers</strong> use it to choose the correct pronunciation when reading the page aloud.</li>
+    <li><strong>Browsers</strong> use it to decide whether to offer a translation.</li>
+    <li><strong>Search engines</strong> use it to show the page to people searching in that language.</li>
+</ul>
+<p>The value is a language code, such as <code>en</code> for English, <code>fr</code> for French or <code>cy</code> for Welsh. You can also be more specific: <code>en-GB</code> means British English.</p>
+
+<h3>Try It</h3>
+<ol>
+    <li>If you have not already, add <code>lang="en"</code> to your opening <code>&lt;html&gt;</code> tag.</li>
+</ol>
+<br>
+
+<h2>Inside the Head</h2>
+<p>The <code>&lt;head&gt;</code> holds information about the page, often called <strong>metadata</strong>. In this lesson you will add the two pieces every page should have.</p>
+
+<h3>Character Encoding</h3>
+<p>Computers store text as numbers, and a <strong>character encoding</strong> is the system that maps those numbers to characters. If the browser uses the wrong encoding, characters such as <code>£</code>, <code>é</code> or emoji can appear as scrambled symbols.</p>
+<pre><code class="language-html">&lt;meta charset="UTF-8"&gt;</code></pre>
+<p><strong>UTF-8</strong> can represent almost every character in every writing system, and it is the standard for the web. The <code>&lt;meta&gt;</code> element is a void element, so it has no closing tag.</p>
+<div class="tip-box"><strong>💡 Tip:</strong> Make <code>&lt;meta charset="UTF-8"&gt;</code> the first line inside your <code>&lt;head&gt;</code>. The browser needs to know the encoding before it reads any text, including the title.</div>
+
+<h3>The Page Title</h3>
+<p>The <code>&lt;title&gt;</code> element sets the name of the page. It does not appear on the page itself. Instead, it is used:</p>
+<ul>
+    <li>In the browser tab.</li>
+    <li>As the default name when someone bookmarks the page.</li>
+    <li>As the clickable headline in search engine results.</li>
+    <li>By screen readers, which announce it when the page loads.</li>
+</ul>
+<p>A good title is short and describes the page's content, such as <code>Contact Us | City Library</code>, rather than something generic like <code>Home</code> or <code>Page 1</code>.</p>
+
+<h3>Try It</h3>
+<ol>
+    <li>Inside your <code>&lt;head&gt;</code>, add <code>&lt;meta charset="UTF-8"&gt;</code>.</li>
+    <li>Below it, add a <code>&lt;title&gt;</code> element containing <code>My First Page</code>.</li>
+    <li>The preview has no browser tab, so it shows your page's title in its header instead. Check that it has changed from <strong>No title</strong> to <strong>My First Page</strong>.</li>
+</ol>
+<br>
+
+<h2>Inside the Body</h2>
+<p>Everything the user sees goes inside the <code>&lt;body&gt;</code>. You will learn about many different elements in this unit, but two of the most common are headings and paragraphs:</p>
+<ul>
+    <li><code>&lt;h1&gt;</code> is the main heading of the page. There are six heading levels, from <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>, which you will cover in the next lesson.</li>
+    <li><code>&lt;p&gt;</code> is a paragraph of text.</li>
+</ul>
+
+<h3>Try It</h3>
+<ol>
+    <li>Above your paragraph, add an <code>&lt;h1&gt;</code> element containing <code>Hello, web!</code>.</li>
+    <li>Change the text of your paragraph to one sentence about why you are learning web development.</li>
+</ol>
+<br>
+
+<h2>Comments</h2>
+<p>A <strong>comment</strong> is a note in your code that the browser ignores. Comments start with <code>&lt;!--</code> and end with <code>--&gt;</code>, and can span several lines.</p>
+<pre><code class="language-html">&lt;!-- This is a comment. It will not appear on the page. --&gt;
+&lt;h1&gt;Hello, web!&lt;/h1&gt;</code></pre>
+<p>Comments are useful for:</p>
+<ul>
+    <li>Explaining what a section of code does, for other developers or for yourself in the future.</li>
+    <li>Marking where sections start and end in a long page.</li>
+    <li>Temporarily hiding code without deleting it, which is known as "commenting out".</li>
+</ul>
+<div class="warning-box"><strong>⚠️ Warning:</strong> Comments do not appear on the page, but they are <strong>not private</strong>. Anyone can read them by viewing the page's source code in their browser. Never put passwords, personal details or other sensitive information in an HTML comment.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>Above your <code>&lt;h1&gt;</code>, add a comment saying <code>Main heading</code>. Check that it does not appear in the preview.</li>
+    <li>Wrap your paragraph in a comment to comment it out, and check that it disappears from the preview.</li>
+    <li>Remove the comment markers so the paragraph appears again.</li>
+</ol>
+<br>
+
+<h2>Check Your Page</h2>
+<p>Your finished code should look similar to this, with your own sentence in the paragraph:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Main heading --&gt;
+    &lt;h1&gt;Hello, web!&lt;/h1&gt;
+    &lt;p&gt;I am learning web development so that I can build my own applications.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Before moving on, make sure you can answer these questions:</p>
+<ul>
+    <li>What is the difference between a tag and an element?</li>
+    <li>What is a void element? Name one.</li>
+    <li>What belongs in the <code>&lt;head&gt;</code>, and what belongs in the <code>&lt;body&gt;</code>?</li>
+    <li>Why should every page include a doctype, a <code>lang</code> attribute and a character encoding?</li>
+</ul>
+<p>In the next lesson, you will look at text content in more depth: heading levels, paragraphs, line breaks, and how the browser handles spaces in your code.</p>
