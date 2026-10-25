@@ -1,0 +1,154 @@
+<h1>Tutorial</h1> <!--Lesson 2: Text Content-->
+<p>Most of what people read on the web is text, so most of the HTML you write will be marking up text. In this lesson you will learn how to structure text properly with headings and paragraphs, how the browser handles spaces and line breaks in your code, and how to display characters that HTML would otherwise treat as code.</p>
+<p>The starter code contains a short article about the history of the web. Over this lesson you will turn it into a properly structured page. As before, complete each <strong>Try It</strong> section in the editor before moving on.</p>
+<br>
+
+<h2>Headings</h2>
+<p>HTML has six levels of heading, from <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>:</p>
+<pre><code class="language-html">&lt;h1&gt;Heading level 1&lt;/h1&gt;
+&lt;h2&gt;Heading level 2&lt;/h2&gt;
+&lt;h3&gt;Heading level 3&lt;/h3&gt;
+&lt;h4&gt;Heading level 4&lt;/h4&gt;
+&lt;h5&gt;Heading level 5&lt;/h5&gt;
+&lt;h6&gt;Heading level 6&lt;/h6&gt;</code></pre>
+<p>The number is the heading's <strong>level of importance</strong>, not its size. Headings work like the contents page of a book:</p>
+<ul>
+    <li><code>&lt;h1&gt;</code> is the title of the whole page. It is good practice to have only one.</li>
+    <li><code>&lt;h2&gt;</code> headings mark the main sections of the page, like chapters.</li>
+    <li><code>&lt;h3&gt;</code> headings mark sub-sections within an <code>&lt;h2&gt;</code> section, and so on down to <code>&lt;h6&gt;</code>.</li>
+</ul>
+<p>Together, the headings form an <strong>outline</strong> of the page:</p>
+<pre><code class="language-html">&lt;h1&gt;Visiting Leeds&lt;/h1&gt;
+    &lt;h2&gt;Getting There&lt;/h2&gt;
+        &lt;h3&gt;By Train&lt;/h3&gt;
+        &lt;h3&gt;By Car&lt;/h3&gt;
+    &lt;h2&gt;Places to Visit&lt;/h2&gt;
+        &lt;h3&gt;Museums&lt;/h3&gt;
+        &lt;h3&gt;Parks&lt;/h3&gt;</code></pre>
+<p>The indentation here is only to show the outline; in a real page, each heading would have content beneath it.</p>
+<div class="warning-box"><strong>⚠️ Warning:</strong> Do not skip heading levels. An <code>&lt;h3&gt;</code> should only come after an <code>&lt;h2&gt;</code>, never directly after an <code>&lt;h1&gt;</code>. Also never choose a heading because of its size: if you want text to look bigger, that is a job for CSS. Choose the level that matches the content's place in the outline.</div>
+<div class="info-box"><strong>ℹ️ Info:</strong> Headings matter for accessibility. Many screen reader users navigate a page by jumping from heading to heading, in the same way a sighted user skims a page by looking at the headings. A page with a clear heading outline is far easier to use without seeing it. Search engines also use headings to understand what a page is about.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>The starter page has an <code>&lt;h1&gt;</code> and several paragraphs, but no other headings. Above the first paragraph, add an <code>&lt;h2&gt;</code> containing <code>How It Started</code>.</li>
+    <li>Above the paragraph that begins <em>"Three inventions"</em>, add an <code>&lt;h2&gt;</code> containing <code>The Building Blocks</code>.</li>
+    <li>The three paragraphs after that each describe one invention. Above each one, add an <code>&lt;h3&gt;</code>: <code>HTML</code>, <code>URLs</code> and <code>HTTP</code>.</li>
+</ol>
+<br>
+
+<h2>Paragraphs</h2>
+<p>The <code>&lt;p&gt;</code> element marks a paragraph of text. Browsers display each paragraph as a separate block, with space above and below it.</p>
+<p>People tend to skim web pages rather than read every word. Short paragraphs that each cover one idea are much easier to read on screen than long blocks of text.</p>
+<div class="tip-box"><strong>💡 Tip:</strong> Do not use empty paragraphs (<code>&lt;p&gt;&lt;/p&gt;</code>) to add space between content. Spacing is part of how a page looks, so it is controlled with CSS. HTML should only describe what the content is.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>The paragraph under <strong>How It Started</strong> is too long. Split it into two paragraphs, starting the second at <em>"The first website"</em>.</li>
+</ol>
+<br>
+
+<h2>Whitespace</h2>
+<p><strong>Whitespace</strong> means spaces, tabs and line breaks. When the browser displays text, it <strong>collapses</strong> any run of whitespace into a single space. This means that:</p>
+<ul>
+    <li>Pressing Enter in your code does <strong>not</strong> start a new line on the page.</li>
+    <li>Typing several spaces in a row shows only <strong>one</strong> space on the page.</li>
+</ul>
+<pre><code class="language-html">&lt;p&gt;This     text
+   is spread
+      over several lines.&lt;/p&gt;</code></pre>
+<p>The browser displays this as a single line: <em>This text is spread over several lines.</em></p>
+<p>This is actually useful: it is the reason you can indent and space out your code to make it readable without changing what appears on the page.</p>
+
+<h3>Try It</h3>
+<ol>
+    <li>In the paragraph under the <strong>HTML</strong> heading, add several extra spaces between two words, and press Enter in the middle of a sentence. Check the preview: neither change appears.</li>
+    <li>Undo those changes.</li>
+</ol>
+<br>
+
+<h3>Line Breaks</h3>
+<p>Sometimes a line break is part of the content itself, such as in a postal address or a poem. For these, use the <code>&lt;br&gt;</code> element, which is a void element you met in Lesson 1.</p>
+<pre><code class="language-html">&lt;p&gt;
+    The University of Law&lt;br&gt;
+    Leeds Campus&lt;br&gt;
+    Leeds
+&lt;/p&gt;</code></pre>
+<div class="warning-box"><strong>⚠️ Warning:</strong> Only use <code>&lt;br&gt;</code> where the line break belongs to the content. Do not use it to separate paragraphs (use separate <code>&lt;p&gt;</code> elements) or to add space between elements (use CSS).</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>At the bottom of the starter page is a paragraph containing an address, but it displays as one long line. Add <code>&lt;br&gt;</code> elements so that each part of the address appears on its own line.</li>
+</ol>
+<br>
+
+<h3>Preformatted Text</h3>
+<p>The <code>&lt;pre&gt;</code> element is the exception to whitespace collapsing. Text inside <code>&lt;pre&gt;</code> (short for <strong>preformatted</strong>) is displayed exactly as you type it, with every space and line break kept. Browsers also display it in a <strong>monospace</strong> font, where every character is the same width, so text lines up in columns.</p>
+<pre><code class="language-html">&lt;pre&gt;
+Name      Score
+Amira       92
+Ben         87
+&lt;/pre&gt;</code></pre>
+<p><code>&lt;pre&gt;</code> is commonly used for displaying code, and for text-based content where alignment matters.</p>
+
+<h3>Try It</h3>
+<ol>
+    <li>Below the <strong>HTTP</strong> paragraph, add an <code>&lt;h2&gt;</code> containing <code>Timeline</code>.</li>
+    <li>Below it, add a <code>&lt;pre&gt;</code> element containing this timeline, lining up the descriptions using spaces:
+<pre><code>1989    Tim Berners-Lee proposes the web
+1991    The first website goes online
+1993    CERN makes the web free for everyone</code></pre>
+    </li>
+    <li>Temporarily change <code>&lt;pre&gt;</code> to <code>&lt;p&gt;</code> (remember the closing tag too) and see what happens to the layout. Then change it back.</li>
+</ol>
+<br>
+
+<h2>Character Entities</h2>
+<p>Some characters have a special meaning in HTML. For example, the browser reads <code>&lt;</code> as the start of a tag. So what happens if you want to write about the <code>&lt;p&gt;</code> element on your page?</p>
+<pre><code class="language-html">&lt;p&gt;Every paragraph uses the &lt;p&gt; element.&lt;/p&gt;</code></pre>
+<p>The browser treats <code>&lt;p&gt;</code> in the middle of the sentence as a real tag, so it disappears from the page. To display these characters as text, you use a <strong>character entity</strong>: a code that starts with <code>&amp;</code> and ends with a semicolon.</p>
+<pre><code class="language-html">&lt;p&gt;Every paragraph uses the &amp;lt;p&amp;gt; element.&lt;/p&gt;</code></pre>
+<p>The most common entities are:</p>
+<ul>
+    <li><code>&amp;lt;</code> displays <code>&lt;</code> (<strong>l</strong>ess <strong>t</strong>han)</li>
+    <li><code>&amp;gt;</code> displays <code>&gt;</code> (<strong>g</strong>reater <strong>t</strong>han)</li>
+    <li><code>&amp;amp;</code> displays <code>&amp;</code> (<strong>amp</strong>ersand), since <code>&amp;</code> itself starts an entity</li>
+    <li><code>&amp;quot;</code> displays <code>"</code> (<strong>quot</strong>ation mark)</li>
+    <li><code>&amp;copy;</code> displays <code>&copy;</code> (<strong>copy</strong>right)</li>
+    <li><code>&amp;nbsp;</code> is a <strong>n</strong>on-<strong>b</strong>reaking <strong>sp</strong>ace: a space that never collapses and never lets a line wrap at that point, which keeps things like <code>10&amp;nbsp;km</code> together on one line</li>
+</ul>
+<div class="info-box"><strong>ℹ️ Info:</strong> Because your pages use UTF-8 encoding (from Lesson 1), you can type most special characters directly, such as <code>£</code>, <code>é</code> or <code>©</code>. You only <em>need</em> entities for characters that HTML would otherwise treat as code, mainly <code>&lt;</code>, <code>&gt;</code> and <code>&amp;</code>.</div>
+<div class="tip-box"><strong>💡 Tip:</strong> <code>&lt;pre&gt;</code> keeps whitespace, but it still reads tags. To display HTML code inside a <code>&lt;pre&gt;</code>, you still need <code>&amp;lt;</code> and <code>&amp;gt;</code>.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>In the paragraph under the <strong>HTML</strong> heading, add a sentence at the end: <em>Every HTML page starts with the &lt;html&gt; element.</em> Check that the <code>&lt;html&gt;</code> part appears on the page.</li>
+    <li>Below the address paragraph, add a paragraph containing <em>&copy; 2026 Web History Society</em>, using the entity for the copyright symbol.</li>
+</ol>
+<br>
+
+<h2>Check Your Page</h2>
+<p>Your finished page should have this heading outline:</p>
+<pre><code>h1  A Short History of the Web
+    h2  How It Started
+    h2  The Building Blocks
+        h3  HTML
+        h3  URLs
+        h3  HTTP
+    h2  Timeline
+    h2  Contact Us</code></pre>
+<p>Check that:</p>
+<ul>
+    <li>No heading levels are skipped.</li>
+    <li>The <strong>How It Started</strong> section has two paragraphs.</li>
+    <li>The timeline keeps its columns, and the address shows on separate lines.</li>
+    <li>The <code>&lt;html&gt;</code> element name and the <code>&copy;</code> symbol both appear on the page.</li>
+</ul>
+<p>Before moving on, make sure you can answer these questions:</p>
+<ul>
+    <li>Why should you never choose a heading level based on its size?</li>
+    <li>What does the browser do with extra spaces and line breaks in your code?</li>
+    <li>When is it right to use <code>&lt;br&gt;</code>, and when should you use a new <code>&lt;p&gt;</code> instead?</li>
+    <li>Which characters must be written as entities, and why?</li>
+</ul>
+<p>In the next lesson, you will learn how to organise content into lists.</p>
