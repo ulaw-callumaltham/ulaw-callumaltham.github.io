@@ -256,6 +256,26 @@ function collectLoops(node, parent, out) {
     }
 }
 
+// Runs inside the preview. Keeps links and forms from navigating the preview away.
+const PREVIEW_HELPER =
+    '<script>(function(){' +
+    'var h=window.opener||window.parent;if(h===window)h=null;' +
+    'document.addEventListener("click",function(e){' +
+        'var a=e.target.closest&&e.target.closest("a[href]");' +
+        'if(!a||e.defaultPrevented)return;' +
+        'var href=a.getAttribute("href");' +
+        'if(href.charAt(0)==="#"||/^(mailto|tel):/i.test(href))return;' +
+        'e.preventDefault();' +
+        'if(/^(https?:)?\\/\\//i.test(href)){window.open(a.href,"_blank","noopener");}' +
+        'else if(h&&typeof h.reportPreviewLink==="function"){h.reportPreviewLink(href);}' +
+    '});' +
+    'document.addEventListener("submit",function(e){' +
+        'e.preventDefault();var d=[];' +
+        'try{new FormData(e.target).forEach(function(v,k){d.push([k,typeof v==="string"?v:v.name]);});}catch(x){}' +
+        'if(h&&typeof h.reportFormSubmit==="function"){h.reportFormSubmit(d);}' +
+    '});' +
+    '})();<\/script>';
+
 // Add a time check inside every loop. Returns the code unchanged if
 // Acorn isn't available or the code can't be parsed.
 function protectLoops(code) {
@@ -312,6 +332,28 @@ function reportInfiniteLoop(line) {
     lastLoopWarning = now;
 
     showToast(`Your JavaScript was stopped: the loop on line ${line} ran for too long. Check its condition.`, 'error');
+}
+
+function escapePreviewText(text) {
+    return String(text).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+}
+
+// Called from inside the preview when a form is submitted
+function reportFormSubmit(entries) {
+    const lines = entries.length
+        ? entries.map(([name, value]) =>
+            `<strong>${escapePreviewText(name)}</strong>: ${value ? escapePreviewText(value) : '<em>(empty)</em>'}`
+          ).join('<br>')
+        : 'Nothing would be sent. Check that each control has a <code>name</code>.';
+
+    showToast(`Form submitted. This data would be sent:<br>${lines}`, 'success', 10000);
+}
+
+// Called from inside the preview when a link to another page is clicked
+function reportPreviewLink(href) {
+    showToast(`This lesson only has one page, so the link to "${escapePreviewText(href)}" has nothing to open.`, 'info');
 }
 
 function buildPreviewDocument() {
@@ -373,6 +415,13 @@ function buildPreviewDocument() {
         } else {
             htmlCode = htmlCode + '<script>' + safeJs + '<\/script>';
         }
+    }
+
+    // Helper goes last, on the same line, so student line numbers are unchanged
+    if (/<\/body>/i.test(htmlCode)) {
+        htmlCode = htmlCode.replace(/<\/body>/i, () => PREVIEW_HELPER + '</body>');
+    } else {
+        htmlCode = htmlCode + PREVIEW_HELPER;
     }
 
     return htmlCode;

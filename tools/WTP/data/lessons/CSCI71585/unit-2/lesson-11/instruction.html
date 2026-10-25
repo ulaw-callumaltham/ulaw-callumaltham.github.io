@@ -1,0 +1,143 @@
+<h1>Tutorial</h1> <!--Lesson 11: Consolidation: Build and Validate-->
+<p>In this final lesson, you will bring together everything from this unit to build a complete web page from scratch, then check it with the same tool professional developers use to find mistakes in their HTML.</p>
+<p>Unlike the previous lessons, there are no step-by-step instructions for the build. Instead, you have a brief and a checklist. If you are unsure how to do something, look back at the relevant lesson: the instructions are designed to be used as a reference.</p>
+<br>
+
+<h2>The Brief</h2>
+<p>A local group is running a one-day <strong>Beginners' Web Workshop</strong>, and they need a single web page for it. The page must let visitors find out what the workshop is, when and where it is, see the day's schedule, and register a place.</p>
+<p>You can make up the details, such as the date, venue and speakers. The page should include the following.</p>
+<br>
+
+<h3>The Document</h3>
+<ul>
+    <li>A doctype, a <code>lang</code> attribute and a character encoding.</li>
+    <li>A meaningful <code>&lt;title&gt;</code>.</li>
+</ul>
+
+<h3>Page Structure (Lessons 8 and 9)</h3>
+<ul>
+    <li>A <code>&lt;header&gt;</code> containing the workshop's name and a <code>&lt;nav&gt;</code>.</li>
+    <li>A <code>&lt;main&gt;</code> containing the sections below, each in its own <code>&lt;section&gt;</code> with an <code>id</code>.</li>
+    <li>A <code>&lt;footer&gt;</code> containing a copyright notice that uses a character entity.</li>
+    <li>No <code>&lt;div&gt;</code> elements, unless no semantic element fits.</li>
+</ul>
+
+<h3>Navigation (Lessons 3 and 5)</h3>
+<ul>
+    <li>A list of fragment links in the <code>&lt;nav&gt;</code>, one for each section.</li>
+    <li>A <em>Back to top</em> link in the footer.</li>
+</ul>
+
+<h3>About the Workshop (Lessons 2, 4 and 5)</h3>
+<ul>
+    <li>At least two paragraphs describing the workshop.</li>
+    <li>The date in a <code>&lt;time&gt;</code> element with a <code>datetime</code> attribute.</li>
+    <li>At least one use each of <code>&lt;strong&gt;</code> and <code>&lt;em&gt;</code>, used for their meaning.</li>
+    <li>An abbreviation (such as HTML or CSS) in an <code>&lt;abbr&gt;</code> with a <code>title</code>.</li>
+    <li>A link to an external website, such as <code>https://developer.mozilla.org</code>, opening in a new tab.</li>
+</ul>
+
+<h3>The Venue (Lessons 2, 3 and 6)</h3>
+<ul>
+    <li>An image of the venue in a <code>&lt;figure&gt;</code> with a <code>&lt;figcaption&gt;</code>. Use <code>https://placehold.co/600x400?text=Venue</code> as the <code>src</code>, with suitable alt text, <code>width</code> and <code>height</code>.</li>
+    <li>The venue address, using <code>&lt;br&gt;</code> for its line breaks.</li>
+    <li>An ordered list of directions to the venue from the nearest station.</li>
+    <li>An unordered list of things to bring on the day.</li>
+</ul>
+
+<h3>Schedule (Lesson 7)</h3>
+<ul>
+    <li>A table of the day's sessions with at least four rows, with columns for the time, the session and the speaker.</li>
+    <li>A <code>&lt;caption&gt;</code>, a <code>&lt;thead&gt;</code>, a <code>&lt;tbody&gt;</code>, and <code>scope</code> on every header cell.</li>
+</ul>
+
+<h3>Speakers (Lesson 9)</h3>
+<ul>
+    <li>An <code>&lt;aside&gt;</code> introducing one or more speakers.</li>
+</ul>
+
+<h3>Register (Lesson 10)</h3>
+<ul>
+    <li>A form with required fields for the user's name and email address.</li>
+    <li>A dropdown to choose a morning or afternoon session.</li>
+    <li>A fieldset of radio buttons asking about the user's experience level, and a fieldset of checkboxes asking which topics interest them.</li>
+    <li>A submit button.</li>
+    <li>A properly connected label for every control.</li>
+</ul>
+<br>
+
+<h2>Plan Before You Build</h2>
+<p>Before writing any code, sketch the outline of your page, either on paper or as comments in the editor. A plan like the one below makes the build far quicker, and helps you get the nesting right first time:</p>
+<pre><code>header
+    h1, nav
+main
+    section#about     h2, p, p
+    section#venue     h2, figure, p, ol, ul
+    section#schedule  h2, table
+    aside             h2, p
+    section#register  h2, form
+footer
+    p</code></pre>
+<p>Here, <code>section#about</code> is shorthand for a <code>&lt;section&gt;</code> with an <code>id</code> of <code>about</code>. You will see this notation again in CSS.</p>
+<div class="tip-box"><strong>💡 Tip:</strong> Build the page in stages, and check the preview after each one: first the document structure, then the header and footer, then one section at a time. Fixing a mistake straight after you make it is much easier than finding it later in a long page.</div>
+<br>
+
+<h2>Validating Your HTML</h2>
+<p>As you saw in Lesson 1, browsers hide your mistakes by guessing what you meant. A page can look perfect while containing errors that cause problems for screen readers, search engines, and your CSS and JavaScript later. A <strong>validator</strong> is a tool that checks your HTML against the rules of the language and lists every error it finds.</p>
+<p>The standard tool is the <strong>W3C Markup Validation Service</strong>, run by the World Wide Web Consortium. It is free and can check HTML pasted straight into it.</p>
+
+<h3>Try It</h3>
+<ol>
+    <li>When your page is complete, select all of your code in the editor and copy it.</li>
+    <li>Open the <a href="https://validator.w3.org/#validate_by_input" target="_blank">W3C validator's Validate by Direct Input page</a> in a new tab.</li>
+    <li>Paste your code into the box and click <strong>Check</strong>.</li>
+    <li>If it shows <em>"Document checking completed. No errors or warnings to show."</em>, your HTML is valid. Otherwise, work through the messages as described below until it is.</li>
+</ol>
+<br>
+
+<h3>Reading Validator Messages</h3>
+<p>The validator shows two kinds of message:</p>
+<ul>
+    <li><strong>Errors</strong> break the rules of HTML, and must be fixed.</li>
+    <li><strong>Warnings</strong> are not strictly wrong, but often point to a problem, such as a <code>&lt;section&gt;</code> without a heading. Read each one and decide whether it needs fixing.</li>
+</ul>
+<p>Each message gives a line number, a description and the code it refers to. The line numbers match the line numbers in the editor.</p>
+<div class="tip-box"><strong>💡 Tip:</strong> Fix errors from the <strong>top down</strong>, and check again after fixing each one. A single early mistake, such as a missing closing tag, can confuse the validator about everything after it and produce a long list of errors. Fixing the first one often makes many of the others disappear.</div>
+<br>
+
+<h3>Try It: Break It on Purpose</h3>
+<p>Learning to recognise common errors makes them much quicker to fix in future. Make each change below, validate your page, read the message, then undo the change:</p>
+<ol>
+    <li>Delete the <code>alt</code> attribute from your image.</li>
+    <li>Give two different elements the same <code>id</code>.</li>
+    <li>Put a <code>&lt;ul&gt;</code> inside a <code>&lt;p&gt;</code>.</li>
+    <li>Delete the closing tag of one of your sections.</li>
+</ol>
+<p>Notice how the first three each produce one clear error, but the missing closing tag may produce several, some of them pointing at lines that are actually correct.</p>
+<br>
+
+<h2>Check Your Page</h2>
+<p>Your page is complete when:</p>
+<ul>
+    <li>Every item in the brief is included.</li>
+    <li>The heading outline has one <code>&lt;h1&gt;</code> and no skipped levels.</li>
+    <li>Every navigation link jumps to the right section.</li>
+    <li>Every form control has a working label.</li>
+    <li>The W3C validator reports no errors.</li>
+</ul>
+<p>Make sure you download your work using the <strong>Download</strong> button. You can use this page as a reference for the next unit, where you will learn to style pages like this with CSS.</p>
+<br>
+
+<h2>Unit Summary</h2>
+<p>In this unit, you have learned to:</p>
+<ul>
+    <li>Write a valid HTML document, with a doctype, <code>lang</code> attribute, character encoding and title.</li>
+    <li>Mark up text with headings, paragraphs, lists, formatting elements and character entities.</li>
+    <li>Nest elements correctly, and understand block and inline elements.</li>
+    <li>Use attributes, write relative and absolute URLs, and create links.</li>
+    <li>Add images and media with accessible alternatives.</li>
+    <li>Present data in accessible tables.</li>
+    <li>Structure a page with semantic elements, using <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> only where no semantic element fits.</li>
+    <li>Build accessible forms.</li>
+    <li>Check your HTML with a validator.</li>
+</ul>

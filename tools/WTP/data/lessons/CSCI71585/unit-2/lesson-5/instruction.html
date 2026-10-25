@@ -1,0 +1,176 @@
+<h1>Tutorial</h1> <!--Lesson 5: Attributes, Paths and Links-->
+<p>Links are what turn individual pages into a web. In this lesson you will learn how to create them, and how to write the addresses they point to. First, though, you will look properly at <strong>attributes</strong>, which you have already met a few times without much explanation.</p>
+<p>The starter code contains a page of web development resources with no links yet. As before, complete each <strong>Try It</strong> section in the editor before moving on.</p>
+<br>
+
+<h2>Attributes</h2>
+<p>An <strong>attribute</strong> gives an element extra information or changes how it behaves. Attributes are always written inside the <strong>opening</strong> tag, as a name and a value:</p>
+<pre><code class="language-html">&lt;html lang="en"&gt;</code></pre>
+<p>Here, <code>lang</code> is the attribute's <strong>name</strong>, and <code>en</code> is its <strong>value</strong>. The rules for writing attributes are:</p>
+<ul>
+    <li>Attributes go in the opening tag, never the closing tag.</li>
+    <li>The name and value are joined by <code>=</code>, with no spaces around it.</li>
+    <li>The value goes in double quotes.</li>
+    <li>An element can have several attributes, separated by spaces. Their order does not matter.</li>
+    <li>Some attributes, called <strong>Boolean attributes</strong>, have no value at all. Including the attribute switches the feature on, such as <code>reversed</code> on an ordered list.</li>
+</ul>
+<pre><code class="language-html">&lt;ol start="3" reversed&gt;</code></pre>
+<p>Some attributes only work on particular elements, such as <code>start</code>, which only works on <code>&lt;ol&gt;</code>. Others, called <strong>global attributes</strong>, work on any element. You have already seen <code>lang</code>, and in this lesson you will meet two more: <code>title</code> and <code>id</code>.</p>
+<br>
+
+<h3>The title Attribute</h3>
+<p>The <code>title</code> attribute gives extra information about an element. Most browsers show it as a small tooltip when you hover over the element with a mouse.</p>
+<pre><code class="language-html">&lt;p&gt;The page is written in &lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt;.&lt;/p&gt;</code></pre>
+<p>This example also uses <code>&lt;abbr&gt;</code>, which marks an abbreviation. Its <code>title</code> gives the full version.</p>
+<div class="warning-box"><strong>⚠️ Warning:</strong> Do not put essential information in a <code>title</code> attribute. Tooltips cannot be seen on touchscreens, cannot be reached by keyboard users, and are not read out consistently by screen readers. Use it only for extra information that is helpful but not necessary.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>In the introduction paragraph, wrap <code>MDN</code> in an <code>&lt;abbr&gt;</code> element with a <code>title</code> of <code>MDN Web Docs</code>.</li>
+    <li>Hover over <em>MDN</em> in the preview to see the tooltip.</li>
+</ol>
+<br>
+
+<h2>Links</h2>
+<p>Links are created with the <code>&lt;a&gt;</code> element (short for <strong>anchor</strong>). Its <code>href</code> attribute (short for <strong>hypertext reference</strong>) holds the address to go to, and the content between the tags is the clickable text:</p>
+<pre><code class="language-html">&lt;a href="https://www.w3.org"&gt;World Wide Web Consortium&lt;/a&gt;</code></pre>
+<p>An <code>&lt;a&gt;</code> element is a text-level element, so it usually sits inside a paragraph, heading or list item.</p>
+
+<h3>Writing Good Link Text</h3>
+<p>Link text should describe where the link goes, so that it makes sense on its own:</p>
+<pre><code class="language-html">&lt;!-- Avoid --&gt;
+&lt;p&gt;To read the HTML documentation, &lt;a href="https://developer.mozilla.org"&gt;click here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;!-- Better --&gt;
+&lt;p&gt;Read the &lt;a href="https://developer.mozilla.org"&gt;MDN HTML documentation&lt;/a&gt;.&lt;/p&gt;</code></pre>
+<div class="info-box"><strong>ℹ️ Info:</strong> Screen readers can list every link on a page so that users can jump straight to one. A list of links that all say "click here" or "read more" is useless, because the links only make sense alongside the text around them. Descriptive link text also tells search engines what the linked page is about.</div>
+<br>
+
+<h3>Opening Links in a New Tab</h3>
+<p>By default, a link opens in the same tab, replacing the current page. Adding <code>target="_blank"</code> opens it in a new tab instead:</p>
+<pre><code class="language-html">&lt;a href="https://www.w3.org" target="_blank"&gt;World Wide Web Consortium&lt;/a&gt;</code></pre>
+<p>On a real website, use this sparingly. Opening new tabs takes control away from the user, and can be disorientating, especially for screen reader users who may not realise a new tab has opened. Same-tab links are the normal, expected behaviour.</p>
+<div class="info-box"><strong>ℹ️ Info:</strong> The preview is a small browser inside this page, so it cannot show other websites. In this platform, links to other websites always open in a new tab, whether or not they have <code>target="_blank"</code>.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>Under the <strong>Documentation</strong> heading, turn the text <code>MDN HTML documentation</code> into a link to <code>https://developer.mozilla.org/en-US/docs/Web/HTML</code>.</li>
+    <li>Under the <strong>Standards</strong> heading, turn the text <code>World Wide Web Consortium</code> into a link to <code>https://www.w3.org</code>. Add <code>target="_blank"</code> to this one for practice.</li>
+    <li>Click both links in the preview to check that they work.</li>
+</ol>
+<br>
+
+<h2>URLs and Paths</h2>
+<p>The value of <code>href</code> is a <strong>URL</strong> (Uniform Resource Locator): the address of something on the web. There are two ways to write one.</p>
+
+<h3>Absolute URLs</h3>
+<p>An <strong>absolute URL</strong> is the complete address, including the protocol and the domain name. It points to the same place no matter which page it is written on:</p>
+<pre><code>https://developer.mozilla.org/en-US/docs/Web/HTML
+└─┬──┘  └─────────┬─────────┘└────────┬─────────┘
+protocol       domain               path</code></pre>
+<p>Use absolute URLs for links to <strong>other websites</strong>. The protocol (<code>https://</code>) is required: without it, the browser treats the address as a file on your own site.</p>
+
+<h3>Relative URLs</h3>
+<p>A <strong>relative URL</strong> is a path from the current page to another file on the <strong>same website</strong>. It is shorter, and it keeps working if the whole site moves to a new domain. Relative paths work like folder paths on your own computer. Imagine a website with this structure:</p>
+<pre><code>my-site/
+├── index.html
+├── about.html
+├── images/
+│   └── logo.png
+└── projects/
+    ├── index.html
+    └── weather-app.html</code></pre>
+<p>From <code>my-site/index.html</code>:</p>
+<ul>
+    <li><code>about.html</code> links to a file in the <strong>same folder</strong>.</li>
+    <li><code>projects/weather-app.html</code> goes <strong>down</strong> into the <code>projects</code> folder, then to the file.</li>
+    <li><code>images/logo.png</code> works the same way for an image.</li>
+</ul>
+<p>From <code>my-site/projects/weather-app.html</code>:</p>
+<ul>
+    <li><code>index.html</code> links to <code>projects/index.html</code>, since that is the same folder.</li>
+    <li><code>../about.html</code> goes <strong>up</strong> one folder with <code>../</code>, then to <code>about.html</code>.</li>
+    <li><code>../images/logo.png</code> goes up one folder, then down into <code>images</code>.</li>
+</ul>
+<div class="warning-box"><strong>⚠️ Warning:</strong> On most web servers, paths are <strong>case-sensitive</strong>: <code>Logo.png</code> and <code>logo.png</code> are different files. A path that works on your own computer may break once your site is online. Name files and folders in lowercase, with hyphens instead of spaces, to avoid this.</div>
+<div class="info-box"><strong>ℹ️ Info:</strong> In this platform, each lesson has only one HTML file, so a link to another page on the same site has nothing to open. If you try one, the platform will tell you so. You will use relative paths to link between your own pages when you build a multi-page site later in the module. You will use a relative path to display an image in the next lesson.</div>
+
+<h3>Try It</h3>
+<p>Using the folder structure above, add an HTML comment at the bottom of the <code>&lt;body&gt;</code> answering these three questions:</p>
+<ol>
+    <li>What <code>href</code> would link from <code>projects/index.html</code> to <code>projects/weather-app.html</code>?</li>
+    <li>What <code>href</code> would link from <code>about.html</code> to <code>projects/index.html</code>?</li>
+    <li>What path would display <code>logo.png</code> on <code>projects/index.html</code>?</li>
+</ol>
+<p>Check your answers at the end of the lesson.</p>
+<br>
+
+<h2>Linking Within a Page</h2>
+<p>A link can also jump to a specific part of the <strong>same page</strong>, which is useful for long pages and contents lists. This takes two steps.</p>
+<p><strong>Step 1:</strong> give the element you want to jump to an <code>id</code> attribute. An <code>id</code> is a unique name for one element:</p>
+<pre><code class="language-html">&lt;h2 id="contact"&gt;Contact&lt;/h2&gt;</code></pre>
+<p><strong>Step 2:</strong> link to it using <code>#</code> followed by the <code>id</code>. This is called a <strong>fragment link</strong>:</p>
+<pre><code class="language-html">&lt;a href="#contact"&gt;Contact&lt;/a&gt;</code></pre>
+<p>The rules for <code>id</code> values are:</p>
+<ul>
+    <li>Each <code>id</code> must be <strong>unique</strong>: only one element on the page can use it.</li>
+    <li>It cannot contain spaces. Use hyphens instead, such as <code>id="getting-started"</code>.</li>
+    <li>It is case-sensitive: <code>#Contact</code> will not find <code>id="contact"</code>.</li>
+</ul>
+<div class="tip-box"><strong>💡 Tip:</strong> <code>href="#top"</code> is a special case: it always jumps to the top of the page, even if no element has <code>id="top"</code>. It is ideal for "Back to top" links.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>Give each <code>&lt;h2&gt;</code> below the contents an <code>id</code>: <code>documentation</code>, <code>standards</code>, <code>practice</code> and <code>contact</code>.</li>
+    <li>Under the <strong>Contents</strong> heading, add an unordered list with one item per section. Each item should contain a fragment link to that section, using the heading text as the link text.</li>
+    <li>At the bottom of the <code>&lt;body&gt;</code> (above your comment), add a paragraph containing a link to <code>#top</code> with the text <code>Back to top</code>.</li>
+    <li>Test every link in the preview.</li>
+</ol>
+<br>
+
+<h2>Email and Phone Links</h2>
+<p>A link can also start an email or a phone call, using a different protocol in the <code>href</code>:</p>
+<ul>
+    <li><code>mailto:</code> opens the user's email program with a new message to that address.</li>
+    <li><code>tel:</code> offers to call the number, which is most useful on mobile phones. Write the number without spaces.</li>
+</ul>
+<pre><code class="language-html">&lt;a href="mailto:hello@example.com"&gt;hello@example.com&lt;/a&gt;
+&lt;a href="tel:+441130000000"&gt;0113 000 0000&lt;/a&gt;</code></pre>
+<div class="tip-box"><strong>💡 Tip:</strong> For contact links, make the link text the address or number itself. Users who do not have an email program set up can then still read it and copy it.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>Under the <strong>Contact</strong> heading, turn the email address into a <code>mailto:</code> link.</li>
+</ol>
+<br>
+
+<h2>Check Your Page</h2>
+<p>Your contents list should look like this:</p>
+<pre><code class="language-html">&lt;h2&gt;Contents&lt;/h2&gt;
+&lt;ul&gt;
+    &lt;li&gt;&lt;a href="#documentation"&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#standards"&gt;Standards&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#practice"&gt;Practice&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<p>Also check that:</p>
+<ul>
+    <li><em>MDN</em> shows a tooltip when you hover over it.</li>
+    <li>Both external links work, and the W3C link has <code>target="_blank"</code>.</li>
+    <li>Every contents link jumps to the right section, and <em>Back to top</em> returns to the top.</li>
+    <li>The email address is a <code>mailto:</code> link.</li>
+</ul>
+<p>The answers to the paths questions are:</p>
+<ol>
+    <li><code>weather-app.html</code>, because both files are in the <code>projects</code> folder.</li>
+    <li><code>projects/index.html</code>, going down into the <code>projects</code> folder.</li>
+    <li><code>../images/logo.png</code>, going up out of <code>projects</code>, then down into <code>images</code>.</li>
+</ol>
+<p>Before moving on, make sure you can answer these questions:</p>
+<ul>
+    <li>Where in an element are attributes written?</li>
+    <li>When should you use an absolute URL, and when a relative one?</li>
+    <li>What does <code>../</code> mean in a path?</li>
+    <li>What two things do you need to link to a section of the same page?</li>
+</ul>
+<p>In the next lesson, you will add images and other media to a page.</p>

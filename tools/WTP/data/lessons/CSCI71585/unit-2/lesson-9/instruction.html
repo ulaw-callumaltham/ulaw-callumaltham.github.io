@@ -1,0 +1,130 @@
+<h1>Tutorial</h1> <!--Lesson 9: Semantic Structure-->
+<p>In the last lesson you used <code>&lt;div&gt;</code> elements to group content, and you saw that they say nothing about what that content is. HTML also has elements for grouping the major areas of a page, such as its header, navigation, main content and footer, which <em>do</em> describe what each area is. Using them is called <strong>semantic HTML</strong>, and it is one of the most important habits you can build as a web developer.</p>
+<p>The starter code contains a blog page built entirely from <code>&lt;div&gt;</code> elements. Over this lesson you will rebuild it with semantic elements. As before, complete each <strong>Try It</strong> section in the editor before moving on.</p>
+<br>
+
+<h2>What Is Semantic HTML?</h2>
+<p><strong>Semantics</strong> means meaning. Semantic HTML means choosing each element for what the content <strong>is</strong>, rather than how it should look. You have been doing this since Lesson 2: choosing headings by their level in the outline, choosing <code>&lt;ol&gt;</code> when order matters, and choosing <code>&lt;strong&gt;</code> for important text rather than <code>&lt;b&gt;</code> for bold text.</p>
+<p>Compare these two versions of the same page area:</p>
+<pre><code class="language-html">&lt;!-- Non-semantic --&gt;
+&lt;div class="nav"&gt;
+    ...
+&lt;/div&gt;
+
+&lt;!-- Semantic --&gt;
+&lt;nav&gt;
+    ...
+&lt;/nav&gt;</code></pre>
+<p>Both look identical in the browser. But only the second tells the browser that this area is navigation. The class name <code>nav</code> means nothing to the browser; it is just a label for CSS.</p>
+<br>
+
+<h3>Why It Matters</h3>
+<ul>
+    <li><strong>Accessibility:</strong> screen readers treat the main semantic areas as <strong>landmarks</strong>. A user can jump straight to the main content or the navigation, instead of listening to the whole page from the top. On a page of <code>&lt;div&gt;</code> elements, there are no landmarks to jump to.</li>
+    <li><strong>Search engines:</strong> semantic elements help search engines work out which content is the important part of the page, and which is repeated navigation or footer content.</li>
+    <li><strong>Other tools:</strong> features like a browser's reader mode use semantic elements to find the article content and strip away everything else.</li>
+    <li><strong>Developers:</strong> <code>&lt;/nav&gt;</code> is much easier to understand than the fifth <code>&lt;/div&gt;</code> in a row, for other developers and for you, months later.</li>
+</ul>
+<div class="info-box"><strong>ℹ️ Info:</strong> In the UK, public sector websites are legally required to meet accessibility standards, and the Equality Act 2010 requires service providers, including private businesses, to make reasonable adjustments for disabled people. Semantic HTML is the foundation of an accessible website, and it costs nothing extra to write.</div>
+<br>
+
+<h2>The Page Structure Elements</h2>
+<p>A typical page is built from these elements:</p>
+<pre><code>body
+├── header       Site name, logo, and often the main navigation
+│   └── nav      The main navigation links
+├── main         The main content of this page
+│   ├── article  A self-contained piece of content
+│   │   └── section
+│   └── aside    Related content, such as a sidebar
+└── footer       Copyright, contact details and secondary links</code></pre>
+<br>
+
+<h3>header</h3>
+<p><code>&lt;header&gt;</code> contains introductory content: usually the site name or logo, and often the main navigation. A page's main header sits at the top of the <code>&lt;body&gt;</code>. An <code>&lt;article&gt;</code> or <code>&lt;section&gt;</code> can also have its own header, containing its heading and details such as the author and date.</p>
+<div class="warning-box"><strong>⚠️ Warning:</strong> Do not confuse <code>&lt;header&gt;</code> with <code>&lt;head&gt;</code> or with headings. <code>&lt;head&gt;</code> holds information about the page and is never displayed. <code>&lt;header&gt;</code> is a visible area of the page. Headings (<code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>) are titles, which often go <em>inside</em> a header.</div>
+
+<h3>nav</h3>
+<p><code>&lt;nav&gt;</code> contains a block of <strong>major</strong> navigation links, such as the site's main menu or a table of contents. Its links are usually written as a list. Not every group of links needs a <code>&lt;nav&gt;</code>: a few links in a paragraph or in the footer are fine without one.</p>
+
+<h3>main</h3>
+<p><code>&lt;main&gt;</code> contains the content that is <strong>unique to this page</strong>, as opposed to the header, navigation and footer that repeat across every page of the site. There must be only one <code>&lt;main&gt;</code> on a page, and it must not go inside an <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code> or <code>&lt;nav&gt;</code>.</p>
+
+<h3>footer</h3>
+<p><code>&lt;footer&gt;</code> contains closing information: copyright notices, contact details and links to policies. Like <code>&lt;header&gt;</code>, it can be used for the whole page or within an <code>&lt;article&gt;</code>.</p>
+
+<h3>Try It</h3>
+<ol>
+    <li>In the starter code, replace <code>&lt;div class="header"&gt;</code> and its closing <code>&lt;/div&gt;</code> with <code>&lt;header&gt;</code> and <code>&lt;/header&gt;</code>.</li>
+    <li>Replace <code>&lt;div class="nav"&gt;</code> with <code>&lt;nav&gt;</code>, <code>&lt;div class="main"&gt;</code> with <code>&lt;main&gt;</code>, and <code>&lt;div class="footer"&gt;</code> with <code>&lt;footer&gt;</code>, along with their closing tags.</li>
+    <li>Each element still needs the matching closing tag, so take care to change the right <code>&lt;/div&gt;</code>. The comments after each closing tag in the starter code will help.</li>
+    <li>Remove the class attributes from the elements you have changed; the element names now say what each area is.</li>
+</ol>
+<div class="tip-box"><strong>💡 Tip:</strong> Nothing in the preview will change. That is expected: semantic elements change what the page <em>means</em>, not how it looks.</div>
+<br>
+
+<h2>Grouping the Main Content</h2>
+<h3>article</h3>
+<p><code>&lt;article&gt;</code> contains a piece of content that is <strong>self-contained</strong>: it would still make sense if it were taken out of the page and shown somewhere else on its own. Blog posts, news stories, product cards and forum posts are all articles. A page can contain several, such as a list of blog posts.</p>
+
+<h3>section</h3>
+<p><code>&lt;section&gt;</code> groups content on a single <strong>theme</strong>, such as one chapter of a long article, or the "About" and "Contact" areas of a page. A section should almost always start with a heading; if you cannot think of a heading for it, it probably should not be a section.</p>
+
+<h3>aside</h3>
+<p><code>&lt;aside&gt;</code> contains content that is <strong>related</strong> to the content around it, but not part of it: a sidebar, a "related posts" box, an author biography or a glossary of terms. If you removed it, the main content would still make complete sense.</p>
+<div class="tip-box"><strong>💡 Tip:</strong> To choose between <code>&lt;article&gt;</code> and <code>&lt;section&gt;</code>, ask: <em>"Would this make sense on its own, on a different website?"</em> If yes, it is an article. If it only makes sense as part of this page, it is a section.</div>
+<br>
+
+<h3>The time Element</h3>
+<p>Dates and times can be written in many ways, such as <em>3rd March</em>, <em>03/03</em> or <em>last Tuesday</em>. The <code>&lt;time&gt;</code> element marks a date or time, and its <code>datetime</code> attribute gives it in a standard format that computers can read, while the text stays readable for people:</p>
+<pre><code class="language-html">&lt;time datetime="2026-10-12"&gt;12 October 2026&lt;/time&gt;</code></pre>
+<p>The <code>datetime</code> format is year, month and day, separated by hyphens. Search engines, calendars and browser tools can then understand the date correctly.</p>
+
+<h3>Try It</h3>
+<ol>
+    <li>Inside <code>&lt;main&gt;</code>, replace <code>&lt;div class="post"&gt;</code> with <code>&lt;article&gt;</code>, since a blog post is self-contained.</li>
+    <li>The post's title and date are wrapped in <code>&lt;div class="post-header"&gt;</code>. Replace it with a <code>&lt;header&gt;</code>: this is the article's own header.</li>
+    <li>Wrap the post's publication date in a <code>&lt;time&gt;</code> element with a <code>datetime</code> of <code>2026-10-12</code>.</li>
+    <li>The post is split into two parts, each wrapped in <code>&lt;div class="post-part"&gt;</code> and starting with an <code>&lt;h2&gt;</code>. Replace each one with a <code>&lt;section&gt;</code>.</li>
+    <li>Replace <code>&lt;div class="sidebar"&gt;</code> with an <code>&lt;aside&gt;</code>, since the author biography is related to the post but not part of it.</li>
+    <li>Remove the class attributes from the elements you have changed.</li>
+</ol>
+<br>
+
+<h2>When No Semantic Element Fits</h2>
+<p>Semantic elements do not replace <code>&lt;div&gt;</code> completely. If you need to group content purely so you can style it, and none of the elements in this lesson describe it, a <code>&lt;div&gt;</code> is still the right choice. The goal is not to remove every <code>&lt;div&gt;</code>; it is to use a semantic element wherever one genuinely describes the content.</p>
+<div class="warning-box"><strong>⚠️ Warning:</strong> Do not swap every <code>&lt;div&gt;</code> for a <code>&lt;section&gt;</code> just to make the page look more semantic. Using an element for the wrong meaning is as misleading as using no meaning at all.</div>
+<br>
+
+<h2>Check Your Page</h2>
+<p>Your finished page should have this structure, with no <code>&lt;div&gt;</code> elements left:</p>
+<pre><code>body
+├── header
+│   ├── p (site name)
+│   └── nav
+│       └── ul
+├── main
+│   ├── article
+│   │   ├── header
+│   │   │   ├── h1
+│   │   │   └── p (containing time)
+│   │   ├── p
+│   │   ├── section
+│   │   └── section
+│   └── aside
+└── footer</code></pre>
+<p>Also check that:</p>
+<ul>
+    <li>There is exactly one <code>&lt;main&gt;</code>.</li>
+    <li>Every opening tag has a matching closing tag of the same name.</li>
+    <li>The date is in a <code>&lt;time&gt;</code> element with a <code>datetime</code> attribute.</li>
+    <li>The preview looks the same as it did before you started.</li>
+</ul>
+<p>Before moving on, make sure you can answer these questions:</p>
+<ul>
+    <li>What does "semantic" mean, and why does semantic HTML matter for screen reader users?</li>
+    <li>What is the difference between <code>&lt;head&gt;</code>, <code>&lt;header&gt;</code> and a heading?</li>
+    <li>How do you decide between <code>&lt;article&gt;</code> and <code>&lt;section&gt;</code>?</li>
+    <li>When is a <code>&lt;div&gt;</code> still the right choice?</li>
+</ul>
+<p>In the next lesson, you will learn how to collect information from users with forms.</p>

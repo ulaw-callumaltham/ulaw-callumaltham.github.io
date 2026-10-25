@@ -1,0 +1,102 @@
+<h1>Tutorial</h1> <!--Lesson 3: Lists-->
+<p>Lists are one of the most common structures on the web. Shopping baskets, search results, navigation menus, step-by-step instructions and bullet-pointed summaries are all lists. In this lesson you will learn the two main types of list in HTML, and when to use each one.</p>
+<p>The starter code contains a recipe page. The ingredients and method have been written as plain text that only <em>looks</em> like lists. Over this lesson you will convert them into real HTML lists. Complete each <strong>Try It</strong> section in the editor before moving on.</p>
+<br>
+
+<h2>Why Use List Elements?</h2>
+<p>You could fake a list by typing a dash or a number at the start of each line and separating the lines with <code>&lt;br&gt;</code>. The page would look similar, but the browser would only see one paragraph of text. Using real list elements tells the browser that the content <strong>is</strong> a list, which has several benefits:</p>
+<ul>
+    <li><strong>Accessibility:</strong> screen readers announce a list and how many items it contains (for example, "list, 6 items"), so users know what to expect and can skip past it.</li>
+    <li><strong>Automatic numbering:</strong> numbered lists count themselves, so adding or removing a step never means renumbering by hand.</li>
+    <li><strong>Styling:</strong> real lists can be restyled with CSS, for example turning a list of links into a horizontal navigation menu.</li>
+</ul>
+<br>
+
+<h2>Unordered Lists</h2>
+<p>An <strong>unordered list</strong> is for items where the order does not matter. It is created with the <code>&lt;ul&gt;</code> element, and each item in the list is wrapped in an <code>&lt;li&gt;</code> (<strong>list item</strong>) element.</p>
+<pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;Laptop&lt;/li&gt;
+    &lt;li&gt;Charger&lt;/li&gt;
+    &lt;li&gt;Notebook&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<p>By default, browsers display each item with a bullet point. Rearranging these items would not change their meaning, which is the test for whether a list is unordered.</p>
+<div class="warning-box"><strong>⚠️ Warning:</strong> The only element allowed directly inside a <code>&lt;ul&gt;</code> is <code>&lt;li&gt;</code>. If you want a heading, paragraph or anything else in a list, it must go <em>inside</em> an <code>&lt;li&gt;</code>, or outside the list entirely.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>Under the <strong>Ingredients</strong> heading, the ingredients are written as a paragraph, with a dash at the start of each line and <code>&lt;br&gt;</code> elements between them. Replace the whole paragraph with a <code>&lt;ul&gt;</code>.</li>
+    <li>Put each ingredient in its own <code>&lt;li&gt;</code>, and remove the dashes and <code>&lt;br&gt;</code> elements, since the list now handles both.</li>
+</ol>
+<br>
+
+<h2>Ordered Lists</h2>
+<p>An <strong>ordered list</strong> is for items where the order matters, such as steps in a process, rankings or directions. It is created with the <code>&lt;ol&gt;</code> element, and its items also use <code>&lt;li&gt;</code>.</p>
+<pre><code class="language-html">&lt;ol&gt;
+    &lt;li&gt;Open the editor.&lt;/li&gt;
+    &lt;li&gt;Write your HTML.&lt;/li&gt;
+    &lt;li&gt;Check the preview.&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+<p>Browsers number the items automatically, starting from 1. If you add, remove or move an item, the numbers update themselves.</p>
+<div class="tip-box"><strong>💡 Tip:</strong> To decide between the two, ask: <em>"If I shuffled these items, would the meaning change?"</em> If yes, use <code>&lt;ol&gt;</code>. If no, use <code>&lt;ul&gt;</code>. A recipe's method must be followed in order, but its ingredients can be listed in any order.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>Under the <strong>Method</strong> heading, the steps are written as a paragraph with hand-typed numbers. Replace the paragraph with an <code>&lt;ol&gt;</code>, putting each step in its own <code>&lt;li&gt;</code>. Remove the typed numbers, since the list now provides them.</li>
+    <li>Add a new step between steps 2 and 3: <code>Add the garlic and cook for 1 more minute.</code> Notice that every step after it renumbers automatically.</li>
+</ol>
+<br>
+
+<h3>Changing the Numbering</h3>
+<p>Ordered lists can take <strong>attributes</strong> (which you will learn about properly in Lesson 5) to change how they count:</p>
+<ul>
+    <li><code>start</code> sets the first number: <code>&lt;ol start="5"&gt;</code> counts from 5. This is useful when a list continues after some other content.</li>
+    <li><code>reversed</code> counts down instead of up: <code>&lt;ol reversed&gt;</code>. This is useful for countdowns, such as a "top 10" list.</li>
+    <li><code>type</code> changes the style of numbering: <code>&lt;ol type="a"&gt;</code> uses lowercase letters, <code>"A"</code> uppercase letters, <code>"i"</code> lowercase Roman numerals and <code>"I"</code> uppercase Roman numerals.</li>
+</ul>
+<pre><code class="language-html">&lt;h2&gt;Top 3 Programming Languages to Learn&lt;/h2&gt;
+&lt;ol reversed&gt;
+    &lt;li&gt;JavaScript&lt;/li&gt;
+    &lt;li&gt;SQL&lt;/li&gt;
+    &lt;li&gt;Python&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+<p>This list displays as 3, 2, 1.</p>
+<div class="info-box"><strong>ℹ️ Info:</strong> <code>reversed</code> is a <strong>Boolean attribute</strong>: it has no value, and simply including it switches the feature on. You will see more of these later, such as <code>controls</code> on videos and <code>required</code> on form fields.</div>
+<br>
+
+<h2>Writing List Items</h2>
+<p>A few habits make lists easier to read:</p>
+<ul>
+    <li><strong>Keep items parallel.</strong> Start each item the same way. In the method, every step starts with a verb: <em>Heat</em>, <em>Add</em>, <em>Pour</em>.</li>
+    <li><strong>Keep items short.</strong> If an item needs several sentences, it may be better as a paragraph.</li>
+    <li><strong>Introduce the list.</strong> A heading or short sentence before a list tells the reader what it contains.</li>
+</ul>
+
+<h3>Try It</h3>
+<ol>
+    <li>Below the method, add an <code>&lt;h2&gt;</code> containing <code>Tips</code>.</li>
+    <li>Below it, add a list of at least three tips for making the soup, such as serving suggestions or changes to the ingredients. Decide for yourself whether it should be an <code>&lt;ul&gt;</code> or an <code>&lt;ol&gt;</code>.</li>
+</ol>
+<br>
+
+<h2>Check Your Page</h2>
+<p>Check that:</p>
+<ul>
+    <li>The ingredients are an <code>&lt;ul&gt;</code>, with each ingredient in its own <code>&lt;li&gt;</code>.</li>
+    <li>The method is an <code>&lt;ol&gt;</code> with seven steps, numbered automatically by the browser.</li>
+    <li>No dashes, hand-typed numbers or <code>&lt;br&gt;</code> elements are left in either list.</li>
+    <li>The tips section has its own heading and list.</li>
+</ul>
+<p>Your ingredients list should be structured like this:</p>
+<pre><code class="language-html">&lt;h2&gt;Ingredients&lt;/h2&gt;
+&lt;ul&gt;
+    &lt;li&gt;1 tablespoon olive oil&lt;/li&gt;
+    &lt;li&gt;1 onion, chopped&lt;/li&gt;
+    &lt;!-- ...and so on for the other ingredients --&gt;
+&lt;/ul&gt;</code></pre>
+<p>Before moving on, make sure you can answer these questions:</p>
+<ul>
+    <li>What is the difference between <code>&lt;ul&gt;</code> and <code>&lt;ol&gt;</code>, and how do you decide which to use?</li>
+    <li>Which element is the only one allowed directly inside a list?</li>
+    <li>Why is a real list better than lines of text separated by <code>&lt;br&gt;</code>?</li>
+</ul>
+<p>In the next lesson, you will learn how to format text with meaning, and how to place lists and other elements inside one another correctly.</p>

@@ -1,0 +1,185 @@
+<h1>Tutorial</h1> <!--Lesson 10: Forms and Buttons-->
+<p>Everything you have built so far sends information <em>to</em> the user. Forms work the other way: they collect information <em>from</em> the user. Logging in, searching, checking out and signing up are all forms. In this lesson you will learn how to build forms in HTML, how to label them so that everyone can use them, and how the browser can check what users enter.</p>
+<p>The starter code contains a sign-up page for a student society, with an empty form. You will build the form one field at a time. As before, complete each <strong>Try It</strong> section in the editor before moving on.</p>
+<br>
+
+<h2>How Forms Work</h2>
+<p>A form is a group of <strong>controls</strong>, such as text boxes, checkboxes and buttons, wrapped in a <code>&lt;form&gt;</code> element. When the user submits the form, the browser collects the value of each control and sends them to a web server, which processes them, for example by saving a new account to a database.</p>
+<pre><code class="language-html">&lt;form action="/signup" method="post"&gt;
+    &lt;!-- form controls go here --&gt;
+&lt;/form&gt;</code></pre>
+<ul>
+    <li><code>action</code> is the URL the data is sent to.</li>
+    <li><code>method</code> is how it is sent. <code>get</code> adds the data to the end of the URL, which suits searches. <code>post</code> sends it hidden inside the request, which suits anything that changes data or contains personal information.</li>
+</ul>
+<p>The server side of forms is covered later in the module. In this lesson you will focus on building the form itself in HTML.</p>
+<div class="info-box"><strong>ℹ️ Info:</strong> The forms in this platform are not connected to a server. Instead, when you submit a form, the platform shows you the data that <em>would</em> have been sent. This is a useful way to check your form is working.</div>
+<br>
+
+<h2>Text Inputs and Labels</h2>
+<p>Most form controls use the <code>&lt;input&gt;</code> element, which is a void element. Every control needs a <strong>label</strong>: the text that tells the user what to enter. Labels are written with the <code>&lt;label&gt;</code> element, and connected to their control by matching the label's <code>for</code> attribute to the control's <code>id</code>:</p>
+<pre><code class="language-html">&lt;label for="full-name"&gt;Full name&lt;/label&gt;
+&lt;input type="text" id="full-name" name="full-name"&gt;</code></pre>
+<p>Connecting the label properly has two important effects:</p>
+<ul>
+    <li><strong>Screen readers</strong> read out the label when the user reaches the control. Without it, they just announce "edit text", and the user has to guess what to type.</li>
+    <li><strong>Clicking the label</strong> moves the cursor into its control. This gives everyone a larger target to click, which especially helps users with limited motor control, and is essential for small controls like checkboxes.</li>
+</ul>
+<p>The <code>name</code> attribute is different from the <code>id</code>. The <code>id</code> connects the control to its label, while the <code>name</code> labels the data when it is sent to the server, such as <code>full-name=Sam Patel</code>. A control without a <code>name</code> is not sent at all. It is common, and perfectly fine, for the two to have the same value.</p>
+<div class="warning-box"><strong>⚠️ Warning:</strong> The <code>placeholder</code> attribute shows hint text inside an empty control, such as <code>placeholder="e.g. Sam Patel"</code>. It is <strong>not</strong> a replacement for a label: it disappears as soon as the user starts typing, so they can no longer check what the field was for, and it is often too faint to read. Use it only for an example of the expected format, alongside a proper label.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>Inside the <code>&lt;form&gt;</code>, add a label and a text input for <code>Full name</code>, using <code>full-name</code> for the <code>id</code>, <code>name</code> and the label's <code>for</code>.</li>
+    <li>Click the label text in the preview and check that the cursor moves into the text box.</li>
+</ol>
+<br>
+
+<h2>Input Types</h2>
+<p>The <code>type</code> attribute changes what kind of data an <code>&lt;input&gt;</code> accepts. Choosing the right type matters: on phones, it brings up the right keyboard, and the browser can check the format of what is entered.</p>
+<ul>
+    <li><code>type="text"</code>: any single line of text. This is the default.</li>
+    <li><code>type="email"</code>: an email address. The browser checks it contains an <code>@</code>, and phones show a keyboard with an <code>@</code> key.</li>
+    <li><code>type="password"</code>: hides what is typed behind dots.</li>
+    <li><code>type="number"</code>: numbers only, with arrows to increase or decrease the value.</li>
+    <li><code>type="tel"</code>: a phone number. Phones show a number keypad.</li>
+    <li><code>type="date"</code>: a date, with a date picker.</li>
+    <li><code>type="checkbox"</code> and <code>type="radio"</code>: for choosing options, covered below.</li>
+</ul>
+<div class="tip-box"><strong>💡 Tip:</strong> Wrapping each label and control in its own <code>&lt;p&gt;</code> or <code>&lt;div&gt;</code> puts each one on its own line. Without this, the inputs are inline elements, so they sit side by side. In the next unit, you will lay out forms properly with CSS.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>Wrap your full name label and input together in a <code>&lt;p&gt;</code>.</li>
+    <li>Below it, in its own <code>&lt;p&gt;</code>, add a label and input for <code>Email address</code> with a <code>type</code> of <code>email</code>, using <code>email</code> for the <code>id</code> and <code>name</code>.</li>
+    <li>Add a <code>placeholder</code> to the email input showing an example address, such as <code>e.g. sam@example.com</code>.</li>
+</ol>
+<br>
+
+<h2>Checking Input</h2>
+<p>The browser can check what users enter before the form is submitted, using attributes on each control:</p>
+<ul>
+    <li><code>required</code> is a Boolean attribute: the form cannot be submitted until the control has a value.</li>
+    <li><code>minlength</code> and <code>maxlength</code> set the shortest and longest text allowed.</li>
+    <li><code>min</code> and <code>max</code> set the smallest and largest value allowed for numbers and dates.</li>
+</ul>
+<pre><code class="language-html">&lt;label for="age"&gt;Age&lt;/label&gt;
+&lt;input type="number" id="age" name="age" min="16" max="120" required&gt;</code></pre>
+<p>If any check fails when the user submits, the browser stops the submission and shows a message next to the first problem.</p>
+<div class="warning-box"><strong>⚠️ Warning:</strong> Checks in HTML are there to help users, <strong>not</strong> to protect your website. Anyone can turn them off or send data straight to the server without using your form at all. The server must always check every piece of data it receives again. This is a basic rule of web security that you will meet again later in the module.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>Make the full name and email inputs <code>required</code>.</li>
+    <li>Add a <code>&lt;button&gt;</code> containing <code>Sign up</code> at the end of the form, just before <code>&lt;/form&gt;</code>. You will learn about buttons properly at the end of this lesson.</li>
+    <li>Click the button with both fields empty, and check that the browser shows a message.</li>
+    <li>Type a name and an email address without an <code>@</code>, then click the button again. The browser shows a different message.</li>
+</ol>
+<br>
+
+<h2>Dropdown Lists</h2>
+<p>A <code>&lt;select&gt;</code> element creates a dropdown list, with each choice in an <code>&lt;option&gt;</code> element. The <code>value</code> attribute is what is sent to the server; the text between the tags is what the user sees:</p>
+<pre><code class="language-html">&lt;label for="campus"&gt;Campus&lt;/label&gt;
+&lt;select id="campus" name="campus"&gt;
+    &lt;option value=""&gt;Choose a campus&lt;/option&gt;
+    &lt;option value="leeds"&gt;Leeds&lt;/option&gt;
+    &lt;option value="london"&gt;London&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+<p>Notice the label connects to the <code>&lt;select&gt;</code> exactly as it does to an <code>&lt;input&gt;</code>. Giving the first option an empty <code>value</code> means that, if the <code>&lt;select&gt;</code> is <code>required</code>, the user must actively choose a real option.</p>
+
+<h3>Try It</h3>
+<ol>
+    <li>After the email field, in its own <code>&lt;p&gt;</code>, add a label and a <code>&lt;select&gt;</code> for <code>Course</code>, using <code>course</code> for the <code>id</code> and <code>name</code>.</li>
+    <li>Add a first option of <code>Choose your course</code> with an empty value, followed by options for <code>MSc Computing</code>, <code>MSc Cyber Security</code> and <code>Other</code>, with values of <code>computing</code>, <code>cyber</code> and <code>other</code>.</li>
+    <li>Make the <code>&lt;select&gt;</code> required.</li>
+</ol>
+<br>
+
+<h2>Radio Buttons and Checkboxes</h2>
+<ul>
+    <li><strong>Radio buttons</strong> (<code>type="radio"</code>) let the user choose <strong>exactly one</strong> option from a group.</li>
+    <li><strong>Checkboxes</strong> (<code>type="checkbox"</code>) let the user choose <strong>any number</strong> of options, including none.</li>
+</ul>
+<p>Options in the same group share the same <code>name</code>. For radio buttons, this is what makes them a group: selecting one automatically deselects the others. Each option needs its own <code>id</code> for its label, and its own <code>value</code> to send to the server.</p>
+<p>A group of options is wrapped in a <code>&lt;fieldset&gt;</code>, and the question that the group answers goes in a <code>&lt;legend&gt;</code>:</p>
+<pre><code class="language-html">&lt;fieldset&gt;
+    &lt;legend&gt;How would you like to be contacted?&lt;/legend&gt;
+    &lt;input type="radio" id="contact-email" name="contact" value="email"&gt;
+    &lt;label for="contact-email"&gt;Email&lt;/label&gt;
+    &lt;input type="radio" id="contact-phone" name="contact" value="phone"&gt;
+    &lt;label for="contact-phone"&gt;Phone&lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+<p>Screen readers announce the legend along with each option, such as <em>"How would you like to be contacted? Email, radio button, 1 of 2"</em>, so the user knows what the options are for.</p>
+<div class="tip-box"><strong>💡 Tip:</strong> For radio buttons and checkboxes, the label usually goes <strong>after</strong> the control, which is the convention users expect. For text inputs and dropdowns, the label goes before.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>After the course dropdown, add a <code>&lt;fieldset&gt;</code> with a legend of <code>Which year are you in?</code>, containing radio buttons for <code>First year</code> and <code>Second year</code>. Give both a <code>name</code> of <code>year</code>, and values of <code>1</code> and <code>2</code>.</li>
+    <li>Check in the preview that you can only select one year at a time.</li>
+    <li>Below it, add a second <code>&lt;fieldset&gt;</code> with a legend of <code>Which events are you interested in?</code>, containing checkboxes for <code>Coding Club</code>, <code>Games Night</code> and <code>Hackathon</code>. Give all three a <code>name</code> of <code>interests</code>, with suitable values.</li>
+    <li>Check that you can select more than one event.</li>
+</ol>
+<br>
+
+<h2>Multi-Line Text</h2>
+<p>For longer answers, use a <code>&lt;textarea&gt;</code>, which allows several lines of text. Unlike <code>&lt;input&gt;</code>, it has a closing tag. The <code>rows</code> attribute sets how many lines tall it is:</p>
+<pre><code class="language-html">&lt;label for="comments"&gt;Comments&lt;/label&gt;
+&lt;textarea id="comments" name="comments" rows="4"&gt;&lt;/textarea&gt;</code></pre>
+<div class="warning-box"><strong>⚠️ Warning:</strong> Any whitespace between <code>&lt;textarea&gt;</code> and <code>&lt;/textarea&gt;</code> becomes part of its content, so the box will start with spaces or blank lines already in it. Always write the closing tag immediately after the opening one.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>After the checkboxes, in its own <code>&lt;p&gt;</code>, add a label and a textarea for <code>Anything else we should know?</code>, using <code>message</code> for the <code>id</code> and <code>name</code>, with 4 rows. It should not be required.</li>
+</ol>
+<br>
+
+<h2>Buttons</h2>
+<p>The <code>&lt;button&gt;</code> element creates a button, with its text between the tags. Its <code>type</code> attribute controls what it does:</p>
+<ul>
+    <li><code>type="submit"</code> submits the form. This is the default for a button inside a form.</li>
+    <li><code>type="reset"</code> clears every control in the form back to its starting value.</li>
+    <li><code>type="button"</code> does nothing on its own. It is used with JavaScript, which you will learn in a later unit, to make a button do something else, such as showing a hidden menu.</li>
+</ul>
+<pre><code class="language-html">&lt;button type="submit"&gt;Sign up&lt;/button&gt;</code></pre>
+<div class="tip-box"><strong>💡 Tip:</strong> Always set the <code>type</code> of a button, even when it is <code>submit</code>. A button with no type inside a form submits it, which can cause surprising bugs when you meant it to do something else.</div>
+<div class="warning-box"><strong>⚠️ Warning:</strong> Think carefully before adding a reset button. It is easy to click by mistake, and it wipes everything the user has typed, with no way to undo it. Most modern forms do not include one.</div>
+<div class="info-box"><strong>ℹ️ Info:</strong> You may also see <code>&lt;input type="submit" value="Sign up"&gt;</code>. This is an older way to create a submit button. It still works, but <code>&lt;button&gt;</code> is more flexible, since it can contain other elements such as an icon.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>Add <code>type="submit"</code> to your <code>Sign up</code> button.</li>
+    <li>Check the button is the last thing inside the form, after the textarea.</li>
+    <li>Click every label in the preview, and check that each one selects or moves into its control.</li>
+    <li>Fill in the whole form, tick two of the events, and click <strong>Sign up</strong>. Check the data the platform shows: each value should be listed against its <code>name</code>, and both events should appear under <code>interests</code>.</li>
+    <li>Submit the form again with no events ticked. Notice that <code>interests</code> is not sent at all: unticked checkboxes send nothing.</li>
+</ol>
+<br>
+
+<h2>Check Your Page</h2>
+<p>Your form should contain, in this order:</p>
+<ol>
+    <li>A required text input for full name.</li>
+    <li>A required email input with a placeholder.</li>
+    <li>A required dropdown for course, with an empty first option.</li>
+    <li>A fieldset of two radio buttons for year, sharing the same <code>name</code>.</li>
+    <li>A fieldset of three checkboxes for events, sharing the same <code>name</code>.</li>
+    <li>An optional textarea.</li>
+    <li>A submit button.</li>
+</ol>
+<p>Your year fieldset should look like this:</p>
+<pre><code class="language-html">&lt;fieldset&gt;
+    &lt;legend&gt;Which year are you in?&lt;/legend&gt;
+    &lt;input type="radio" id="year-1" name="year" value="1"&gt;
+    &lt;label for="year-1"&gt;First year&lt;/label&gt;
+    &lt;input type="radio" id="year-2" name="year" value="2"&gt;
+    &lt;label for="year-2"&gt;Second year&lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+<p>Also check that every control has a label connected by matching <code>for</code> and <code>id</code>, every <code>id</code> is unique, and every control has a <code>name</code>.</p>
+<p>Before moving on, make sure you can answer these questions:</p>
+<ul>
+    <li>Why must every control have a properly connected label?</li>
+    <li>What is the difference between the <code>id</code> and <code>name</code> attributes on a form control?</li>
+    <li>When would you use radio buttons, and when checkboxes?</li>
+    <li>Why can HTML's input checks not be relied on for security?</li>
+</ul>
+<p>In the final lesson, you will bring everything from this unit together in a complete page, and check it with a validator.</p>

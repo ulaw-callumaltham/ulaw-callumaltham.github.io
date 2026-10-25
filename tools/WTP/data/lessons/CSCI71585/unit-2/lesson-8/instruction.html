@@ -1,0 +1,111 @@
+<h1>Tutorial</h1> <!--Lesson 8: Grouping Content-->
+<p>Every element you have used so far tells the browser what a piece of content <em>is</em>: a heading, a list, an image, a table. Sometimes, though, you need to group content together without saying anything about its meaning, usually so that you can style or control the group later with CSS or JavaScript. In this lesson you will learn the two elements that do exactly this, and the <code>class</code> attribute that gives each group a name.</p>
+<p>You will also learn the difference between <strong>block</strong> and <strong>inline</strong> elements, which explains much of how the browser has been laying out your pages.</p>
+<p>The starter code contains an events page for a student society. As before, complete each <strong>Try It</strong> section in the editor before moving on.</p>
+<br>
+
+<h2>Block and Inline Elements</h2>
+<p>Look back at the pages you have built so far, and you will notice that elements are laid out in two different ways.</p>
+<p><strong>Block elements</strong>:</p>
+<ul>
+    <li>Always start on a new line.</li>
+    <li>Stretch across the full width available to them.</li>
+    <li>Stack vertically, one below another.</li>
+    <li>Examples: <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;table&gt;</code>, <code>&lt;figure&gt;</code> and <code>&lt;pre&gt;</code>.</li>
+</ul>
+<p><strong>Inline elements</strong>:</p>
+<ul>
+    <li>Sit within a line of text, without starting a new line.</li>
+    <li>Are only as wide as their content.</li>
+    <li>Flow along the line, one after another, like words in a sentence.</li>
+    <li>Examples: <code>&lt;a&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;code&gt;</code>, <code>&lt;sup&gt;</code>, <code>&lt;abbr&gt;</code> and <code>&lt;img&gt;</code>.</li>
+</ul>
+<p>This explains the nesting rule from Lesson 4: a block element like a list cannot go inside a paragraph, because a paragraph is a block that can only contain text and inline elements. Inline elements, on the other hand, are designed to go inside blocks.</p>
+<div class="info-box"><strong>ℹ️ Info:</strong> "Block" and "inline" describe how an element is <em>displayed</em> by default, and CSS can change this. For example, CSS is often used to display list items in a row to build a navigation bar. What CSS cannot change are HTML's nesting rules, which stay the same however an element is displayed.</div>
+<br>
+
+<h2>Grouping with div and span</h2>
+<p>HTML has two <strong>generic</strong> elements, which have no meaning of their own:</p>
+<ul>
+    <li><code>&lt;div&gt;</code> (short for <strong>division</strong>) is a generic <strong>block</strong> element. It groups larger sections of content, such as several paragraphs, a heading and its text, or a whole area of a page.</li>
+    <li><code>&lt;span&gt;</code> is a generic <strong>inline</strong> element. It marks part of a line of text, such as a word or a date.</li>
+</ul>
+<pre><code class="language-html">&lt;div&gt;
+    &lt;h3&gt;Coding Club&lt;/h3&gt;
+    &lt;p&gt;Every &lt;span&gt;Tuesday at 5pm&lt;/span&gt; in the library.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+<p>On their own, <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> change nothing about how the page looks, and nothing about how screen readers or search engines understand it. Their only purpose is to create a group that CSS and JavaScript can then target. That makes them almost useless until you give them a name, which you will do with the <code>class</code> attribute shortly.</p>
+
+<h3>Try It</h3>
+<ol>
+    <li>At the bottom of the starter page is a <strong>Practice Area</strong> containing two short phrases, each in a <code>&lt;span&gt;</code>. Notice that they sit side by side on the same line, because <code>&lt;span&gt;</code> is inline.</li>
+    <li>Change both <code>&lt;span&gt;</code> elements to <code>&lt;div&gt;</code> elements, remembering their closing tags. Notice that each one now starts on its own line, because <code>&lt;div&gt;</code> is a block.</li>
+    <li>Change them back to <code>&lt;span&gt;</code> elements.</li>
+</ol>
+<br>
+
+<h2>The class Attribute</h2>
+<p>The <code>class</code> attribute gives an element a name that CSS and JavaScript can use to find it. Unlike an <code>id</code>, a class is designed to be <strong>reused</strong>: many elements can share the same class, so they can all be styled the same way.</p>
+<pre><code class="language-html">&lt;div class="event"&gt;
+    &lt;h3&gt;Coding Club&lt;/h3&gt;
+    &lt;p&gt;Every &lt;span class="date"&gt;Tuesday at 5pm&lt;/span&gt; in the library.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="event"&gt;
+    &lt;h3&gt;Games Night&lt;/h3&gt;
+    &lt;p&gt;&lt;span class="date"&gt;Friday at 7pm&lt;/span&gt; in the student union.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+<p>In the next unit, a single CSS rule for the <code>event</code> class could give every event a border and a background colour, and a rule for the <code>date</code> class could make every date bold and coloured.</p>
+<p>An element can have <strong>several classes</strong>, separated by spaces:</p>
+<pre><code class="language-html">&lt;div class="event featured"&gt;</code></pre>
+<p>This element belongs to both the <code>event</code> class and the <code>featured</code> class, so it would get the styles for an event, plus any extra styles for featured content.</p>
+
+<h3>Choosing Class Names</h3>
+<ul>
+    <li><strong>Describe what the content is, not how it looks.</strong> <code>class="warning"</code> is better than <code>class="red-text"</code>: if the design later changes to orange warnings, the name <code>red-text</code> would be wrong.</li>
+    <li><strong>Use lowercase, with hyphens between words</strong>, such as <code>class="event-date"</code>. Class names are case-sensitive and cannot contain spaces, since a space separates two different classes.</li>
+</ul>
+
+<h3>id or class?</h3>
+<ul>
+    <li>Use an <strong>id</strong> for something unique on the page, especially as a target for a fragment link. Each id can only be used once.</li>
+    <li>Use a <strong>class</strong> for anything you might want to style or select as a group. A class can be used as many times as you like.</li>
+</ul>
+<div class="tip-box"><strong>💡 Tip:</strong> When in doubt, use a class. Even if only one element uses it today, a class leaves you free to reuse it later, while a duplicated id is an error.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>On the starter page, each event is made up of an <code>&lt;h3&gt;</code> and a paragraph. Wrap each event's heading and paragraph together in a <code>&lt;div&gt;</code> with a class of <code>event</code>.</li>
+    <li>In each event's paragraph, wrap the day and time in a <code>&lt;span&gt;</code> with a class of <code>date</code>.</li>
+    <li>The Hackathon is the society's biggest event of the year. Give its <code>&lt;div&gt;</code> a second class of <code>featured</code>.</li>
+    <li>Each event's price is at the end of its paragraph. Wrap each price in a <code>&lt;span&gt;</code> with a class of <code>price</code>. For the events that are free, add a second class of <code>free</code>.</li>
+    <li>Check the preview. Nothing should have changed, because these elements and classes only add structure for CSS to use later.</li>
+</ol>
+<br>
+
+<h2>When to Use div and span</h2>
+<p><code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> are useful, but they should be your <strong>last</strong> choice, not your first. Before reaching for one, check whether there is an element that describes the content's meaning: a heading, a paragraph, a list, a figure, or <code>&lt;strong&gt;</code> for important text.</p>
+<div class="warning-box"><strong>⚠️ Warning:</strong> A page built almost entirely from <code>&lt;div&gt;</code> elements, sometimes called "div soup", looks fine in the browser but tells screen readers and search engines almost nothing about its content. In the next lesson, you will learn the elements HTML provides for structuring whole pages meaningfully, and you will rebuild a div-based page using them.</div>
+<br>
+
+<h2>Check Your Page</h2>
+<p>Each of your events should be structured like this:</p>
+<pre><code class="language-html">&lt;div class="event"&gt;
+    &lt;h3&gt;Coding Club&lt;/h3&gt;
+    &lt;p&gt;Every &lt;span class="date"&gt;Tuesday at 5pm&lt;/span&gt; in the library. &lt;span class="price free"&gt;Free&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+<p>Also check that:</p>
+<ul>
+    <li>All four events are wrapped in a <code>&lt;div class="event"&gt;</code>, and the Hackathon also has the <code>featured</code> class.</li>
+    <li>Every date and every price is in a <code>&lt;span&gt;</code> with the correct class.</li>
+    <li>Only the free events have the <code>free</code> class.</li>
+    <li>The preview looks exactly the same as it did before you started.</li>
+</ul>
+<p>Before moving on, make sure you can answer these questions:</p>
+<ul>
+    <li>What is the difference between a block element and an inline element? Give an example of each.</li>
+    <li>When would you use a <code>&lt;div&gt;</code>, and when a <code>&lt;span&gt;</code>?</li>
+    <li>What is the difference between an <code>id</code> and a <code>class</code>?</li>
+    <li>Why should class names describe content rather than appearance?</li>
+</ul>
+<p>In the next lesson, you will learn how to structure whole pages with semantic elements.</p>

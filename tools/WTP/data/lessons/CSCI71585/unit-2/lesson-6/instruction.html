@@ -1,0 +1,141 @@
+<h1>Tutorial</h1> <!--Lesson 6: Images and Media-->
+<p>Images, video and audio make pages far more engaging, but each one also needs some care: a missing description can make an image meaningless to a screen reader user, and a large file can make a page painfully slow to load. In this lesson you will learn how to add media to a page, and how to do it in a way that works for everyone.</p>
+<p>The starter code contains a short guide to a day at the coast. As before, complete each <strong>Try It</strong> section in the editor before moving on.</p>
+<br>
+
+<h2>Images</h2>
+<p>Images are added with the <code>&lt;img&gt;</code> element. It is a void element, so it has no closing tag; everything it needs is given in attributes:</p>
+<pre><code class="language-html">&lt;img src="images/coast.jpg" alt="Waves breaking on a sandy beach below tall cliffs"&gt;</code></pre>
+<ul>
+    <li><code>src</code> (short for <strong>source</strong>) is the path to the image file. It works exactly like <code>href</code> in the last lesson: it can be a relative path to a file on the same site, or an absolute URL.</li>
+    <li><code>alt</code> (short for <strong>alternative text</strong>) is a text description of the image.</li>
+</ul>
+<p><code>&lt;img&gt;</code> is a text-level element, so it can sit inside a paragraph, alongside text.</p>
+
+<h3>Try It</h3>
+<ol>
+    <li>Below the introduction paragraph, add an image with a <code>src</code> of <code>images/coast.jpg</code>, and write your own <code>alt</code> text describing what you can see in it.</li>
+    <li>Now misspell the file name in <code>src</code>, for example <code>images/cost.jpg</code>. The browser cannot find the file, so it shows a broken image icon with your <code>alt</code> text instead.</li>
+    <li>Correct the file name.</li>
+</ol>
+<br>
+
+<h3>Writing Good Alt Text</h3>
+<p>Alt text is read aloud by screen readers, shown when an image fails to load, and used by search engines to understand what an image shows. Good alt text describes the <strong>content and purpose</strong> of the image in the context of the page:</p>
+<ul>
+    <li><strong>Be specific and concise.</strong> <code>alt="Dog"</code> says very little; <code>alt="A golden retriever catching a ball on a beach"</code> says what matters. Aim for a sentence at most.</li>
+    <li><strong>Do not start with "Image of" or "Picture of".</strong> Screen readers already announce that it is an image.</li>
+    <li><strong>Consider the context.</strong> The same photo of a laptop might need <code>alt="A silver laptop"</code> on a shop page, but <code>alt="A student coding in the library"</code> on a university page.</li>
+    <li><strong>Include any text in the image.</strong> If an image contains words, such as a poster, the alt text must include them.</li>
+    <li><strong>Describe the destination for linked images.</strong> If an image is inside a link, the alt text is the link text, so it should say where the link goes, such as <code>alt="Home"</code> for a logo that links to the home page.</li>
+</ul>
+<p>Some images are purely <strong>decorative</strong>, such as a background pattern or a divider, and add nothing to the content. For these, use an <strong>empty</strong> alt attribute, <code>alt=""</code>, which tells screen readers to skip the image.</p>
+<div class="warning-box"><strong>⚠️ Warning:</strong> An empty alt (<code>alt=""</code>) and a missing alt are not the same. If the <code>alt</code> attribute is missing completely, many screen readers read out the file name instead, such as <em>"IMG underscore 4 0 7 2 dot jpg"</em>. Every image must have an <code>alt</code> attribute, even if it is empty.</div>
+<br>
+
+<h3>Width and Height</h3>
+<p>The <code>width</code> and <code>height</code> attributes give the image's size in pixels. The values are numbers only, with no units:</p>
+<pre><code class="language-html">&lt;img src="images/coast.jpg" alt="..." width="800" height="600"&gt;</code></pre>
+<p>These attributes let the browser reserve the right amount of space for the image <strong>before</strong> it has downloaded. Without them, the page is laid out without the image, then everything below it jumps down when it arrives. This is called <strong>layout shift</strong>, and it is why you sometimes click the wrong thing on a page that is still loading.</p>
+<div class="tip-box"><strong>💡 Tip:</strong> Set <code>width</code> and <code>height</code> to the image's real size, or to smaller values with the same proportions. To display an image at different sizes on different screens, you will use CSS. If an image file is much larger than it will ever be displayed, resize the file itself; shrinking it with attributes still makes the user download the full-size file.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>The coast image is 800 pixels wide and 600 pixels high. Add <code>width</code> and <code>height</code> attributes to display it at half that size.</li>
+</ol>
+<br>
+
+<h3>Image Formats</h3>
+<div class="info-box"><strong>ℹ️ Info:</strong> The four image formats you will use most on the web are:
+<ul>
+    <li><strong>JPEG</strong> (<code>.jpg</code>): for photographs. Small files, but no transparency.</li>
+    <li><strong>PNG</strong> (<code>.png</code>): for graphics with sharp edges, text or transparent backgrounds. Usually larger files than JPEG for photos.</li>
+    <li><strong>SVG</strong> (<code>.svg</code>): for logos and icons. Made of shapes rather than pixels, so they stay sharp at any size.</li>
+    <li><strong>WebP</strong> (<code>.webp</code>): a modern format that does both jobs of JPEG and PNG, with smaller files.</li>
+</ul>
+</div>
+<div class="warning-box"><strong>⚠️ Warning:</strong> Images found online are protected by copyright unless their licence says otherwise. Only use images you have created yourself, have permission to use, or that are released under a licence that allows reuse, such as those on Unsplash, Pexels or Wikimedia Commons. Check the licence, and credit the creator if it asks you to.</div>
+<br>
+
+<h2>Figures and Captions</h2>
+<p>When an image is a self-contained piece of content with a caption, such as a photo in an article or a diagram in a report, wrap it in a <code>&lt;figure&gt;</code> element, and put the caption in a <code>&lt;figcaption&gt;</code>:</p>
+<pre><code class="language-html">&lt;figure&gt;
+    &lt;img src="images/coast.jpg" alt="Waves breaking on a sandy beach below tall cliffs" width="400" height="300"&gt;
+    &lt;figcaption&gt;The beach is best visited at low tide.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+<p>The <code>&lt;figcaption&gt;</code> links the caption to the image, so screen readers announce them together.</p>
+<div class="tip-box"><strong>💡 Tip:</strong> The alt text and the caption do different jobs, so they should not repeat each other. The alt text <strong>replaces</strong> the image for people who cannot see it; the caption <strong>adds</strong> information for everyone, such as context or a credit.</div>
+<p>A <code>&lt;figure&gt;</code> is not only for images. It can also hold a code example, a quotation or a chart, as long as the content makes sense on its own.</p>
+
+<h3>Try It</h3>
+<ol>
+    <li>Wrap your image in a <code>&lt;figure&gt;</code> element.</li>
+    <li>Add a <code>&lt;figcaption&gt;</code> after the image that adds information the alt text does not, such as when to visit or where the photo was taken.</li>
+    <li>Check that the <code>&lt;figure&gt;</code> is not inside a paragraph. A figure is a block of content in its own right, so it cannot go inside a <code>&lt;p&gt;</code>.</li>
+</ol>
+<br>
+
+<h2>Video</h2>
+<p>Video is added with the <code>&lt;video&gt;</code> element. Unlike <code>&lt;img&gt;</code>, it has a closing tag:</p>
+<pre><code class="language-html">&lt;video src="media/waves.mp4" controls width="400" height="225"&gt;
+    Your browser does not support video. &lt;a href="media/waves.mp4"&gt;Download the video&lt;/a&gt; instead.
+&lt;/video&gt;</code></pre>
+<ul>
+    <li><code>src</code> is the path to the video file.</li>
+    <li><code>controls</code> is a Boolean attribute that shows the play, pause, volume and full-screen buttons. Without it, users have no way to play the video.</li>
+    <li><code>width</code> and <code>height</code> reserve space, as with images.</li>
+    <li>The content between the tags is a <strong>fallback</strong>: it is only shown by browsers that cannot play video at all.</li>
+</ul>
+<p>Other useful attributes are:</p>
+<ul>
+    <li><code>poster</code>: the path to an image shown before the video starts playing.</li>
+    <li><code>muted</code>: starts the video with the sound off.</li>
+    <li><code>loop</code>: restarts the video when it ends.</li>
+    <li><code>autoplay</code>: starts playing as soon as the page loads. Most browsers only allow this if the video is also <code>muted</code>.</li>
+</ul>
+<div class="warning-box"><strong>⚠️ Warning:</strong> Avoid <code>autoplay</code> wherever possible. Unexpected movement and sound can be distracting or distressing for some users, uses up mobile data, and can drown out a screen reader. Let users choose when to play media.</div>
+<div class="info-box"><strong>ℹ️ Info:</strong> To be fully accessible, videos with speech need captions. These are written in a separate text file and added with a <code>&lt;track&gt;</code> element inside the <code>&lt;video&gt;</code>. You will cover this in the accessibility unit later in the module.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>Under the <strong>Watch the Waves</strong> heading, add a video with a <code>src</code> of <code>media/waves.mp4</code>, displayed at 400 by 225 pixels.</li>
+    <li>Make sure users can play it, and include a fallback message with a download link.</li>
+    <li>Play the video in the preview.</li>
+</ol>
+<br>
+
+<h2>Audio</h2>
+<p>Audio works in exactly the same way, using the <code>&lt;audio&gt;</code> element. Since there is nothing to see, it has no <code>width</code>, <code>height</code> or <code>poster</code>, but <code>controls</code> is even more important: without it, the audio player is completely invisible.</p>
+<pre><code class="language-html">&lt;audio src="media/waves.mp3" controls&gt;
+    Your browser does not support audio. &lt;a href="media/waves.mp3"&gt;Download the audio&lt;/a&gt; instead.
+&lt;/audio&gt;</code></pre>
+
+<h3>Try It</h3>
+<ol>
+    <li>Under the <strong>Listen to the Sea</strong> heading, add an audio player with a <code>src</code> of <code>media/waves.mp3</code>, with controls and a fallback message.</li>
+</ol>
+<br>
+
+<div class="info-box"><strong>ℹ️ Info:</strong> You may also see the <code>&lt;iframe&gt;</code> element, which displays one web page inside another. It is how YouTube videos and Google Maps are embedded in other websites, and the services provide the code for you to copy. In fact, the preview you have been using is an <code>&lt;iframe&gt;</code> itself.</div>
+<br>
+
+<h2>Check Your Page</h2>
+<p>Your figure should be structured like this, with your own alt text and caption:</p>
+<pre><code class="language-html">&lt;figure&gt;
+    &lt;img src="images/coast.jpg" alt="Your description here" width="400" height="300"&gt;
+    &lt;figcaption&gt;Your caption here.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+<p>Also check that:</p>
+<ul>
+    <li>Your alt text describes the image without starting with "Image of", and your caption does not repeat it.</li>
+    <li>The video and audio players both have controls and a fallback message.</li>
+    <li>Nothing plays automatically when the page loads.</li>
+</ul>
+<p>Before moving on, make sure you can answer these questions:</p>
+<ul>
+    <li>What is the difference between a missing <code>alt</code> attribute and an empty one, and when would you use an empty one?</li>
+    <li>Why should you include <code>width</code> and <code>height</code> on images?</li>
+    <li>What is the difference between alt text and a caption?</li>
+    <li>What happens to an <code>&lt;audio&gt;</code> element without the <code>controls</code> attribute?</li>
+</ul>
+<p>In the next lesson, you will learn how to present data in tables.</p>

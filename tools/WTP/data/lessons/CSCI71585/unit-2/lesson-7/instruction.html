@@ -1,0 +1,169 @@
+<h1>Tutorial</h1> <!--Lesson 7: Tables-->
+<p>Timetables, price lists, league tables and results are all <strong>tabular data</strong>: information that makes sense arranged in rows and columns, where each value relates to both its row and its column. In this lesson you will learn how to build tables in HTML, and how to structure them so they make sense to everyone, including screen reader users.</p>
+<p>The starter code contains a page for a five-a-side football league with its results written as plain text. You will turn them into a proper table. As before, complete each <strong>Try It</strong> section in the editor before moving on.</p>
+<br>
+
+<h2>Building a Table</h2>
+<p>A table is built from four basic elements:</p>
+<ul>
+    <li><code>&lt;table&gt;</code> wraps the whole table.</li>
+    <li><code>&lt;tr&gt;</code> (<strong>table row</strong>) creates a row.</li>
+    <li><code>&lt;td&gt;</code> (<strong>table data</strong>) creates a data cell inside a row.</li>
+    <li><code>&lt;th&gt;</code> (<strong>table header</strong>) creates a header cell, which labels a row or column.</li>
+</ul>
+<p>HTML tables are built <strong>row by row</strong>. You create a row, then fill it with cells from left to right, then create the next row:</p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Module&lt;/th&gt;
+        &lt;th&gt;Day&lt;/th&gt;
+        &lt;th&gt;Room&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Web Technologies&lt;/td&gt;
+        &lt;td&gt;Monday&lt;/td&gt;
+        &lt;td&gt;2.04&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Programming&lt;/td&gt;
+        &lt;td&gt;Wednesday&lt;/td&gt;
+        &lt;td&gt;1.12&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+<p>There are no column elements: columns are formed by the cells lining up underneath each other. That is why every row must contain the <strong>same number of cells</strong>. If one row has fewer cells, the columns no longer line up.</p>
+<div class="info-box"><strong>ℹ️ Info:</strong> Browsers display tables with no borders by default, so the preview will show your data in columns but without lines between the cells. Borders, spacing and colours are all added with CSS, which you will learn in the next unit.</div>
+
+<h3>Try It</h3>
+<ol>
+    <li>Under the <strong>Results</strong> heading, create a <code>&lt;table&gt;</code>.</li>
+    <li>Add a first row of header cells: <code>Home</code>, <code>Score</code> and <code>Away</code>.</li>
+    <li>Add a row for each of the four results listed in the paragraph below it, with one value in each data cell. For example, the first row's cells are <code>Rovers</code>, <code>3 - 1</code> and <code>United</code>.</li>
+    <li>Once your table is complete, delete the paragraph of results.</li>
+</ol>
+<br>
+
+<h2>Header Cells and Scope</h2>
+<p>A <code>&lt;th&gt;</code> cell does more than look bold. It tells the browser that the cell is a <strong>label</strong> for other cells. This matters for screen reader users: when they move through a table, the screen reader reads out the relevant headers with each cell, such as <em>"Away, United"</em>, so they do not have to remember which column they are in.</p>
+<p>Headers can label a <strong>column</strong> or a <strong>row</strong>. The <code>scope</code> attribute makes this explicit:</p>
+<ul>
+    <li><code>scope="col"</code> means the header labels the column below it.</li>
+    <li><code>scope="row"</code> means the header labels the row to its right.</li>
+</ul>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th scope="col"&gt;Day&lt;/th&gt;
+        &lt;th scope="col"&gt;Opening hours&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th scope="row"&gt;Monday&lt;/th&gt;
+        &lt;td&gt;9am to 5pm&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+<p>Here, the day names label each row, so they are row headers, while the top row labels the columns.</p>
+
+<h3>Try It</h3>
+<ol>
+    <li>Add <code>scope="col"</code> to each of the header cells in your results table.</li>
+</ol>
+<br>
+
+<h2>Table Sections and Captions</h2>
+<p>Larger tables can be divided into sections that describe the role of each group of rows:</p>
+<ul>
+    <li><code>&lt;thead&gt;</code> contains the header row or rows.</li>
+    <li><code>&lt;tbody&gt;</code> contains the main data rows.</li>
+    <li><code>&lt;tfoot&gt;</code> contains summary rows, such as totals. It is optional.</li>
+</ul>
+<p>A table can also have a <code>&lt;caption&gt;</code>: a title that describes what the table shows. It must be the <strong>first</strong> element inside the <code>&lt;table&gt;</code>. Screen readers announce it before reading the table, so users can decide whether to read it or skip it.</p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Library opening hours&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col"&gt;Day&lt;/th&gt;
+            &lt;th scope="col"&gt;Opening hours&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;Monday&lt;/th&gt;
+            &lt;td&gt;9am to 5pm&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;Tuesday&lt;/th&gt;
+            &lt;td&gt;9am to 8pm&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+
+<h3>Try It</h3>
+<ol>
+    <li>Wrap the header row of your results table in <code>&lt;thead&gt;</code>, and the four result rows in <code>&lt;tbody&gt;</code>.</li>
+    <li>Add a <code>&lt;caption&gt;</code> containing <code>Week 1 results</code> as the first element inside the table.</li>
+</ol>
+<br>
+
+<h2>Row Headers</h2>
+<p>Many tables have headers both along the top and down the left-hand side. A league table is a good example: each row is about one team, so the team name labels the row.</p>
+
+<h3>Try It</h3>
+<ol>
+    <li>Under the <strong>League Table</strong> heading, build a second table using the standings in the paragraph below it. Include a caption of <code>League standings after week 1</code>.</li>
+    <li>The columns should be <code>Team</code>, <code>Played</code>, <code>Won</code>, <code>Drawn</code>, <code>Lost</code> and <code>Points</code>, as column headers in a <code>&lt;thead&gt;</code>.</li>
+    <li>In each row of the <code>&lt;tbody&gt;</code>, make the team name a <code>&lt;th scope="row"&gt;</code>, and the numbers <code>&lt;td&gt;</code> cells.</li>
+    <li>Delete the paragraph of standings once your table is complete.</li>
+</ol>
+<br>
+
+<h2>Spanning Rows and Columns</h2>
+<p>A cell can stretch across more than one column or row:</p>
+<ul>
+    <li><code>colspan="2"</code> makes a cell span two columns.</li>
+    <li><code>rowspan="2"</code> makes a cell span two rows.</li>
+</ul>
+<pre><code class="language-html">&lt;tr&gt;
+    &lt;th scope="row"&gt;Wednesday&lt;/th&gt;
+    &lt;td colspan="2"&gt;Closed all day&lt;/td&gt;
+&lt;/tr&gt;</code></pre>
+<p>When a cell spans columns, the row needs fewer cells, because one cell is taking up the space of several. The total width of each row must still add up to the same number of columns.</p>
+<div class="tip-box"><strong>💡 Tip:</strong> Use spanning sparingly. Complex tables with many merged cells are hard to build correctly, and very hard to follow with a screen reader. If a table is getting complicated, consider splitting it into two simpler tables.</div>
+<br>
+
+<h2>Tables Are for Data, Not Layout</h2>
+<p>Before CSS could arrange content into columns, developers used tables to lay out entire pages, putting the navigation in one cell and the content in another. You may still see this in very old websites and in HTML emails.</p>
+<div class="warning-box"><strong>⚠️ Warning:</strong> Never use a table to position content on a page. Screen readers announce layout tables as data tables and read them cell by cell, which is confusing, and layout tables cannot adapt to different screen sizes. Only use a table when the content is genuinely tabular data. Page layout is done with CSS.</div>
+<br>
+
+<h2>Check Your Page</h2>
+<p>Your results table should be structured like this, with all four results:</p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Week 1 results&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col"&gt;Home&lt;/th&gt;
+            &lt;th scope="col"&gt;Score&lt;/th&gt;
+            &lt;th scope="col"&gt;Away&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Rovers&lt;/td&gt;
+            &lt;td&gt;3 - 1&lt;/td&gt;
+            &lt;td&gt;United&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- ...and three more rows --&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+<p>Also check that:</p>
+<ul>
+    <li>Every row in each table has the same number of cells, and the columns line up in the preview.</li>
+    <li>Both tables have a caption, a <code>&lt;thead&gt;</code> and a <code>&lt;tbody&gt;</code>.</li>
+    <li>The team names in the league table are row headers.</li>
+    <li>The plain-text paragraphs of data have been removed.</li>
+</ul>
+<p>Before moving on, make sure you can answer these questions:</p>
+<ul>
+    <li>Why must every row in a table have the same number of cells?</li>
+    <li>What is the difference between <code>&lt;th&gt;</code> and <code>&lt;td&gt;</code>, and why does it matter to screen reader users?</li>
+    <li>Where must a <code>&lt;caption&gt;</code> go?</li>
+    <li>Why should tables not be used for page layout?</li>
+</ul>
+<p>In the next lesson, you will learn how to group content, and the difference between block and inline elements.</p>
